@@ -7,7 +7,7 @@ if(isset($_SESSION['id']) || isset($_GET['id'])){
     if (!$id)
     $id = $_SESSION['id'];
 
-    $query = pg_query ($conexion, "select * from users");
+    $query = pg_query ($conexion, "select * from users where id='".$id."' ");
     $datos = pg_fetch_assoc($query);
 ?>
 
@@ -199,7 +199,7 @@ if(isset($_SESSION['id']) || isset($_GET['id'])){
                         </div>
                         </div>
                         <div class="input-group mb-3">
-                        <input type="text" class="form-control" id='nom_usuario' value="<?php echo $datos['nom_usuario'] ?>"  placeholder="Nombre de usuario" required>
+                        <input type="text" class="form-control" id='nom_usuario' value="<?php echo $datos['nom_usuario'] ?>"  placeholder="Nombre de usuario" readonly='readonly' required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -386,7 +386,7 @@ $(document).ready(function () {
                                        data: datos,
                                        url: "../../app/modelos/funciones.php",
                                        success: function (valor){
-                                         alert(valor);
+                                        // alert(valor);
                                                 if(valor==1){
                                                 alert("Usuario actualizado correctamente");
                                                 }
