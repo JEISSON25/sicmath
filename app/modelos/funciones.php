@@ -93,6 +93,11 @@ include('model_colegio.php'); // Modelo de institución
                 echo $crear;
 
             }
+            if(isset($_POST['editar'])){ // editar plantilla
+
+                $crear = editar_plantilla($_POST['nombre'], $_POST['descripcion'], $_POST['tipo'], $_POST['estado'], $_POST['cant_preguntas'],$_POST['id']);
+                echo $crear;
+            }
 
         }
 

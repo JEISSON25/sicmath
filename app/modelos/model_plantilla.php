@@ -43,7 +43,7 @@
                         $r=pg_num_rows($q);
 
                         $n_preguntas = $r;
-                     $accion= '<a href=\"crear_preguntas.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><img src=\"../../librerias/img/conversation.png\" title=\"Crear preguntas\" /></a> |<a href=\"plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><img src=\"../../librerias/img/view.png\" title=\"Visualizar\" /></a> ';
+                     $accion= '<a href=\"crear_preguntas.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">CREAR PREGUNTAS | <a href=\"plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">VISTA PREVIA | <a href=\"editar_plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">EDITAR';
                          $tabla.='{ 
                                       "#":"'.$i.'",
                                       "nombre":"'.utf8_encode($datos['nombre']).'",
@@ -145,7 +145,18 @@
     }
     function consul_plantilla ($nombre, $tipo){
         @include '../config.php';
-         $sql = "select * from plantilla where nombre='".utf8_decode($nombre)."' and tipo='".$tipo."' ";
+        $sql = "select * from plantilla where nombre='".utf8_decode($nombre)."' and tipo='".$tipo."' ";
+        $query=pg_query($conexion, $sql);
+        $rows=pg_num_rows($query);
+                if($rows)
+                return "1";
+                else {
+                    return "2";
+                }
+    }
+    function consul_plantilla2 ($id){
+        @include '../config.php';
+        $sql = "select * from plantilla where id='".$id."' ";
         $query=pg_query($conexion, $sql);
         $rows=pg_num_rows($query);
                 if($rows)
@@ -174,13 +185,17 @@
                 }
     }
 
-    function editar_plantilla($id, $nombre, $descripcion, $tipo, $estado){
+    function editar_plantilla($nombre, $descripcion, $tipo, $estado, $cant_preguntas, $id){
           @include '../config.php';
-           $valida_plant = consul_plantilla($nombre,$tipo);
+           $valida_plant = consul_plantilla2($id);
              if($valida_plant==1){
                     $up = "update plantilla set nombre='".$nombre."', tipo='".$tipo."', id_estado='".$estado."',
-                    descripcion='".$descripcion."' where id='".$id."' ";
+                    descripcion='".$descripcion."', cant_preguntas='".$cant_preguntas."' where id='".$id."' ";
                     $qup=pg_query($conexion, $up);
+                        if($qup)
+                          return "1";
+                        else 
+                          return "2";
              }else {
                  return "2"; // Planillta no existe..
              }

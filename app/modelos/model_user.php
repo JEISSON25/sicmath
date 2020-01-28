@@ -133,7 +133,7 @@ include('comuni.php');
                     while($datos=pg_fetch_assoc($query)){
 
                         $resp = "";
-                     $accion= '<a href=\"editar_user.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Usuario</p></a>';
+                     $accion= '<a href=\"editar_perfil.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Usuario</p></a>';
                          $tabla.='{ 
                                       "#":"'.$i.'",      
                                       "id_usuario":"'.$datos['id_usuario'].'",                                
