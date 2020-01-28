@@ -87,7 +87,7 @@ $query2 = pg_query($conexion, "select * from grado");
         </div>
          <div class="input-group mb-3">
             <select class='form-control' id='colegio' required>
-                <option value="1">INSTITUCIÓN EDUCATIVA RURAL FRANCISCO JOSÉ DE CALDASCION</option>
+                <option value="1">INSTITUCIÓN EDUCATIVA RURAL FRANCISCO JOSÉ DE CALDAS</option>
             </select> 
         
         </div>

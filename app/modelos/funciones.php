@@ -29,6 +29,11 @@ include('model_colegio.php'); // Modelo de institución
                  echo $crear_user = crear_usuario ($_POST['id_usuario'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['clave'], $_POST['nom_usuario'], $_POST['grado'], $_POST['colegio'], $_POST['tipo'], $_POST['pregunta'], $_POST['respuesta']);
 
             }
+            if(isset($_POST['edita_user'])){
+                    
+                 echo $crear_user = edita_usuario ($_POST['id_usuario'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['clave'], $_POST['nom_usuario'], $_POST['id']);
+ 
+             }
 
         }
 

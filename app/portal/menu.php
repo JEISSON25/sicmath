@@ -18,9 +18,18 @@
               // echo "valor de: ".$_SESSION['id'];
               if( $_SESSION['tipouser'] ==1){
                ?>
+               
             <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+                <a href="editar_perfil.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Editar perfil</p>
+                </a>
+              </li>
+
               <li class="nav-item">
-                <a href="g_usuarios.php" class="nav-link active">
+                <a href="g_usuarios.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de usuarios</p>
                 </a>
@@ -48,14 +57,14 @@
               <li class="nav-item">
                 <a href="g_colegios.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Colegios </p>
+                  <p>Gestión de Colegios</p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="g_grados.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Grados </p>
+                  <p>Gestión de Grados</p>
                 </a>
               </li>
 
@@ -63,7 +72,12 @@
                       // echo "valor de: ".$_SESSION['id'];
                }else{
                ?>
-
+              <li class="nav-item">
+                <a href="editar_perfil.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Editar perfil</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="estu.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
