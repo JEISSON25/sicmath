@@ -38,6 +38,27 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="g_niveles.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Configuración de niveles</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="g_colegios.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de Colegios </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="g_grados.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de Grados </p>
+                </a>
+              </li>
+
               <?php 
                       // echo "valor de: ".$_SESSION['id'];
                }else{

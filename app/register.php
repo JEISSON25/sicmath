@@ -1,3 +1,9 @@
+<?php 
+include 'config.php';
+
+$query = pg_query($conexion, "select * from colegio");
+$query2 = pg_query($conexion, "select * from grado");
+?>
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -81,22 +87,33 @@
         </div>
          <div class="input-group mb-3">
             <select class='form-control' id='colegio' required>
-                <option value="">SELECCIONE INSTITUCION</option>
-                <option value="1">MASTER</option>
+                <option value="1">INSTITUCIÓN EDUCATIVA RURAL FRANCISCO JOSÉ DE CALDASCION</option>
             </select> 
-          <!-- <input type="password" class="form-control" placeholder="Colegio">
-          <div class="input-group-append">
-            <div class="input-group-text">
-            
-            </div>
-          </div> -->
+        
         </div>
         <div class="input-group mb-3">
             <select class='form-control' id='grado' required>
                 <option value="">SELECCIONE GRADO</option>
+                <option value="1">NOVENO</option>
                 <option value="2">DECIMO</option>
-                <option value="3">ONCE</option>
+                <option value="3">ONCE</option>               
             </select> 
+        </div>
+
+        <div class="input-group mb-3">
+            <select class='form-control' id='pregunta' required>
+                <option value="">SELECCIONE PREGUNTA SECRETA</option>  
+                <option value="NOMBRE DE PRIMER AMIGO(A)">NOMBRE DE PRIMER AMIGO(A)</option>
+                <option value="NOMBRE DE SU MASCOTA">NOMBRE DE SU MASCOTA</option>
+                <option value="LOS ULTIMOS CUATRO DIGITOS DEL DOCUMENTO DE IDENTIDAD">LOS ULTIMOS CUATRO DIGITOS DEL DOCUMENTO DE IDENTIDAD</option> 
+                <option value="NOMBRE DEL PRIMER AMOR">NOMBRE DEL PRIMER AMOR</option>
+                <option value="EL LUGAR DONDE NACIO">EL LUGAR DONDE NACIO</option>
+                <option value="FECHA DE NACIMIENTO">FECHA DE NACIMIENTO</option>
+                <option value="EL NOMBRE DE SU HERMANO(A) MAYOR">EL NOMBRE DE SU HERMANO(A) MAYOR</option>  
+            </select> 
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" id='respuesta' placeholder="Introduzca respuesta secreta"  required>
         </div>
         <div class="row">
           <div class="col-8">
@@ -220,14 +237,14 @@
                           var nom_usuario = $("#nom_usuario").val();
                           var tipo = 2;
                           var clave= $("#clave").val();
+                          var pregunta = $("#pregunta").val();
+                          var respuesta = $("#respuesta").val();
 
-
-
-                              if(id_usuario!="" && nom_usuario != "" && nombre != "" && apellidos != "" 
-                              && email != "" && colegio != "" && grado != "" && clave !="" ){
+                            if(id_usuario!="" && nom_usuario != "" && nombre != "" && apellidos != "" 
+                            && email != "" && colegio != "" && grado != "" && clave !=""  && pregunta!="" && respuesta!=""){
   
-                                    var datos='g_users='+1+'&crea_user='+1+'&id_usuario='+id_usuario+'&nom_usuario='+nom_usuario
-                                    +'&nombre='+nombre+'&apellidos='+apellidos+'&email='+email+'&colegio='+colegio+'&grado='+grado+'&tipo='+tipo+'&clave='+clave;
+                                var datos='g_users='+1+'&crea_user='+1+'&id_usuario='+id_usuario+'&nom_usuario='+nom_usuario
+                                +'&nombre='+nombre+'&apellidos='+apellidos+'&email='+email+'&colegio='+colegio+'&grado='+grado+'&tipo='+tipo+'&clave='+clave+'&pregunta='+pregunta+'&respuesta='+respuesta;
                                      $.ajax({
                                        type: "POST",
                                        data: datos,

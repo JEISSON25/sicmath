@@ -36,12 +36,28 @@ if(!isset($_SESSION['id'])){
 
       <form action="../../index3.html" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" id='usuario' placeholder="Ingrese correo electrónico ó identificación">
+          <input type="text" class="form-control" id='usuario' placeholder="Ingrese su usuario">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <select class='form-control' id='pregunta' required>
+                <option value="">SELECCIONE PREGUNTA SECRETA</option>  
+                <option value="NOMBRE DE PRIMER AMIGO(A)">NOMBRE DE PRIMER AMIGO(A)</option>
+                <option value="NOMBRE DE SU MASCOTA">NOMBRE DE SU MASCOTA</option>
+                <option value="LOS ULTIMOS CUATRO DIGITOS DEL DOCUMENTO DE IDENTIDAD">LOS ULTIMOS CUATRO DIGITOS DEL DOCUMENTO DE IDENTIDAD</option> 
+                <option value="NOMBRE DEL PRIMER AMOR">NOMBRE DEL PRIMER AMOR</option>
+                <option value="EL LUGAR DONDE NACIO">EL LUGAR DONDE NACIO</option>
+                <option value="FECHA DE NACIMIENTO">FECHA DE NACIMIENTO</option>
+                <option value="EL NOMBRE DE SU HERMANO(A) MAYOR">EL NOMBRE DE SU HERMANO(A) MAYOR</option>  
+            </select> 
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id='respuesta' placeholder="Introduzca respuesta secreta"  required>
         </div>
         <!-- <div class="input-group mb-3">
           <input type="password" class="form-control" id='clave' placeholder="Contraseña">
@@ -54,7 +70,7 @@ if(!isset($_SESSION['id'])){
         <div class="row">
      
           <div class="col-12">
-            <button type="button" id='enviar_clave' class="btn btn-success btn-block">Enviar clave</button>
+            <button type="button" id='enviar_clave' class="btn btn-success btn-block">Recordar clave</button>
           </div>
           <!-- /.col -->
         </div>
@@ -93,7 +109,7 @@ if(!isset($_SESSION['id'])){
         </button>
       </div>
       <div class="modal-body">
-          Nombre de usuario y contraseña incorrecto, por favor verifique e inténtenlo de nuevo.
+          Nombre de usuario, pregunta y respuesta secreta incorrecto, por favor verifique e inténtenlo de nuevo.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
@@ -160,18 +176,20 @@ if(!isset($_SESSION['id'])){
 
                        
                           var usuario = $("#usuario").val();
+                          var pregunta = $("#pregunta").val();
+                          var respuesta = $("#respuesta").val();
                         
 
                               if(usuario!=""){
                                 //alert("ingreso aqui");
-                                    var datos='password_reset='+1+'&usuario='+usuario;
+                                    var datos='password_reset='+1+'&usuario='+usuario+'&pregunta='+pregunta+'&respuesta='+respuesta;
                                      $.ajax({
                                        type: "POST",
                                        data: datos,
                                        url: 'modelos/funciones.php',
                                        success: function (valor){
-                                          if(valor==1)
-                                          $('#exampleModalCenter1').modal('show');
+                                          if(valor!=2)
+                                          alert ("Su clave es: "+valor);
                                           else if(valor==2)
                                           $('#exampleModalCenter2').modal('show');
                                           else if (valor==3)

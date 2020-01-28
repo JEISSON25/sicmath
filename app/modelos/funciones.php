@@ -1,6 +1,7 @@
 <?php 
 include('model_plantilla.php');
 include('model_user.php'); // Modelos de usuario
+include('model_colegio.php'); // Modelo de institución
     // Genramos la interfaz inical de la APP
 
 
@@ -11,7 +12,7 @@ include('model_user.php'); // Modelos de usuario
 
         }
         if(isset($_POST['password_reset'])){
-            echo $forgot_password = forgot_password($_POST['usuario']);
+            echo $forgot_password = forgot_password($_POST['usuario'], $_POST['pregunta'], $_POST['respuesta']);
         }
 
         // if(isset($_POST['g_plantilla'])){ // Gestor de usuario
@@ -25,7 +26,7 @@ include('model_user.php'); // Modelos de usuario
                     
 
                // echo "entro acá también";
-                 echo $crear_user = crear_usuario ($_POST['id_usuario'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['clave'], $_POST['nom_usuario'], $_POST['grado'], $_POST['colegio'], $_POST['tipo']);
+                 echo $crear_user = crear_usuario ($_POST['id_usuario'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['clave'], $_POST['nom_usuario'], $_POST['grado'], $_POST['colegio'], $_POST['tipo'], $_POST['pregunta'], $_POST['respuesta']);
 
             }
 
@@ -59,6 +60,15 @@ include('model_user.php'); // Modelos de usuario
          if(isset($_GET['listar_users'])){ // Listar usuarios
                  ver_usuarios();
          }
+         if(isset($_GET['listar_colegio'])){ // Listar Colegios
+                 ver_colegio();
+         }
+         if(isset($_GET['listar_grado'])){ // Listar grados
+                 ver_grado();
+         }
+         if(isset($_GET['listar_nivel'])){ // Listar niveles
+                 ver_niveles();
+         }
          
         if(isset($_POST['g_plantilla'])){ // Gestor de plantillas
            
@@ -78,6 +88,27 @@ include('model_user.php'); // Modelos de usuario
                 echo $crear;
 
             }
+
+        }
+
+        if(isset($_POST['g_colegio'])){ // Gestor de colegio
+
+            if(isset($_POST['crea_colegio'])){ // Crear  colegio
+
+                $crear = create_colegio($_POST['colegio']);
+                echo $crear;
+            }
+           
+            if(isset($_POST['crea_grado'])){ // Crear grado
+
+                $crear = create_grado($_POST['grado']);
+                echo $crear;
+            }
+            if(isset($_POST['crea_nivel'])){ // Crear nivel
+
+                $crear = create_nivel($_POST['nivel'], $_POST['min'], $_POST['max']);
+                echo $crear;
+            }            
 
         }
         

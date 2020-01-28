@@ -2,9 +2,9 @@
 // En desarrollo .
 include('comuni.php');
     
-    function consul_user($usuario){
+    function consul_user($usuario, $pregunta, $respuesta){
        @include '../config.php';
-        $sql ="select id from users where email='".trim($usuario)."' or id_usuario='".trim($usuario)."' or nom_usuario='".trim($usuario)."' ";
+        $sql ="select id from users where (nom_usuario='".trim($usuario)."') and pregunta='".$pregunta."' and respuesta='".$respuesta."' ";
         $query=pg_query($conexion, $sql);
         $rows=pg_num_rows($query);
             if($rows)
@@ -12,25 +12,27 @@ include('comuni.php');
             else
             return "2";
     }
-    function forgot_password($usuario){
+    function forgot_password($usuario, $pregunta, $respuesta){
         @include '../config.php';
-        $consul_user = consul_user($usuario);
+        $consul_user = consul_user($usuario, $pregunta, $respuesta);
 
             if($consul_user==1){
-                $sql ="select clave, email from users where email='".trim($usuario)."' or id_usuario='".trim($usuario)."' or nom_usuario='".trim($usuario)."' ";
+                $sql ="select clave, email from users where nom_usuario='".trim($usuario)."' ";
                 $query=pg_query($conexion, $sql);
                 $rows=pg_num_rows($query);
                 $datos = pg_fetch_assoc($query);
 
-                $correo_user = $datos['email'];
-                $clave = $datos['clave'];
-                // enviamos contraseña;
-                $destino = $correo_user;
-                $asunto = "Recordatorio de contraseña";
-                $mensaje = "Tu contraseña es: ".$clave;
-                $enviar_password = enviar_mail ($destino, $asunto, $mensaje);
+                return $datos['clave'];
 
-                return "1";
+                // $correo_user = $datos['email'];
+                // $clave = $datos['clave'];
+                // // enviamos contraseña;
+                // $destino = $correo_user;
+                // $asunto = "Recordatorio de contraseña";
+                // $mensaje = "Tu contraseña es: ".$clave;
+                //$enviar_password = enviar_mail ($destino, $asunto, $mensaje);
+
+                //return "1";
             }else
             return "2";
        
@@ -69,7 +71,7 @@ include('comuni.php');
                 return "2"; // Error destruyendo sesión.
     }
 
-    function crear_usuario ($id_usuario, $nombre, $apellidos, $email, $clave, $nom_usuario, $grado, $colegio, $tipouser){  // Crear usuario
+    function crear_usuario ($id_usuario, $nombre, $apellidos, $email, $clave, $nom_usuario, $grado, $colegio, $tipouser, $pregunta, $respuesta){  // Crear usuario
 
         include '../config.php';
          // Buscamos eel usuario
@@ -82,8 +84,8 @@ include('comuni.php');
                 
                 // Insertamos usuario
 
-                $insert = "insert into users (id_usuario, nombre, apellidos, email, clave, nom_usuario, id_grado, id_colegio, tipouser, fecha_registro)
-                values('".$id_usuario."', '".$nombre."', '".$apellidos."', '".$email."', '".$clave."', '".$nom_usuario."', '".$grado."', '".$colegio."', '".$tipouser."', '".$fecha_registro."') ";
+                $insert = "insert into users (id_usuario, nombre, apellidos, email, clave, nom_usuario, id_grado, id_colegio, tipouser, fecha_registro, pregunta, respuesta)
+                values('".$id_usuario."', '".$nombre."', '".$apellidos."', '".$email."', '".$clave."', '".$nom_usuario."', '".$grado."', '".$colegio."', '".$tipouser."', '".$fecha_registro."', '".$pregunta."', '".$respuesta."') ";
                 $q_insert = pg_query($conexion, $insert);
                     if($q_insert)
                     return "1";
