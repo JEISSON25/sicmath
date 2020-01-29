@@ -1,7 +1,12 @@
 <?php 
-session_start();
+include '../config.php';
 //session_destroy();
-if(isset($_SESSION['id'])){  
+if(isset($_SESSION['id'])){ 
+  
+  $query2 = pg_query ($conexion, "select * from grado ");
+
+  $query = pg_query ($conexion, "select * from colegio ");  
+
 ?>
 
 <!DOCTYPE html>
@@ -242,7 +247,9 @@ if(isset($_SESSION['id'])){
                         <div class="input-group mb-3">
                             <select class='form-control' id='colegio'>
                                 <option value="">SELECCIONE INSTITUCION</option>
-                                <option value="1">MASTER</option>
+                                <?php while($datos=pg_fetch_assoc($query)){ ?>
+                                   <option value="<?= $datos2['id'] ?>"><?php echo $datos['descripcion'] ?></option>
+                                <?php } ?>
                             </select> 
                         <!-- <input type="password" class="form-control" placeholder="Colegio">
                         <div class="input-group-append">
@@ -254,7 +261,9 @@ if(isset($_SESSION['id'])){
                         <div class="input-group mb-3">
                             <select class='form-control' id='grado'>
                                 <option value="">SELECCIONE GRADO</option>
-                                <option value="1">PRIMERO</option>
+                                <?php while($datos2=pg_fetch_assoc($query2)){ ?>
+                                   <option value="<?= $datos2['id'] ?>"><?php echo $datos2['descripcion'] ?></option>
+                                <?php } ?>
                             </select> 
                         </div>
                                                 <br>

@@ -71,75 +71,16 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2){
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         </head>
         <body class="hold-transition sidebar-mini layout-fixed">
-        <div class="wrapper">
+   
 
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-dark navbar-success">
-           
-        </nav>
+        <!-- Navbar -->       
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary">
-            <!-- Brand Logo -->
-            <center><a href="#" class="brand-link navbar-white">
-            <img src="http://sitmach.mundosoluciones.com.co/demo/pages/examples/logo_final.png"  width='64' height='64'>
-            <span class="brand-text font-weight-light">SICMATCH</span>
-            </a></center>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                <a href="#" class="d-block"><?PHP echo $_SESSION['usuario'] ?></a>
-                </div>
-            </div>
-
-            <!-- Sidebar Menu -->
-            <?PHP include('menu.php') ?>
-            <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+        <?php include ('header.php') ?>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                <div class="col-sm-6">
-
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    </ol>
-                </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->           
-            <?php 
-                // Consultamos las preguntas de la pregunta número "1";
-
-                /*echo "Número aleatorio: ".rand(1, 20);
-
-                $numero_min = rand(1, 20);
-                $numero_max = rand($numero_min, 20);*/
-
-                // Buscamos las preguntas de forma aleatoria
-
-            
-
-                ?>
-
+       
                 <!-- Main content -->
             <section class="content">
             <div class="container-fluid">
