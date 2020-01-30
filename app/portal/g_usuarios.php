@@ -248,7 +248,7 @@ if(isset($_SESSION['id'])){
                             <select class='form-control' id='colegio'>
                                 <option value="">SELECCIONE INSTITUCION</option>
                                 <?php while($datos=pg_fetch_assoc($query)){ ?>
-                                   <option value="<?= $datos2['id'] ?>"><?php echo $datos['descripcion'] ?></option>
+                                   <option value="<?= $datos['id'] ?>"><?php echo $datos['descripcion'] ?></option>
                                 <?php } ?>
                             </select> 
                         <!-- <input type="password" class="form-control" placeholder="Colegio">

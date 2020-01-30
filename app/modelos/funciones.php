@@ -25,6 +25,10 @@ include('model_colegio.php'); // Modelo de institución
             if(isset($_POST['crea_user'])){
                     
 
+                if(empty($_POST['pregunta']) && empty($_POST['respuesta'])){
+                  $_POST['pregunta']='';
+                  $_POST['respuesta']='';
+                }
                // echo "entro acá también";
                  echo $crear_user = crear_usuario ($_POST['id_usuario'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['clave'], $_POST['nom_usuario'], $_POST['grado'], $_POST['colegio'], $_POST['tipo'], $_POST['pregunta'], $_POST['respuesta']);
 
@@ -106,6 +110,16 @@ include('model_colegio.php'); // Modelo de institución
             if(isset($_POST['crea_colegio'])){ // Crear  colegio
 
                 $crear = create_colegio($_POST['colegio']);
+                echo $crear;
+            }
+            if(isset($_POST['editar_colegio'])){ // Editar  colegio
+
+                $crear = editar_colegio($_POST['colegio'], $_POST['id']);
+                echo $crear;
+            }
+            if(isset($_POST['eliminar_colegio'])){ // Eliminar  colegio
+
+                $crear = eliminar_colegio($_POST['id']);
                 echo $crear;
             }
            

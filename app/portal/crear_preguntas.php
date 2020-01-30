@@ -195,7 +195,7 @@ if(isset($_SESSION['id'])){
                                 <label for="email_address">(*) NOMBRE DE LA PREGUNTA</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="titulo" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA PREGUNTA">
+                                        <textarea id="nombre" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA PREGUNTA "></textarea>
                                     </div>
                                 </div>
             

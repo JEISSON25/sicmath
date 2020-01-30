@@ -48,6 +48,37 @@ include('comuni.php');
        
     }
 
+     function editar_grado($grado, $id){ // Crear grado
+        @include '../config.php';
+        //$consul_colegio = consul_colegio($colegio);
+
+            //if($consul_colegio==1){
+                $insert= "update grado SET descripcion='".$grado."' where id='".$id."' ";
+                $query = pg_query($conexion, $insert);
+                    if($query)
+                    return "1";
+                    else
+                    return "3";
+            // }else
+            // return "2";
+       
+    }
+    function eliminar_grado($id){ // Crear grado
+        @include '../config.php';
+        //$consul_colegio = consul_colegio($colegio);
+
+            //if($consul_colegio==2){
+                $insert= "delete from grado where id='".$id."' ";
+                $query = pg_query($conexion, $insert);
+                    if($query)
+                    return "1";
+                    else
+                    return "3";
+          /*  }else
+            return "2";*/
+       
+    }
+
     function create_colegio($colegio){ // Crear grado
         @include '../config.php';
         $consul_colegio = consul_colegio($colegio);
@@ -61,6 +92,37 @@ include('comuni.php');
                     return "3";
             }else
             return "2";
+       
+    }
+
+    function editar_colegio($colegio, $id){ // Crear grado
+        @include '../config.php';
+        //$consul_colegio = consul_colegio($colegio);
+
+            //if($consul_colegio==1){
+                $insert= "update colegio SET descripcion='".$colegio."' where id='".$id."' ";
+                $query = pg_query($conexion, $insert);
+                    if($query)
+                    return "1";
+                    else
+                    return "3";
+            // }else
+            // return "2";
+       
+    }
+    function eliminar_colegio($id){ // Crear grado
+        @include '../config.php';
+        //$consul_colegio = consul_colegio($colegio);
+
+            //if($consul_colegio==2){
+                $insert= "delete from colegio where id='".$id."' ";
+                $query = pg_query($conexion, $insert);
+                    if($query)
+                    return "1";
+                    else
+                    return "3";
+          /*  }else
+            return "2";*/
        
     }
 
@@ -80,6 +142,37 @@ include('comuni.php');
        
     }
 
+    function editar_nivel($nivel, $max, $min){ // Crear grado
+        @include '../config.php';
+       // $consul_colegio = consul_colegio($colegio);
+
+            //if($consul_colegio==1){
+                $insert= "update niveles SET descripcion='".$nivel."', max='".$max."', min='".$min."' where id='".$id."' ";
+                $query = pg_query($conexion, $insert);
+                    if($query)
+                    return "1";
+                    else
+                    return "3";
+            // }else
+            // return "2";
+       
+    }
+    function eliminar_nivel($id){ // Crear grado
+        @include '../config.php';
+      //  $consul_colegio = consul_colegio($colegio);
+
+            //if($consul_colegio==2){
+                $insert= "delete from niveles where id='".$id."' ";
+                $query = pg_query($conexion, $insert);
+                    if($query)
+                    return "1";
+                    else
+                    return "3";
+          /*  }else
+            return "2";*/
+       
+    }
+
     // Visualizaciones
 
     function ver_colegio(){
@@ -92,7 +185,7 @@ include('comuni.php');
                while($datos=pg_fetch_assoc($query)){
 
                    $resp = "";
-                $accion= '<a href=\"editar_colegio.php?tipo=col&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Colegio</p></a>';
+                $accion= '<a href=\"editar_colegio.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Colegio</p></a> | <a href=\"editar_colegio.php?modo=2&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar Colegio</p></a>';
                     $tabla.='{ 
                                  "#":"'.$i.'",      
                                  "colegio":"'.$datos['descripcion'].'",                                                                   
