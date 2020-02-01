@@ -73,13 +73,13 @@
                }else{
                ?>
               <li class="nav-item">
-                <a href="editar_perfil.php" class="nav-link active">
+                <a href="editar_perfil.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Editar perfil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="estu.php" class="nav-link active">
+                <a href="select_plantilla.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mis examenes</p>
                 </a>
