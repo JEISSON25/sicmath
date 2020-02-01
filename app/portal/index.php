@@ -6,7 +6,7 @@ if(isset($_SESSION['id'])){
 
         ?>
            <script>
-                parent.location='cuestionario.php';
+                parent.location='select_plantilla.php';
            </script> 
         <?php  
         } 
