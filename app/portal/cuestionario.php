@@ -1,12 +1,12 @@
 <?php 
 include('../config.php');
 //session_destroy();
-if(isset($_SESSION['id']) && $_SESSION['tipouser']==2){  
+if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){  
 
             $s = "select preguntas.id, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_plantilla=7 ORDER BY RANDOM() LIMIT 10 ";
+            and preguntas.id_plantilla='".$_GET['id']."' ORDER BY RANDOM() LIMIT 45 ";
             $q =pg_query($conexion, $s);
             $r =pg_num_rows($q);
             $sal=0;
@@ -32,7 +32,6 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2){
                             $sal=1;
                              break;
                         }
-
                     }
 
     if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.
@@ -88,7 +87,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2){
                 <div class="col-12">
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">PRUEBAS DE MATEMÁTICAS</h3>
+                        <h3 class="card-title">PRUEBAS DE <?php echo $_GET['nombre'] ?></h3>
                     </div>
                     <!-- /.card-header -->
                     <?php  
