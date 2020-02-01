@@ -66,7 +66,7 @@
     function ver_plantillas_estu(){
         include '../config.php';
         $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
-        from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id
+        from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id and plantilla.id_estado=1
         ";
         $query = pg_query($conexion, $sql);
 
