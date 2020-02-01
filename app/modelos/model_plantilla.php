@@ -281,9 +281,9 @@
     // --------------------------------------------------------------------------------------------------------
     // Preguntas de plantilla
 
-    function consul_pregunta ($id, $tipo, $nombre){
+    function consul_pregunta ($id, $tipo, $titulo){
         @include '../config.php';
-         $sql = "select * from preguntas where nombre='".$nombre."' and id_tipopregunta='".$tipo."' and id_plantilla='".$id."' ";
+        $sql = "select * from preguntas where titulo='".$titulo."' and id_tipopregunta='".$tipo."' and id_plantilla='".$id."' ";
         $query=pg_query($conexion, $sql);
         $rows=pg_num_rows($query);
                 if($rows)
@@ -295,7 +295,7 @@
     }
      function crear_pregunta($id, $tipo, $estado, $titulo, $nombre, $ayuda, $competencia, $componente){
           @include '../config.php';
-         $validar_pregunt = consul_pregunta($id, $tipo, $nombre);
+         $validar_pregunt = consul_pregunta($id, $tipo, $titulo);
             if($validar_pregunt==1){
                 if(isset($_SESSION['id_archivo'])){
                   //  echo "Entró aquí";
