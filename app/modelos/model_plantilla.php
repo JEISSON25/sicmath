@@ -123,8 +123,10 @@
 
 
                       
-                     $accion= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a>';
-                         $tabla.='{ 
+                     $accion= '<a href=\"editar_pregunta.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar</p></a> | <a href=\"editar_pregunta.php?modo=2&id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar</p></a> ';
+                     $accion2= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a> ';
+                        
+                     $tabla.='{ 
                                       "#":"'.$i.'",
                                       "titulo":"'.utf8_encode($datos['titulo']).'",
                                       "nombre":"'.utf8_encode($datos['nombre']).'",
@@ -133,7 +135,8 @@
                                       "respuesta":"'.$resp.'",
                                       "plantilla":"'.$datos['plantilla'].'",
                                       "opciones":"'.$r.'",
-                                      "accion":"'.$accion.'"
+                                      "accion":"'.$accion.'",
+                                      "accion2":"'.$accion2.'"
                               },';
                              // $data['data'][] = $tabla;
                               $i++;
@@ -325,11 +328,47 @@
             }
 
      }
-     function edit_pregunta(){
+     function editar_pregunta($id, $estado, $titulo, $nombre, $ayuda, $competencia, $componente){
 
+        @include '../config.php';
+        //$validar_pregunt = consul_pregunta($id, $tipo, $titulo);
+          
+               if(isset($_SESSION['id_archivo'])){
+                 //  echo "Entró aquí";
+               $id_archivo  = $_SESSION['id_archivo'];
+               }
+               else
+               $id_archivo=0; // No tiene archivo adjunto.
+
+               //echo "id_archivo". $id_archivo;
+
+              $in = "update preguntas set  id_estado='".$estado."', titulo='".$titulo."', nombre='".$nombre."', ayuda='".$ayuda."', competencia='".$competencia."', componente='".$componente."' where id='".$id."' ";
+              $qin = pg_query($conexion, $in);
+
+                if(isset($_SESSION['id_archivo'])){
+                   session_unset($_SESSION['id_archivo']); // Borramos de id para archivos.
+                   $_SESSION['id_archivo'] =""; // Borramos de id para archivos.
+                }
+                
+                       if($qin)
+                       return "1";
+                       else {
+                           return "2";
+                       }
      }
-     function elim_pregunta(){
+     function elim_pregunta($id){
 
+        @include '../config.php';
+        //$validar_pregunt = consul_pregunta($id, $tipo, $titulo);
+               //echo "id_archivo". $id_archivo;
+
+            $in = "delete from preguntas where id='".$id."' ";
+            $qin = pg_query($conexion, $in);
+              if($qin)
+                return "1";
+               else {
+                  return "2";
+                }
      }
 
      function crear_respuesta(){
@@ -417,11 +456,9 @@ function validar_resp_correcta($id_pregunta){
                 $qin= pg_query($conexion, $in);
 
                         if($qin){
-                          
-                          
 
                             if($resp_correcta==1) { // Si la opción es sí,, insertamos la respuesta correcta a ésta pregunta.
-                                 $s = "select max(id) as id from opciones";
+                                $s = "select max(id) as id from opciones";
                                 $q = pg_query($conexion, $s);
                                 $r = pg_num_rows($q);
                                     if($r){

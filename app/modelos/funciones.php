@@ -94,6 +94,15 @@ include('model_colegio.php'); // Modelo de institución
                  $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente']);
                  echo $crear;
             }
+            if(isset($_POST['editar_pregunta'])){
+                $crear = editar_pregunta($_POST['id_pregunta'], $_POST['estado'], $_POST['titulo'],
+                 $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente']);
+                 echo $crear;
+            }
+            if(isset($_POST['eliminar_pregunta'])){
+                $crear = elim_pregunta($_POST['id_pregunta']);
+                 echo $crear;
+            }
             if(isset($_POST['crear_opcion'])){
              //  ($id, $nombre, $valor)
                 $crear = crear_opcion ($_POST['id_pregunta'], $_POST['nombre'], $_POST['valor'], $_POST['resp_correcta']);

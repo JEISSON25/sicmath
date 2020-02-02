@@ -1,7 +1,11 @@
 <?php 
-session_start();
+include '../config.php';
 //session_destroy();
 if(isset($_SESSION['id'])){  
+
+    @$id = $_GET['id'];
+    $query = pg_query ($conexion, "select * from preguntas where id='".$id."' ");
+    $datos = pg_fetch_assoc($query);
 ?>
 
 <!DOCTYPE html>
@@ -40,124 +44,7 @@ if(isset($_SESSION['id'])){
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-success">
-    <!-- Left navbar links -->
-    <!--<ul class="navbar-nav">-->
-    <!--  <li class="nav-item">-->
-    <!--    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>-->
-    <!--  </li>-->
-    <!--  <li class="nav-item d-none d-sm-inline-block">-->
-    <!--    <a href="index3.html" class="nav-link">Home</a>-->
-    <!--  </li>-->
-    <!--  <li class="nav-item d-none d-sm-inline-block">-->
-    <!--    <a href="#" class="nav-link">Contact</a>-->
-    <!--  </li>-->
-    <!--</ul>-->
-
-    <!-- SEARCH FORM -->
-    <!--<form class="form-inline ml-3">-->
-    <!--  <div class="input-group input-group-sm">-->
-    <!--    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">-->
-    <!--    <div class="input-group-append">-->
-    <!--      <button class="btn btn-navbar" type="submit">-->
-    <!--        <i class="fas fa-search"></i>-->
-    <!--      </button>-->
-    <!--    </div>-->
-    <!--  </div>-->
-    <!--</form>-->
-
-    <!-- Right navbar links -->
-    <!--<ul class="navbar-nav ml-auto">-->
-      <!-- Messages Dropdown Menu -->
-    <!--  <li class="nav-item dropdown">-->
-    <!--    <a class="nav-link" data-toggle="dropdown" href="#">-->
-    <!--      <i class="far fa-comments"></i>-->
-    <!--      <span class="badge badge-danger navbar-badge">3</span>-->
-    <!--    </a>-->
-    <!--    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">-->
-    <!--      <a href="#" class="dropdown-item">-->
-            <!-- Message Start -->
-    <!--        <div class="media">-->
-    <!--          <img src="../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">-->
-    <!--          <div class="media-body">-->
-    <!--            <h3 class="dropdown-item-title">-->
-    <!--              Brad Diesel-->
-    <!--              <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>-->
-    <!--            </h3>-->
-    <!--            <p class="text-sm">Call me whenever you can...</p>-->
-    <!--            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-            <!-- Message End -->
-    <!--      </a>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item">-->
-            <!-- Message Start -->
-    <!--        <div class="media">-->
-    <!--          <img src="../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">-->
-    <!--          <div class="media-body">-->
-    <!--            <h3 class="dropdown-item-title">-->
-    <!--              John Pierce-->
-    <!--              <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>-->
-    <!--            </h3>-->
-    <!--            <p class="text-sm">I got your message bro</p>-->
-    <!--            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-            <!-- Message End -->
-    <!--      </a>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item">-->
-            <!-- Message Start -->
-    <!--        <div class="media">-->
-    <!--          <img src="../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">-->
-    <!--          <div class="media-body">-->
-    <!--            <h3 class="dropdown-item-title">-->
-    <!--              Nora Silvester-->
-    <!--              <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>-->
-    <!--            </h3>-->
-    <!--            <p class="text-sm">The subject goes here</p>-->
-    <!--            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-            <!-- Message End -->
-    <!--      </a>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>-->
-    <!--    </div>-->
-    <!--  </li>-->
-      <!-- Notifications Dropdown Menu -->
-    <!--  <li class="nav-item dropdown">-->
-    <!--    <a class="nav-link" data-toggle="dropdown" href="#">-->
-    <!--      <i class="far fa-bell"></i>-->
-    <!--      <span class="badge badge-warning navbar-badge">15</span>-->
-    <!--    </a>-->
-    <!--    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">-->
-    <!--      <span class="dropdown-item dropdown-header">15 Notifications</span>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item">-->
-    <!--        <i class="fas fa-envelope mr-2"></i> 4 new messages-->
-    <!--        <span class="float-right text-muted text-sm">3 mins</span>-->
-    <!--      </a>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item">-->
-    <!--        <i class="fas fa-users mr-2"></i> 8 friend requests-->
-    <!--        <span class="float-right text-muted text-sm">12 hours</span>-->
-    <!--      </a>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item">-->
-    <!--        <i class="fas fa-file mr-2"></i> 3 new reports-->
-    <!--        <span class="float-right text-muted text-sm">2 days</span>-->
-    <!--      </a>-->
-    <!--      <div class="dropdown-divider"></div>-->
-    <!--      <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>-->
-    <!--    </div>-->
-    <!--  </li>-->
-    <!--  <li class="nav-item">-->
-    <!--    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">-->
-    <!--      <i class="fas fa-th-large"></i>-->
-    <!--    </a>-->
-    <!--  </li>-->
-    <!--</ul>-->
+    
   </nav>
   <!-- /.navbar -->
 
@@ -181,64 +68,64 @@ if(isset($_SESSION['id'])){
               <div class="card-body">
                                
              <form>                               
-                                <label for="email_address">(*) TIPO DE PREGUNTA</label>
+                                <!-- <label for="email_address">(*) TIPO DE PREGUNTA</label>
                                 <div class="form-group">
                                 
                                     <select class='form-control' id='tipo'>
                                         <option value="" >SELECCIONE</option>
-                                        <!--<option value="1" >ABIERTA</option>-->
+                                       
                                         <option value="3" >OPCIONES</option>
-                                        <!--<option value="4" >ARCHIVO</option>-->
+                                       
                                     </select>
                                 
-                                </div>
+                                </div> -->
                                 <label for="email_address">(*) NOMBRE DE LA PREGUNTA</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea id="titulo" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA PREGUNTA "></textarea>
+                                        <textarea id="titulo" class="form-control"  placeholder="INTRODUZCA NOMBRE DE LA PREGUNTA "><?php echo $datos['titulo'] ?></textarea>
                                     </div>
                                 </div>
             
                                 <label for="email_address">DESCRIPCION DETALLADA DE LA PREGUNTA (OPCIONAL)</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                      <textarea id="nombre" class="form-control" placeholder="INTRODUZCA UNA DESCRIPCION DETALLADA DE LA PREGUNTA "></textarea>
+                                      <textarea id="nombre" class="form-control"  placeholder="INTRODUZCA UNA DESCRIPCION DETALLADA DE LA PREGUNTA "><?php echo $datos['nombre'] ?></textarea>
                                         
                                     </div>
                                 </div>
                                 <label for="email_address">(*) COMPETENCIA</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="competencia" class="form-control" placeholder="INTRODUZCA NOMBRE DE COMPONTENCIA">
+                                        <input type="text" id="competencia" value="<?php echo $datos['competencia'] ?>" class="form-control" placeholder="INTRODUZCA NOMBRE DE COMPONTENCIA">
                                     </div>
                                 </div>
                                 <label for="email_address">(*) COMPONENTE</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="componente" class="form-control" placeholder="INTRODUZCA EL NOMBRE DEL COMPONENTE">
+                                        <input type="text" id="componente" value="<?php echo $datos['componente'] ?>" class="form-control" placeholder="INTRODUZCA EL NOMBRE DEL COMPONENTE">
                                     </div>
                                 </div>
                                 <label for="email_address">(*) PROCEDIMIENTO LÓGICO</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="ayuda" class="form-control" placeholder="PROCEDIMIENTO LÓGICO">
+                                        <input type="text" id="ayuda" value="<?php echo $datos['ayuda'] ?>" class="form-control" placeholder="PROCEDIMIENTO LÓGICO">
                                     </div>
                                 </div>
                                 
-                                  <label for="email_address">ARCHIVO (<b>Opcional</b>)</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                     <input type="file" id="ayuda" class="form-control">
-                                    </div>
-                                </div>
+                                  <!-- <label for="email_address">ARCHIVO (<b>Opcional</b>)</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                        <input type="file" id="archivo" class="form-control">
+                                        </div>
+                                    </div> -->
 
                                 <label for="email_address">(*) ESTADO</label>
                                 <div class="form-group">
             
                                     <select class='form-control' id='estado'>
                                         <option value="">SELECCIONE</option>
-                                        <option value="1" >HABILITADO</option>
-                                        <option value="2" >DESHABILITADO</option>
+                                        <option value="1" <?php if($datos['id_estado']==1){ ?>selected='selected'<?php } ?>  >HABILITADO</option>
+                                        <option value="2" <?php if($datos['id_estado']==2){ ?>selected='selected'<?php } ?>>DESHABILITADO</option>
                                     </select>
             
                                 </div>            
@@ -247,60 +134,13 @@ if(isset($_SESSION['id'])){
                             </form>
               </div>
               
-              <button class='btn btn-success' id='guardar'>GUARDAR</button>
+              <?php if($_GET['modo']==1){ ?>               
+                                <button class='btn btn-success' id='guardar'>ACTUALIZAR</button>
+                                 <?php }else if($_GET['modo']==2){?>   
+                                <button class='btn btn-success' id='eliminar'>ELIMINAR</button>
+                                 <?php } ?>   
               
-                <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                     
-                        <div class="body">
-                           <fieldset>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h2>
-                                                PREGUNTAS DE LA PLANTILLA
-                                            </h2>                                           
-                                        </div>
-                                        <div class="body">
-                                            <div class="table-responsive">
-                                                <table id='table_id' class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>PLANTILLA</th>
-                                                            <th>NOMBRE</th>
-                                                            <th>DESCRIPCION</th>
-                                                            <th>TIPO</th>
-                                                            <th>RESPUESTA</th>
-                                                            <th>CANT OPCIONES</th>
-                                                            <th>ESTADO</th>
-                                                            <th>ACCION</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <td>1</td>
-                                                        <td>MATEMATICAS</td>
-                                                        <td>QUE ES LA GEOMETRIA</td>
-                                                        <td>DESCRIBA EL NOMBRE DE LA GE....</td>
-                                                        <td>OPCIONES</td>
-                                                        <td>B</td>
-                                                        <td>4</td>
-                                                        <td>ACTIVO</td>
-                                                        <td><a href='crear_opciones.html'>CREAR OPCIONES</a></td>
-                                                    </tbody>
-                                                    
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                        </div>
-                    </div>
-            
-                </div>
+                
             
             </div>
               <!-- /.card-body -->
@@ -391,101 +231,24 @@ if(isset($_SESSION['id'])){
 </html>
 
 <script>
-    $(document).ready(function () {
-
-        $.get = function (key) {
-            key = key.replace(/[\[]/, '\\[');
-            key = key.replace(/[\]]/, '\\]');
-            var pattern = "[\\?&]" + key + "=([^&#]*)";
-            var regex = new RegExp(pattern);
-            var url = unescape(window.location.href);
-            var results = regex.exec(url);
-            if (results === null) {
-                return null;
-            } else {
-                return results[1];
-            }
-        }
-        var id = $.get("id");
-
-        $('#table_id').DataTable({
-            responsive: true,
-            stateSave: true,
-            "ajax": {
-                "url": "../../app/modelos/funciones.php?listar_preguntas=1&id="+id,
-                "type": "POST"
-            },
-            "columns": [
-                
-                { "data": "#" },
-                { "data": "plantilla" },
-                { "data": "titulo" },
-                { "data": "nombre" },
-                { "data": "tipo" },
-                { "data": "respuesta" },
-                { "data": "opciones" },
-                { "data": "estado" },
-                { "data": "accion" }
-            ],
-            "oLanguage": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": 'Mostrar <select>' +
-                    '<option value="10">10</option>' +
-                    '<option value="20">20</option>' +
-                    '<option value="30">30</option>' +
-                    '<option value="40">40</option>' +
-                    '<option value="50">50</option>' +
-                    '<option value="-1">Todo</option>' +
-                    '</select> registros',
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ning�n dato disponible en esta tabla",
-                "sInfo": "Mostrando del (_START_ al _END_) de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Filtrar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Por favor espere - cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "�ltimo",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            },
-
-
-        });
-        // // Header
-        // $("#header_app").load('../template/header.html');
-        // // Menú
-        // $("#menu_app").load('../template/menu.html');
-
-
-                
-                 $("#nombre_plan").html($.get("nombre"));
+    $(document).ready(function () {                
+           
 
                   $("#guardar").click(function(){
 
-                        var nombre = $("#nombre").val();                     
-                        var tipo = $("#tipo").val();
+                        var nombre = $("#nombre").val();  
                         var estado = $("#estado").val();
                         var titulo =  $("#titulo").val();
-                        var id_plantilla = id;
+                        var id_pregunta = "<?php echo $_GET['id'] ?>";
                         var ayuda = $("#ayuda").val();
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
 
-                        var datos ='g_plantilla='+1+'&crear_pregunta='+1+'&nombre='+nombre+'&tipo='+tipo+'&estado='+estado+'&id_plantilla='+id_plantilla+'&ayuda='+ayuda+'&titulo='+titulo
+                        var datos ='g_plantilla='+1+'&editar_pregunta='+1+'&nombre='+nombre+'&estado='+estado+'&id_pregunta='+id_pregunta+'&ayuda='+ayuda+'&titulo='+titulo
                         +'&competencia='+competencia+'&componente='+componente;
 
-                            if(titulo!=""  && tipo!="" && estado!=""){
+                            if(titulo!="" && estado!=""){
 
                                     $.ajax({
                                             type:"POST",
@@ -493,62 +256,8 @@ if(isset($_SESSION['id'])){
                                             data: datos,
                                             success: function(valor){
                                                 if(valor==1){
-                                                    alert("Pregunta creada correctamente");
+                                                    alert("Pregunta actualizada correctamente");
                                                // swal("", "Pregunta creada correctamente", "success");
-                                                 $('#table_id').dataTable().fnDestroy();
-                                                  $('#table_id').DataTable({
-                                                        responsive: true,
-                                                        stateSave: true,
-                                                        "ajax": {
-                                                            "url": "../../app/modelos/funciones.php?listar_preguntas=1&id="+id,
-                                                            "type": "POST"
-                                                        },
-                                                        "columns": [
-                                                            
-                                                            { "data": "#" },
-                                                            { "data": "plantilla" },
-                                                            { "data": "titulo" },
-                                                            { "data": "nombre" },
-                                                            { "data": "tipo" },
-                                                            { "data": "respuesta" },
-                                                            { "data": "opciones" },
-                                                            { "data": "estado" },
-                                                            { "data": "accion" }
-                                                        ],
-                                                        "oLanguage": {
-                                                            "sProcessing": "Procesando...",
-                                                            "sLengthMenu": 'Mostrar <select>' +
-                                                                '<option value="10">10</option>' +
-                                                                '<option value="20">20</option>' +
-                                                                '<option value="30">30</option>' +
-                                                                '<option value="40">40</option>' +
-                                                                '<option value="50">50</option>' +
-                                                                '<option value="-1">Todo</option>' +
-                                                                '</select> registros',
-                                                            "sZeroRecords": "No se encontraron resultados",
-                                                            "sEmptyTable": "Ning�n dato disponible en esta tabla",
-                                                            "sInfo": "Mostrando del (_START_ al _END_) de un total de _TOTAL_ registros",
-                                                            "sInfoEmpty": "Mostrando del 0 al 0 de un total de 0 registros",
-                                                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                                                            "sInfoPostFix": "",
-                                                            "sSearch": "Filtrar:",
-                                                            "sUrl": "",
-                                                            "sInfoThousands": ",",
-                                                            "sLoadingRecords": "Por favor espere - cargando...",
-                                                            "oPaginate": {
-                                                                "sFirst": "Primero",
-                                                                "sLast": "�ltimo",
-                                                                "sNext": "Siguiente",
-                                                                "sPrevious": "Anterior"
-                                                            },
-                                                            "oAria": {
-                                                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                                                            }
-                                                        },
-
-
-                                                    });
                                                 }
                                                 else if(valor==3)
                                                 alert("El nombre de la pregunta ya se encuentra creado, intente con otro")
@@ -564,6 +273,32 @@ if(isset($_SESSION['id'])){
                                 alert("Complete el formulario");
                               //  swal("","Ingrese los campos con asterísco(*)","warning");
                             }
+                });
+
+                $("#eliminar").click(function(){
+
+                       
+                        var id_pregunta = "<?php echo $_GET['id'] ?>";                       
+
+                        var datos ='g_plantilla='+1+'&eliminar_pregunta='+1+'&id_pregunta='+id_pregunta;
+
+                            $.ajax({
+                              type:"POST",
+                              url: "../../app/modelos/funciones.php",
+                              data: datos,
+                              success: function(valor){
+                                  if(valor==1){
+                                      alert("Pregunta eliminada correctamente");                                              
+                                  }
+                                  else if(valor==3)
+                                  alert("El nombre de la pregunta ya se encuentra creado, intente con otro")
+                                              
+                                  else
+                                  alert("Ocurrio un problema aquí, comunícate con el administrador");
+                           
+                              }
+                                            
+                            });
                 });
     });
 

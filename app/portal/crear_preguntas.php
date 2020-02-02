@@ -276,6 +276,7 @@ if(isset($_SESSION['id'])){
                                                             <th>CANT OPCIONES</th>
                                                             <th>ESTADO</th>
                                                             <th>ACCION</th>
+                                                            <th>CREAR OPCIONES</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -425,7 +426,8 @@ if(isset($_SESSION['id'])){
                 { "data": "respuesta" },
                 { "data": "opciones" },
                 { "data": "estado" },
-                { "data": "accion" }
+                { "data": "accion" },
+                { "data": "accion2" }
             ],
             "oLanguage": {
                 "sProcessing": "Procesando...",
@@ -513,7 +515,8 @@ if(isset($_SESSION['id'])){
                                                             { "data": "respuesta" },
                                                             { "data": "opciones" },
                                                             { "data": "estado" },
-                                                            { "data": "accion" }
+                                                            { "data": "accion" },
+                                                            { "data": "accion2" }
                                                         ],
                                                         "oLanguage": {
                                                             "sProcessing": "Procesando...",
