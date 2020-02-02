@@ -314,7 +314,7 @@
                  $qin = pg_query($conexion, $in);
 
                  if(isset($_SESSION['id_archivo'])){
-                    session_unset($_SESSION['id_archivo']); // Borramos de id para archivos.
+                    @session_unset($_SESSION['id_archivo']); // Borramos de id para archivos.
                     $_SESSION['id_archivo'] =""; // Borramos de id para archivos.
                  }
                  

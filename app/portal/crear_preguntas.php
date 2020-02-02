@@ -228,7 +228,7 @@ if(isset($_SESSION['id'])){
                                   <label for="email_address">ARCHIVO (<b>Opcional</b>)</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                     <input type="file" id="ayuda" class="form-control">
+                                     <iframe src='subir.php'></iframe>
                                     </div>
                                 </div>
 
