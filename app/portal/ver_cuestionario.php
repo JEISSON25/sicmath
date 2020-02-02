@@ -1,42 +1,20 @@
 <?php 
 include('../config.php');
 //session_destroy();
-if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){  
+if($_GET['id']){  
 
             $s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_plantilla='".$_GET['id']."' ORDER BY RANDOM() LIMIT 45 ";
+            and preguntas.id_plantilla='".$_GET['id']."'  ";
             $q =pg_query($conexion, $s);
             $r =pg_num_rows($q);
             $sal=0;
-                    for($j=1;$j<=$r;$j++){
-                        $dg = pg_fetch_assoc($q);
-                        //echo "valor de r: ".$r;
-                        if($_SESSION['n_pregunta']<11){
-                            if($j == isset($_SESSION['n_pregunta'])){
-                              // echo "entrando aquí";
-                                $s2 = "select * from preguntas where id='".$dg['id']."' ";
-                                $q2 =pg_query($conexion, $s2);
-                                $r2 =pg_num_rows($q2);
-                                break;
-                            }else if($j==1 && empty($_SESSION['n_pregunta'])){
-                                //echo "entro acá";
-                                $s2 = "select * from preguntas where id='".$dg['id']."' ";
-                                $q2 =pg_query($conexion, $s2);
-                                $r2 =pg_num_rows($q2);
-                                $_SESSION['n_pregunta']=2;
-                                 break;
-                            }   
-                        }else {
-                            $sal=1;
-                             break;
-                        }
-                    }
+                   
 
     if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.
 
-       $_SESSION['n_pregunta']+=1;
+     //  $_SESSION['n_pregunta']+=1;
     }
 ?>
 
@@ -94,7 +72,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                     if($sal==0){
                         $i =1;
 
-                        while($datos = pg_fetch_assoc($q2)){
+                        while($datos = pg_fetch_assoc($q)){
                         
                                 // Recuperamos las opciones de la pregunta
                                 $sql = "select opciones.id, plantilla.nombre as plantilla, opciones.nombre, opciones.valor, preguntas.nombre as pregunta
@@ -110,7 +88,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                         <div class="row">
                         <div class="col-sm-12">
                              <form name="form1" method="post" action="">
-                             <h4><b>PREGUNTA N° <?php echo $_SESSION['n_pregunta']-1;  ?></b></h4>
+                             <h4><b>PREGUNTA N° <?php echo $i;  ?></b></h4>
                                 <div><?php echo $datos['nombre'] ?>
                                 </div>
                                 <?php if($datos['id_archivo']){

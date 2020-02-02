@@ -43,7 +43,7 @@
                         $r=pg_num_rows($q);
 
                         $n_preguntas = $r;
-                     $accion= '<a href=\"crear_preguntas.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">CREAR PREGUNTAS | <a href=\"plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">VISTA PREVIA | <a href=\"editar_plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">EDITAR';
+                     $accion= '<a href=\"crear_preguntas.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">CREAR PREGUNTAS | <a target=\"_blank\" href=\"ver_cuestionario.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">VISTA PREVIA | <a href=\"editar_plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">EDITAR';
                          $tabla.='{ 
                                       "#":"'.$i.'",
                                       "nombre":"'.utf8_encode($datos['nombre']).'",
