@@ -72,22 +72,19 @@ include('../config.php');
                              </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Las directivas de un colegio tienen que organizar un viaje a un museo con 140 estudiantes, quienes deben dividirse en 3 grupos. Cada grupo irá en una franja diferente, pero el costo total de
-las entradas se asumirá equitativamente por los estudiantes. En la tabla se muestran los horarios
-disponibles, la máxima cantidad de estudiantes y los precios respectivos de cada horario.</td>
+                                <td>Sabiendo que el área del triángulo es 9x2 + 5x +10 y la altura del rectángulo 4x – 2 y su base es 5x + 3.</td>
                                 <td><a href='mis_resultados2.php'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
                             </tr> 
                             <tr>
                                 <td>2</td>
-                                 <td>La empresa pagará $4.200.000 por capacitar a los trabajadores de la dependencia “Insumos” en
-el módulo I; esto quiere decir que la dependencia tiene entre</td>
-                                <td><a href='mis_resultados3.html'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
+                                 <td>Si se sabe que el valor de x=3 ¿Cuál es el valor numérico del área sombreada azul de la figura si la expresión algebraica del área de esa parte es 11x2 – 3x – 16? La cual su resultado es en m2</td>
+                                <td><a href='mis_resultados2.php'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
                            </tr> 
                              <tr>
                                 <td>3</td>
-                                 <td>Si se les cobrara a los 50 trabajadores de la dependencia “Recursos Humanos” la capacitación del módulo II, y todos pagaran el mismo valor, ¿cuánto debería pagar cada uno por esa
-capacitación?</td>
-                               <td><a href='mis_resultados3.html'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
+                                 <td>En el plano cartesiano que se presenta a continuación se construyó una figura. (Pregunta tomada del cuadernillo 2016 del ICFES) ¿Cuál de los triángulos que aparecen en la figura tiene vértices en los puntos (1,1), (4,2) y (3,-2)?
+</td>
+                               <td><a href='mis_resultados2.php'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
                            </tr> 
                          </table>
                          
