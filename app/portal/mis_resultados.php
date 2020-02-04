@@ -1,7 +1,7 @@
 <?php 
 include('../config.php');
 //session_destroy();
-if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
+//if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
 
 ?>
 
