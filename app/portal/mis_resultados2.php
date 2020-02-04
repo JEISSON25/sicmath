@@ -59,18 +59,18 @@
                        
                        </center> </div>
                        <div align='justify'>
-                          PREGUNTA N° 1: Las directivas de un colegio tienen que organizar un viaje a un museo con 140 estudiantes, quienes deben dividirse en 3 grupos. Cada grupo irá en una franja diferente, pero el costo total de las entradas se asumirá equitativamente por los estudiantes. En la tabla se muestran los horarios disponibles, la máxima cantidad de estudiantes y los precios respectivos de cada horario.
+                          PREGUNTA N° 1: Sabiendo que el área del triángulo es 9x2 + 5x +10 y la altura del rectángulo 4x – 2 y su base es 5x + 3.
                  
                        </div>
                     <table class='table'>
                     
                          <tr>
                             <th>COMPETENCIA</th>
-                             <td>Planteamiento y resolución de problemas</td>
+                             <td>Razonamiento, modelación y resolución</td>
                         </tr>
                          <tr>
                            <th>COMPONENTE</th>
-                             <td>Numérico -variacional</td>
+                             <td>Variacional – geométrico</td>
                         </tr>
                          <tr>
                            <th>RESPUESTA SELECCIONADA</th>
