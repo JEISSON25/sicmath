@@ -12,6 +12,9 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2){
                 }
                 else
                 echo $sal = 1;
+    
+                $_SESSION['id_plantilla']="";
+                $_SESSION['n_pregunta']=0;
 ?>
 
         <!DOCTYPE html>
