@@ -270,6 +270,7 @@ if(isset($_SESSION['id'])){
                                             <th>NÚMERO DE PREGUNTAS</th>
                                             <th>CANTI. MIN DE PREGUNTAS</th>
                                             <th>ACCION</th>
+                                            <th>PRE-VISUALIZAR</th>
                                         </tr>
                                     </thead>
                                    <!-- <tbody>
@@ -398,7 +399,8 @@ $(document).ready(function () {
                 { "data": "estado" },
                 { "data": "n_preguntas" },
                 { "data": "cant_preguntas" },
-                { "data": "accion" }
+                { "data": "accion" },
+                { "data": "accion2" }
             ],
             "oLanguage": {
                 "sProcessing": "Procesando...",
@@ -478,7 +480,8 @@ $(document).ready(function () {
                                                             { "data": "estado" },
                                                             { "data": "n_preguntas" },
                                                             { "data": "cant_preguntas" },
-                                                            { "data": "accion" }
+                                                            { "data": "accion" },
+                                                            { "data": "accion2" }
                                                         ],
                                                         "oLanguage": {
                                                             "sProcessing": "Procesando...",

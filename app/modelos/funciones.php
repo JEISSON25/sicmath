@@ -7,17 +7,12 @@ include('model_colegio.php'); // Modelo de institución
 
         if (isset($_POST['login'])){
 
-            echo $autenticar = autenticar($_POST['usuario'], $_POST['clave']);
-            
+            echo $autenticar = autenticar($_POST['usuario'], $_POST['clave']);            
 
         }
         if(isset($_POST['password_reset'])){
             echo $forgot_password = forgot_password($_POST['usuario'], $_POST['pregunta'], $_POST['respuesta']);
         }
-
-        // if(isset($_POST['g_plantilla'])){ // Gestor de usuario
-
-        // }
 
         if(isset($_POST['g_users'])){ // Gestor resolución de examen
            // echo "entro aquí";
@@ -88,7 +83,7 @@ include('model_colegio.php'); // Modelo de institución
 
                 $crear = crear_plantilla($_POST['nombre'], $_POST['descripcion'], $_POST['tipo'], $_POST['estado'], $_POST['user'], $_POST['cant_preguntas']);
                 echo $crear;
-            }
+            }           
             if(isset($_POST['crear_pregunta'])){
                 $crear = crear_pregunta($_POST['id_plantilla'], $_POST['tipo'], $_POST['estado'], $_POST['titulo'],
                  $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente']);
@@ -109,12 +104,26 @@ include('model_colegio.php'); // Modelo de institución
                 echo $crear;
 
             }
+            if(isset($_POST['editar_opcion'])){
+                //  ($id, $nombre, $valor)
+                   $crear = edit_opcion($_POST['id'], $_POST['nombre'], $_POST['resp_correcta']);
+                   echo $crear;   
+            }
+            if(isset($_POST['elim_opcion'])){
+                //  ($id, $nombre, $valor)
+                   $crear = elim_opcion ($_POST['id']);
+                   echo $crear;   
+            }
             if(isset($_POST['editar'])){ // editar plantilla
 
                 $crear = editar_plantilla($_POST['nombre'], $_POST['descripcion'], $_POST['tipo'], $_POST['estado'], $_POST['cant_preguntas'],$_POST['id']);
                 echo $crear;
             }
+            if(isset($_POST['eliminar_plant'])){ // Eliminar plantilla
 
+                $crear = elim_plantilla($_POST['id']);
+                echo $crear;
+            }
         }
 
         if(isset($_POST['g_colegio'])){ // Gestor de colegio

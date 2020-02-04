@@ -3,7 +3,7 @@ include('../config.php');
 //session_destroy();
 if($_GET['id']){  
 
-            $s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
+            $s = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
             and preguntas.id_plantilla='".$_GET['id']."'  ";
@@ -89,7 +89,7 @@ if($_GET['id']){
                         <div class="col-sm-12">
                              <form name="form1" method="post" action="">
                              <h4><b>PREGUNTA N° <?php echo $i;  ?></b></h4>
-                                <div><?php echo $datos['nombre'] ?>
+                                <div><?php echo $datos['titulo'] ?>
                                 </div>
                                 <?php if($datos['id_archivo']){
                                         $s ="select ruta from archivos where id='".$datos['id_archivo']."' ";

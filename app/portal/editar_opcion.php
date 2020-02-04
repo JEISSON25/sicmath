@@ -4,10 +4,9 @@ include '../config.php';
 if(isset($_SESSION['id'])){  
 
     @$id = $_GET['id'];
-    $query = pg_query ($conexion, "select * from plantilla where id='".$id."' ");
+    $query = pg_query ($conexion, "select * from opciones where id='".$id."' ");
     $datos = pg_fetch_assoc($query);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -34,11 +33,12 @@ if(isset($_SESSION['id'])){
   <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
-
-   <!-- DataTables -->
-   <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -168,8 +168,7 @@ if(isset($_SESSION['id'])){
 
   <!-- Main Sidebar Container -->
   <?php include ('header.php') ?>
-
-  
+    <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
@@ -182,59 +181,55 @@ if(isset($_SESSION['id'])){
             <!-- small box -->
               <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">CREAR UNA PLANTILLA</h3>
+                <h3 class="card-title">EDITAR OPCIONES DE LA PREGUNTA - <?php echo $_GET['nombre'] ?></h3>
               </div>
               <div class="card-body">
                                
-                <form>  
-                               <label for="email_address">(*) TIPO</label>
-                                <div class="form-group">
-                                    <select class='form-control' id='tipo'>
-                                        <option value=""  >SELECCIONE</option>
-                                        <option value="1" selected='selected'>CUESTIONARIO</option>
-                                    </select>
-                                </div>
-                                <label for="email_address">(*) NOMBRE</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" id="nombre" value="<?php echo $datos['nombre'] ?>" class="form-control" placeholder="INTRODUZCA UN NOMBRE DE LA PLANTILLA">
-                                    </div>
-                                </div>
-                                <label for="email_address">(*) DESCRIPCION</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" id="descripcion" value="<?php echo $datos['descripcion'] ?>" class="form-control" placeholder="INTRODUZCA UNA DESCRIPCIÓN">
-                                    </div>
-                                </div>
-
-                              
-
-                                <label for="email_address">(*) CANTIDAD MINIMA DE PREGUNTAS</label>
-                                <div class="form-group">
-                                    
-                                        <select class='form-control' id='cant_preguntas'>
-                                                <option value="">SELECCIONE</option>
-                                                <?php for($i=1;$i<=999;$i++){ ?>
-
-                                                <option value="<?= $i ?>"<?php if($i==$datos['cant_preguntas']){ ?>selected='selected'<?php } ?>><?php echo $i ?></option>
-                                                <?php } ?>
-                                         </select>
-                                    
-                                </div>
-
-                                <label for="email_address">(*) ESTADO</label>
-                                <div class="form-group">
-                                    
-                                        <select class='form-control' id='estado'>
-                                                <option value="">SELECCIONE</option>
-                                                <option value="1" <?php if($i==$datos['id_estado']){ ?>selected='selected'<?php } ?>>HABILITADO</option>
-                                                <option value="2" <?php if($i==$datos['id_estado']){ ?>selected='selected'<?php } ?>>DESHABILITADO</option>
-                                         </select>
-                                    
-                                </div>
+                     <form>     
                                 
+                                <div class="form-group">
+                                <label for="tipo">(*) TIPO DE OPCIÓN</label>
+                                    <select class='form-control' id='tipo'>
+                                        <option value="" >SELECCIONE</option>                                       
+                    <option value="1" <?php if($datos['id_tipo']==1){ ?>selected<?php } ?>>TEXTO</option>
+                    <option value="2" <?php if($datos['id_tipo']==2){ ?>selected<?php } ?>>IMAGEN</option>                                       
+                                    </select>                                
+                                </div>
+                                <div class="form-group" id='text_opcion'>
+                                   <label for="nombre">(*) NOMBRE LA OPCIÓN</label>
+                                    <div class="form-line">
+                                        <input type="text" id="nombre" value="<?php echo $datos['nombre'] ?>" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA OPCIÓN">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id='arch_opcion'>
+                                <label for="archivo">ARCHIVO (<b>Opcional</b>)</label>
+                                    <div class="form-line">
+                                     <input type="file" id="archivo" class="form-control">
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group">
+                                <label for="valor">VALOR (<b>Opcional</b>)</label>
+                                    <div class="form-line">
+                                        <input type="number" id="valor" value="<?php echo $datos['valor'] ?>" class="form-control" placeholder="INTRODUZCA VALOR">
+                                    </div>
+                                </div>
+
+                               
+                                <div class="form-group">
+                                <label for="resp_correcta">¿RESPUESTA CORRECTA?</label>
+                                    <div class="form-line">
+                                       <select class='form-control' id='resp_correcta'>
+                                          <option value=" ">SELECCIONE</option>
+                                          <option value="1">SI</option>
+                                          <option value="2">NO</option> 
+                                       </select>
+                                    </div>
+                                </div>
+
                                 <br>
-                              
+                               
                             </form>
               </div>
               
@@ -242,28 +237,15 @@ if(isset($_SESSION['id'])){
                                 <button class='btn btn-success' id='guardar'>ACTUALIZAR</button>
                                  <?php }else if($_GET['modo']==2){?>   
                                 <button class='btn btn-success' id='eliminar'>ELIMINAR</button>
-                                 <?php } ?>   
+                                 <?php } ?>  
+              
+               
             
             </div>
               <!-- /.card-body -->
             </div>
           </div>
-          <!-- ./col -->
-          <!--<div class="col-lg-3 col-6">-->
-            <!-- small box -->
-          <!--  <div class="small-box bg-danger">-->
-          <!--    <div class="inner">-->
-          <!--      <h3>65</h3>-->
-
-          <!--      <p>Unique Visitors</p>-->
-          <!--    </div>-->
-          <!--    <div class="icon">-->
-          <!--      <i class="ion ion-pie-graph"></i>-->
-          <!--    </div>-->
-          <!--    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>-->
-          <!--  </div>-->
-          <!--</div>-->
-          <!-- ./col -->
+        
         </div>
         <!-- /.row -->
         <!-- Main row -->
@@ -318,7 +300,6 @@ if(isset($_SESSION['id'])){
 <script src="../plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
 <!-- DataTables -->
 <script src="../plugins/datatables/jquery.dataTables.js"></script>
 <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -330,77 +311,128 @@ if(isset($_SESSION['id'])){
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
-       <script>
 
-$(document).ready(function () {
-        
-                $("#guardar").click(function(){
+<script>
+    $(document).ready(function () {
 
-                        var nombre = $("#nombre").val();
-                        var descripcion = $("#descripcion").val();
-                        var tipo = $("#tipo").val();
-                        var estado = $("#estado").val();
+        $.get = function (key) {
+            key = key.replace(/[\[]/, '\\[');
+            key = key.replace(/[\]]/, '\\]');
+            var pattern = "[\\?&]" + key + "=([^&#]*)";
+            var regex = new RegExp(pattern);
+            var url = unescape(window.location.href);
+            var results = regex.exec(url);
+            if (results === null) {
+                return null;
+            } else {
+                return results[1];
+            }
+        }
+        var id = $.get("id");
+
+       
+        // // Header
+        // $("#header_app").load('../template/header.html');
+        // // Menú
+        // $("#menu_app").load('../template/menu.html');
+
+        $("#text_opcion").hide();
+        $("#arch_opcion").hide();
+
+
+            $("#tipo").change(function(){
+                var tipo = $("#tipo").val();
+                  if(tipo==1){
+                    $("#text_opcion").show();
+                    $("#arch_opcion").hide();
+                  }else if(tipo==2){
+                    $("#text_opcion").hide();
+                    $("#arch_opcion").show();
+                  }else{
+                    $("#text_opcion").hide();
+                     $("#arch_opcion").hide();
+                  } 
+            });
+
+
+                 $("#nombre_plan").html($.get("nombre"));
+
+                  $("#guardar").click(function(){
+
+                        var nombre = $("#nombre").val();                     
+                        var valor = $("#valor").val();                      
+                        var id_pregunta= id;
                         var user = 2;
-                        var cant_preguntas = $("#cant_preguntas").val();
+                        var resp_correcta = $("#resp_correcta").val();
+                        var tipo = $("#tipo").val();
                         var id= "<?php echo $id ?>";
-                        var datos ='g_plantilla='+1+'&editar='+1+'&nombre='+nombre+'&descripcion='+descripcion+'&tipo='+tipo+'&estado='+estado+'&user='+user+'&cant_preguntas='+cant_preguntas+'&id='+id;
 
-                            if(nombre!="" && descripcion!="" && tipo!="" && estado!="" && cant_preguntas!="" ){
+                        var datos ='g_plantilla='+1+'&editar_opcion='+1+'&nombre='+nombre+'&id_pregunta='+id_pregunta+'&valor='+valor+'&resp_correcta='+resp_correcta+'&id='+id;
 
+                            if(tipo !=""){
+                                  if(tipo == 1 && nombre==""){
+                                       alert("Ingrese los campos con asterísco(*)");
+                                       return false;
+                                  }
+                                
                                     $.ajax({
                                             type:"POST",
                                             url: "../../app/modelos/funciones.php",
                                             data: datos,
                                             success: function(valor){
                                                 if(valor==1){
-                                                    alert("Plantilla actualizada correctamente");
-                                                //swal("", "Plantilla creada correctamente", "success");
+                                                    alert("Opción actualizada correctamente");
+                                                //swal("", "Opción creada correctamente", "success");
                                                 
                                                 }
                                                 else if(valor==3)
-                                                alert ("El nombre de la plantilla ya se encuentra creado, intente con otro");
-                                                //swal("Ops", "El nombre de la plantilla ya se encuentra creado, intente con otro", "warning");
+                                                alert("El nombre de la opción ya se encuentra creado, intente con otro");
+                                                //swal("Ops", "El nombre de la opción ya se encuentra creado, intente con otro", "warning");
                                                 else
-                                                alert("Ocurrio un problema aquí, Por favor elimine primero las preguntas de la plantilla");
-                                               // swal("Ops", "Ocurrio un problema aquí, comunícate con el administrador", "warning");
+                                                alert("Ocurrio un problema aquí, comunícate con el administrador");
+                                                //swal("Ops", "Ocurrio un problema aquí, comunícate con el administrador", "warning");
                                             }
                                             
                                     });
 
                             }else{
-                                alert("Ingrese los campso con asterisco(*)");
-                               // swal("","Ingrese los campos con asterísco(*)","warning");
+                               alert("Seleccione tipo de opción");
                             }
                 });
 
                 $("#eliminar").click(function(){
-                        
+                       
                         var id= "<?php echo $id ?>";
-                        var datos ='g_plantilla='+1+'&eliminar_plant='+1+'&id='+id;                            
+                        var datos ='g_plantilla='+1+'&elim_opcion='+1+'&id='+id;
 
+                            if(tipo !=""){
+                                  if(tipo == 1 && nombre==""){
+                                       alert("Ingrese los campos con asterísco(*)");
+                                       return false;
+                                  }
+                                
                                     $.ajax({
                                             type:"POST",
                                             url: "../../app/modelos/funciones.php",
                                             data: datos,
                                             success: function(valor){
                                                 if(valor==1){
-                                                    alert("Plantilla eliminada correctamente");
-                                                //swal("", "Plantilla creada correctamente", "success");
-                                                
+                                                    alert("Opción eliminada correctamente");
                                                 }
                                                 else if(valor==3)
-                                                alert ("El nombre de la plantilla ya se encuentra creado, intente con otro");
-                                                //swal("Ops", "El nombre de la plantilla ya se encuentra creado, intente con otro", "warning");
+                                                alert("El nombre de la opción ya se encuentra creado, intente con otro");
                                                 else
-                                                alert("Ocurrio un problema aquí, Por favor elimine primero las preguntas de ésta plantilla");
-                                               // swal("Ops", "Ocurrio un problema aquí, comunícate con el administrador", "warning");
-                                            }
-                                            
+                                                alert("Ocurrio un problema aquí, comunícate con el administrador");
+                                            }                                            
                                     });
-                });
 
+                            }else{
+                               alert("Seleccione tipo de opción");
+                            }
+                });
     });
-       </script> 
+
+</script>
 <?php
 }else{
 //echo "entró aqui";

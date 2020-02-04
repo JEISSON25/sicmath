@@ -185,7 +185,7 @@ include('comuni.php');
                while($datos=pg_fetch_assoc($query)){
 
                    $resp = "";
-                $accion= '<a href=\"editar_colegio.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Colegio</p></a> | <a href=\"editar_colegio.php?modo=2&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar Colegio</p></a>';
+                $accion= '<a href=\"editar_colegio.php?modo=1&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Colegio</p></a> | <a href=\"editar_colegio.php?modo=2&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar Colegio</p></a>';
                     $tabla.='{ 
                                  "#":"'.$i.'",      
                                  "colegio":"'.$datos['descripcion'].'",                                                                   
@@ -209,7 +209,7 @@ include('comuni.php');
                while($datos=pg_fetch_assoc($query)){
 
                    $resp = "";
-                $accion= '<a href=\"editar_colegio.php?tipo=grado&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Grado</p></a>';
+                $accion= '<a href=\"editar_colegio.php?tipo=grado&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Grado</p></a>';
                     $tabla.='{ 
                                  "#":"'.$i.'",      
                                  "grado":"'.$datos['descripcion'].'",                                                                   
@@ -233,7 +233,7 @@ include('comuni.php');
                while($datos=pg_fetch_assoc($query)){
 
                    $resp = "";
-                $accion= '<a href=\"editar_colegio.php?tipo=nivel&id='.$datos["id"].'&nombre='.utf8_encode($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Nivel</p></a>';
+                $accion= '<a href=\"editar_colegio.php?tipo=nivel&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Nivel</p></a>';
                     $tabla.='{ 
                                  "#":"'.$i.'",      
                                  "nivel":"'.$datos['descripcion'].'",

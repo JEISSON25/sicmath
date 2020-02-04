@@ -43,16 +43,18 @@
                         $r=pg_num_rows($q);
 
                         $n_preguntas = $r;
-                     $accion= '<a href=\"crear_preguntas.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">CREAR PREGUNTAS | <a target=\"_blank\" href=\"ver_cuestionario.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">VISTA PREVIA | <a href=\"editar_plantilla.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">EDITAR';
+                     $accion= '<a href=\"crear_preguntas.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">CREAR PREGUNTAS </a>| <a href=\"editar_plantilla.php?modo=1&id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">EDITAR  </a> | <a href=\"editar_plantilla.php?modo=2&id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">ELIMINAR </a>';
+                     $accion2= '<a target=\"_blank\" href=\"ver_cuestionario.php?modo=1&id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">VISTA PREVIA </a>';
                          $tabla.='{ 
                                       "#":"'.$i.'",
-                                      "nombre":"'.utf8_encode($datos['nombre']).'",
-                                      "descripcion":"'.utf8_encode($datos['descripcion']).'",
+                                      "nombre":"'.($datos['nombre']).'",
+                                      "descripcion":"'.($datos['descripcion']).'",
                                       "tipo":"'.$datos['tipoplantilla'].'",
                                       "estado":"'.$datos['estado'].'",
                                       "n_preguntas":"'.$n_preguntas.'",
                                       "cant_preguntas":"'.$datos['cant_preguntas'].'",
-                                      "accion":"'.$accion.'"
+                                      "accion":"'.$accion.'",
+                                      "accion2":"'.$accion2.'"
                               },';
                              // $data['data'][] = $tabla;
                               $i++;
@@ -79,11 +81,11 @@
                     $r=pg_num_rows($q);
 
                     $n_preguntas = $r;
-                 $accion= '<a href=\"cuestionario.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\">REALIZAR EXAMEN';
+                 $accion= '<a href=\"cuestionario.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">REALIZAR EXAMEN';
                      $tabla.='{ 
                                   "#":"'.$i.'",
-                                  "nombre":"'.utf8_encode($datos['nombre']).'",
-                                  "descripcion":"'.utf8_encode($datos['descripcion']).'",
+                                  "nombre":"'.($datos['nombre']).'",
+                                  "descripcion":"'.($datos['descripcion']).'",
                                   "accion":"'.$accion.'"
                           },';
                          // $data['data'][] = $tabla;
@@ -123,13 +125,13 @@
 
 
                       
-                     $accion= '<a href=\"editar_pregunta.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar</p></a> | <a href=\"editar_pregunta.php?modo=2&id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar</p></a> ';
-                     $accion2= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a> ';
+                     $accion= '<a href=\"editar_pregunta.php?modo=1&id='.$datos["id"].'&nombre='.($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar</p></a> | <a href=\"editar_pregunta.php?modo=2&id='.$datos["id"].'&nombre='.($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar</p></a> ';
+                     $accion2= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a> ';
                         
                      $tabla.='{ 
                                       "#":"'.$i.'",
-                                      "titulo":"'.utf8_encode($datos['titulo']).'",
-                                      "nombre":"'.utf8_encode($datos['nombre']).'",
+                                      "titulo":"'.($datos['titulo']).'",
+                                      "nombre":"'.($datos['nombre']).'",
                                       "tipo":"'.$datos['tipopregunta'].'",
                                       "estado":"'.$datos['estado'].'",
                                       "respuesta":"'.$resp.'",
@@ -161,10 +163,10 @@
                     while($datos=pg_fetch_assoc($query)){
 
                         $resp = "";
-                     $accion= '<a href=\"editar_opcion.html?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar opción</p></a>';
+                     $accion= '<a href=\"editar_opcion.php?modo=1&id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar opción</p></a> | <a href=\"editar_opcion.php?modo=2&id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar opción</p></a> ';
                          $tabla.='{ 
                                       "#":"'.$i.'",                                      
-                                      "nombre":"'.utf8_encode($datos['nombre']).'",
+                                      "nombre":"'.($datos['nombre']).'",
                                       "plantilla":"'.$datos['plantilla'].'",
                                       "valor":"'.$datos['valor'].'",
                                       "pregunta":"'.$datos['pregunta'].'",                                      
@@ -180,7 +182,7 @@
     }
     function consul_plantilla ($nombre, $tipo){
         @include '../config.php';
-        $sql = "select * from plantilla where nombre='".utf8_decode($nombre)."' and tipo='".$tipo."' ";
+        $sql = "select * from plantilla where nombre='".($nombre)."' and tipo='".$tipo."' ";
         $query=pg_query($conexion, $sql);
         $rows=pg_num_rows($query);
                 if($rows)
@@ -207,7 +209,7 @@
 
                     // $in = "insert into plantilla (nombre, descripcion, tipo, id_estado, id_user) 
                      $in = "insert into plantilla (nombre, descripcion, tipo, id_estado, cant_preguntas) 
-                    values('".utf8_decode($nombre)."', '".utf8_decode($descripcion)."', '".$tipo."', '".$estado."', '".$cant_preguntas."') ";
+                    values('".($nombre)."', '".($descripcion)."', '".$tipo."', '".$estado."', '".$cant_preguntas."') ";
                     $qin=pg_query($conexion, $in);
 
                         if($qin)
@@ -235,15 +237,19 @@
                  return "2"; // Planillta no existe..
              }
     }
-    function elim_plantilla($id, $estado, $nombre, $tipo){
+    function elim_plantilla($id){
         @include '../config.php';
-           $valida_plant = consul_plantilla($nombre,$tipo);
-             if($valida_plant==1){
-                    $up = "update plantilla set id_estado='".$estado."' where id='".$id."' ";
+           //$valida_plant = consul_plantilla($nombre,$tipo);
+             //if($valida_plant==1){
+                    $up = "delete from plantilla where id='".$id."' ";
                     $qup=pg_query($conexion, $up);
-             }else {
+                        if($qup)
+                        return "1";
+                        else
+                        return "2";
+            /* }else {
                  return "2"; // Planillta no existe..
-             }
+             }*/
     }
 
 // --------------------------------------------------------------------------------------------------------
@@ -371,48 +377,21 @@
                 }
      }
 
-     function crear_respuesta(){
-
-     }
-
-     function edit_respuesta(){
-
-     }
-     function elim_respuesta(){
-
-     }
-
-
       // --------------------------------------------------------------------------------------------------------
     // Opciones Preguntas de plantilla
     
 
-//     function resp_opcion ($id, $nombre){
-//         @include '../config.php';
-//         $sql ="select * from opciones where id_pregunta='".$id."' and nombre='".$nombre."' ";
-//         $query=pg_query($conexion, $sql);
-//          $rows=pg_num_rows($query);
-//                if($rows){
-                   
-//                     $datos = pg_fetch_assoc($query);
-//                      return 
-//                }
-//                else
-//                return "1"; 
+    function validar_resp_correcta($id_pregunta){
+        @include '../config.php';
+        $sql ="select id from resp_pregunta where id_pregunta='".$id_pregunta."' ";
+        $query=pg_query($conexion, $sql);
+        $rows=pg_num_rows($query);
+            if($rows)
+            return "1";
+            else 
+            return "2";
 
-//    }
-
-function validar_resp_correcta($id_pregunta){
-    @include '../config.php';
-     $sql ="select id from resp_pregunta where id_pregunta='".$id_pregunta."' ";
-    $query=pg_query($conexion, $sql);
-     $rows=pg_num_rows($query);
-        if($rows)
-        return "1";
-        else 
-        return "2";
-
-}
+    }
 
     function resp_correcta($id_pregunta, $id_opcion){ // Insertamos opción de la respuesta correcta a la pregunta
         @include '../config.php';
@@ -478,4 +457,39 @@ function validar_resp_correcta($id_pregunta){
 
 
     }
+
+     function edit_opcion($id, $nombre, $resp_correcta){
+        @include '../config.php';
+        $in = "update opciones set nombre='".$nombre."' where id='".$id."' ";
+        $qin = pg_query($conexion, $in);
+       
+        
+                if($resp_correcta==1) { // Si la opción es sí,, insertamos la respuesta correcta a ésta pregunta.
+                    $s = "select id_pregunta from opciones where id='".$id."' ";
+                    $q = pg_query($conexion, $s);
+                        $r = pg_num_rows($q);
+                        if($r){
+                        $d = pg_fetch_assoc($q);
+                        $in_resp = resp_correcta($d['id_pregunta'], $id);
+                    }      
+                }
+            if($qin)
+                return "1";
+            else
+            return "2";
+
+     }
+     function elim_opcion($id){
+
+        @include '../config.php';
+        //$validar_pregunt = consul_pregunta($id, $tipo, $titulo);
+               //echo "id_archivo". $id_archivo;
+            $in = "delete from opciones where id='".$id."' ";
+            $qin = pg_query($conexion, $in);
+              if($qin)
+                return "1";
+               else {
+                  return "2";
+                }
+     }
 ?>
