@@ -201,7 +201,7 @@ include('comuni.php');
 
     function ver_grado(){
         include '../config.php';
-        $sql="select * from grado";
+        $sql="select * from grado order by descripcion";
        $query = pg_query($conexion, $sql);
 
        $tabla = "";
@@ -209,7 +209,7 @@ include('comuni.php');
                while($datos=pg_fetch_assoc($query)){
 
                    $resp = "";
-                $accion= '<a href=\"editar_colegio.php?tipo=grado&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Grado</p></a>';
+                $accion= '<a href=\"editar_grado.php?modo=1&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Grado</p></a> | <a href=\"editar_grado.php?modo=2&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar Grado</p></a>';
                     $tabla.='{ 
                                  "#":"'.$i.'",      
                                  "grado":"'.$datos['descripcion'].'",                                                                   

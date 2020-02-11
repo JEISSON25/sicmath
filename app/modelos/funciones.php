@@ -33,6 +33,11 @@ include('model_colegio.php'); // Modelo de institución
                  echo $crear_user = edita_usuario ($_POST['id_usuario'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['clave'], $_POST['nom_usuario'], $_POST['id']);
  
              }
+             if(isset($_POST['elimina_user'])){
+                    
+                echo $crear_user = elimina_usuario ($_POST['id']);
+
+            }
 
         }
 
@@ -147,6 +152,17 @@ include('model_colegio.php'); // Modelo de institución
             if(isset($_POST['crea_grado'])){ // Crear grado
 
                 $crear = create_grado($_POST['grado']);
+                echo $crear;
+            }
+
+            if(isset($_POST['eliminar_grado'])){ // Crear grado
+
+                $crear = eliminar_grado($_POST['id']);
+                echo $crear;
+            }
+            if(isset($_POST['editar_grado'])){ // Editar grado
+
+                $crear = editar_grado($_POST['grado'], $_POST['id']);
                 echo $crear;
             }
             if(isset($_POST['crea_nivel'])){ // Crear nivel

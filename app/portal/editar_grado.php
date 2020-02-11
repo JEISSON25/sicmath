@@ -1,13 +1,13 @@
 <?php 
 include '../config.php';
 //session_destroy();
-if(isset($_SESSION['id']) || isset($_GET['id'])){ 
-    
+if(isset($_SESSION['id'])){  
+
     @$id = $_GET['id'];
     if (!$id)
     $id = $_SESSION['id'];
 
-    $query = pg_query ($conexion, "select * from users where id='".$id."' ");
+    $query = pg_query ($conexion, "select * from grado where id='".$id."' ");
     $datos = pg_fetch_assoc($query);
 ?>
 
@@ -186,69 +186,28 @@ if(isset($_SESSION['id']) || isset($_GET['id'])){
             <!-- small box -->
               <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">EDITAR PERFIL</h3>
+                   
+                <h3 class="card-title"><?php if($_GET['modo']==1){ ?> EDITAR <?php }else if($_GET['modo']==2){?> ELIMINAR <?php } ?>    GRADO</h3>
               </div>
-              <div class="card-body">
-                        <form class="needs-validation">  
-                       
-                         <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="<?php echo $datos['id_usuario'] ?>" id='id_usuario' placeholder="Identificación" onKeyPress="return soloNumeros(event)" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            </div>
-                        </div>
-                        </div>
+              <div class="card-body">                               
+                                    
+                         
                         <div class="input-group mb-3">
-                        <input type="text" class="form-control" id='nom_usuario' value="<?php echo $datos['nom_usuario'] ?>"  placeholder="Nombre de usuario" readonly='readonly' required>
+                        <input type="text" class="form-control" id='grado' value="<?php echo  $datos['descripcion'] ?>"  placeholder="Nombre del grado" >
                         <div class="input-group-append">
                             <div class="input-group-text">
                             <span class="fas fa-user"></span>
                             </div>
                         </div>
                         </div>
-                        <div class="input-group mb-3">
-                        <input type="text" class="form-control" id='nombre' value="<?php echo $datos['nombre'] ?>" placeholder="Nombres" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="input-group mb-3">
-                        <input type="text" class="form-control" id='apellidos' value="<?php echo $datos['apellidos'] ?>" placeholder="Apellidos" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                        </div>
-                        
-                        <div class="input-group mb-3">
-                        <input type="email" class="form-control" id='email' value="<?php echo $datos['email'] ?>" placeholder="Email ó correo electrónico" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="input-group mb-3">
-                        <input type="password" class="form-control" id='clave' placeholder="Contraseña" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        </div>                        
                                                 <br>
-                                                <?php if($_GET['modo']==1){ ?>               
+                                 <?php if($_GET['modo']==1){ ?>               
                                 <button class='btn btn-success' id='guardar'>ACTUALIZAR</button>
                                  <?php }else if($_GET['modo']==2){?>   
                                 <button class='btn btn-success' id='eliminar'>ELIMINAR</button>
                                  <?php } ?>   
-                            </form>
+                            
               </div>
-              
-                
             
             </div>
               <!-- /.card-body -->
@@ -337,26 +296,6 @@ if(isset($_SESSION['id']) || isset($_GET['id'])){
 </body>
 </html>
 
-<script>
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('button', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>
        <script>
 
 $(document).ready(function () {
@@ -365,37 +304,30 @@ $(document).ready(function () {
         });*/
 
         //var datos1='g_plantilla='+1+'&listar='+1;
-         
+        
+        
         // // Header
         // $("#header_app").load('../template/header.html');
         // // Menú
         // $("#menu_app").load('../template/menu.html');
         
                 $("#guardar").click(function(){
-                          var id_usuario = $("#id_usuario").val();
-                          var nombre = $("#nombre").val();
-                          var apellidos = $("#apellidos").val();
-                          var email = $("#email").val();
-                          var nom_usuario = $("#nom_usuario").val();
-                          var clave= $("#clave").val();
+                          var grado = $("#grado").val();  
                           var id= "<?php echo $id ?>";
 
-                              if(id_usuario!="" && nom_usuario != "" && nombre != "" && apellidos != "" 
-                              && email != ""  && clave !="" ){
+                              if(grado!=""){
   
-                                    var datos='g_users='+1+'&edita_user='+1+'&id_usuario='+id_usuario+'&nom_usuario='+nom_usuario
-                                    +'&nombre='+nombre+'&apellidos='+apellidos+'&email='+email+'&clave='+clave+'&id='+id;
+                                    var datos='g_colegio='+1+'&editar_grado='+1+'&grado='+grado+'&id='+id;
                                      $.ajax({
                                        type: "POST",
                                        data: datos,
                                        url: "../../app/modelos/funciones.php",
                                        success: function (valor){
-                                        // alert(valor);
-                                                if(valor==1){
-                                                alert("Usuario actualizado correctamente");
+                                          if(valor==1){
+                                                 alert("Grado actualizado correctamente");                                                 
                                                 }
                                                 else if(valor==2)
-                                                alert ("El nombre del usuario ya se encuentra creado, intente con otro");
+                                                alert ("El nombre del grado ya se encuentra creado, intente con otro");
                                                 //swal("Ops", "El nombre de la plantilla ya se encuentra creado, intente con otro", "warning");
                                                 else
                                                 alert("Ocurrio un problema aquí, comunícate con el administrador");
@@ -409,35 +341,35 @@ $(document).ready(function () {
                                // swal("","Ingrese los campos con asterísco(*)","warning");
                             }
                 });
+
                 $("#eliminar").click(function(){
                         
-                        var id= "<?php echo $id ?>";
+                          var id= "<?php echo $id ?>";
+  
+                                    var datos='g_colegio='+1+'&eliminar_grado='+1+'&id='+id;
+                                     $.ajax({
+                                       type: "POST",
+                                       data: datos,
+                                       url: "../../app/modelos/funciones.php",
+                                       success: function (valor){
+                                          if(valor==1){
+                                                 alert("Grado eliminado correctamente");                                                 
+                                                }
+                                                else if(valor==2)
+                                                alert ("El nombre del grado ya se encuentra creado, intente con otro");
+                                                //swal("Ops", "El nombre de la plantilla ya se encuentra creado, intente con otro", "warning");
+                                                else
+                                                alert("No puedes eliminar este grado, porque se encuentra con usuarios inscritos, deberas primero eliminar los usuarios");
+                                               // swal("Ops", "Ocurrio un problema aquí, comunícate con el administrador", "warning");
+                                            }
+                                            
+                                    });
 
-                                  var datos='g_users='+1+'&elimina_user='+1+'&id='+id;
-                                   $.ajax({
-                                     type: "POST",
-                                     data: datos,
-                                     url: "../../app/modelos/funciones.php",
-                                     success: function (valor){
-                                        if(valor==1){
-                                               alert("Usuario eliminado correctamente");                                                 
-                                              }
-                                              // else if(valor==2)
-                                              // alert ("El nombre del grado ya se encuentra creado, intente con otro");
-                                              //swal("Ops", "El nombre de la plantilla ya se encuentra creado, intente con otro", "warning");
-                                              else
-                                              alert("No puedes eliminar este usuario, porque se encuentra con plantillas realizadas.");
-                                             // swal("Ops", "Ocurrio un problema aquí, comunícate con el administrador", "warning");
-                                          }
-                                          
-                                  });
-
-                          // }else{
-                          //     alert("Ingrese los campso con asterisco(*)");
-                          //    // swal("","Ingrese los campos con asterísco(*)","warning");
-                          // }
-              });
-
+                            // }else{
+                            //     alert("Ingrese los campso con asterisco(*)");
+                            //    // swal("","Ingrese los campos con asterísco(*)","warning");
+                            // }
+                });
 
     });
        </script> 

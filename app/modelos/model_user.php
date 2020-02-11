@@ -119,6 +119,30 @@ include('comuni.php');
 
     }
 
+    function elimina_usuario ($id){  // Crear usuario
+
+        include '../config.php';
+         // Buscamos eel usuario
+         $sql ="select id from users where id='".$id."' ";
+         $query=pg_query($conexion, $sql);
+         $rows=pg_num_rows($query);
+             if($rows){
+                // $datos = pg_fetch_assoc($query);
+                // Empezamos a eliminar todos los examenes del estudiante
+                $insert = "delete from users where id='".$id."' ";
+                $q_insert = pg_query($conexion, $insert);
+                    if($q_insert)
+                    return "1";
+                    else
+                    return "3"; // Problemas creando el usuario
+                                    
+             }else {
+                
+                return "2"; // Usuario NO existe;    
+             }
+
+    }
+
     function ver_usuarios(){
         include '../config.php';
              $sql="select users.id, users.id_usuario, users.nombre, users.apellidos, users.email, users.nom_usuario, tipouser.descripcion tipouser,
@@ -133,7 +157,7 @@ include('comuni.php');
                     while($datos=pg_fetch_assoc($query)){
 
                         $resp = "";
-                     $accion= '<a href=\"editar_perfil.php?id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Usuario</p></a>';
+                        $accion= '<a href=\"editar_perfil.php?modo=1&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Usuario</p></a> | <a href=\"editar_perfil.php?modo=2&id='.$datos["id"].'&nombre='.utf8_encode($datos['nombre']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar Usuario</p></a>';
                          $tabla.='{ 
                                       "#":"'.$i.'",      
                                       "id_usuario":"'.$datos['id_usuario'].'",                                

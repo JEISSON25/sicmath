@@ -1,19 +1,19 @@
 <?php
 include('../config.php');
-// $ftpserver='ftp.mundosoluciones.com.co';
-// $login ='archivos@sitmach.mundosoluciones.com.co';
-// $pass = 'Pwj&+?R0!]jY';
+$ftpserver='files.000webhost.com';
+$login ='sicmath';
+$pass = 'cOr$7r(!XWROCtvDNHWE';
 
-// $conn_id = ftp_connect($ftpserver);
-// ftp_login($conn_id, $login, $pass);
-// 	if(ftp_login($conn_id, $login, $pass)){
-// 	echo "Conectado";
-// 	$con = 1;
-// 	}
-// 	else{
-// 	echo "No conectado";
-// 	}
-// ftp_pasv($conn_id, true);
+$conn_id = ftp_connect($ftpserver);
+ftp_login($conn_id, $login, $pass);
+	// if(ftp_login($conn_id, $login, $pass)){
+	// echo "Conectado";
+	// $con = 1;
+	// }
+	// else{
+	// echo "No conectado";
+	// }
+ftp_pasv($conn_id, true);
 		
 			?>
 	 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
@@ -37,22 +37,19 @@ include('../config.php');
 									//$ruta=($_FILES['upl']['name']).$fecha_registro;
 								$ruta = $nombre_codificado.".".$extension;
 								$fichero_subido = $dir_subida . $ruta;
-							    $ruta_real ='../files/';
-								//$ruta_real ='/clientes/clientes/8caf493fd6b03a3bd91b30f0aae42fbc/Otros documentos';
-								           // if(@ftp_chdir($conn_id,$ruta_real))
-											//{
+							   // $ruta_real ='../files/';
+								$ruta_real ='/public_html/files/';
+								            if(@ftp_chdir($conn_id,$ruta_real))
+											{
 												# Subimos el fichero
-												if (move_uploaded_file($_FILES["upl"]["tmp_name"], $fichero_subido)) {
+												//if (move_uploaded_file($_FILES["upl"]["tmp_name"], $fichero_subido)) {
 											
-												//if(@ftp_put($conn_id,$ruta,$_FILES["upl"]["tmp_name"],FTP_BINARY)){
+												if(@ftp_put($conn_id,$ruta,$_FILES["upl"]["tmp_name"],FTP_BINARY)){
 														echo '{"status":"success"}';
 
 															$qry = "insert into archivos (nombre, ruta, fecha_registro) values('".$nombre_archivo[0]."', '".$ruta."', '".$fecha_registro."')";
-																//}
-																
-							
-																				$sube=pg_query($conexion,  $qry);
-																				if(isset($sube)){
+															$sube=pg_query($conexion,  $qry);
+																if(isset($sube)){
 																					$sql = "select max(id) as id from archivos limit 1";
 																					$query=pg_query($conexion, $sql);
 																					$rows = pg_num_rows($query);
@@ -64,7 +61,9 @@ include('../config.php');
 																				echo "2";
 														
 													}else
-													echo "No ha sido posible subir el fichero";																		
+													echo "No ha sido posible subir el fichero";	
+											}else
+											echo "No existe el directorio especificado";																	
 							//ftp_close($conn_id);			
 						}else{
 
