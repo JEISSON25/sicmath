@@ -34,6 +34,10 @@ if(isset($_SESSION['id'])){
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    <!-- DataTables -->
    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+   <!-- jQuery -->
+<script src="../plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -193,12 +197,8 @@ if(isset($_SESSION['id'])){
                                 
                                 </div>
                                 <label for="email_address">(*) NOMBRE DE LA PREGUNTA</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <textarea id="titulo" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA PREGUNTA "></textarea>
-                                    </div>
-                                </div>
-            
+                                <?php include('editor.php'); ?> 
+                                	<div id='titulo' contenteditable width='150' height='150'><p>INTRODUZCA NOMBRE DE LA PREGUNTA</p></div>
                                 <label for="email_address">DESCRIPCION DETALLADA DE LA PREGUNTA (OPCIONAL)</label>
                                 <div class="form-group">
                                     <div class="form-line">
@@ -349,10 +349,7 @@ if(isset($_SESSION['id'])){
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
@@ -477,7 +474,7 @@ if(isset($_SESSION['id'])){
                         var nombre = $("#nombre").val();                     
                         var tipo = $("#tipo").val();
                         var estado = $("#estado").val();
-                        var titulo =  $("#titulo").val();
+                        var titulo =  $("#titulo").html();
                         var id_plantilla = id;
                         var ayuda = $("#ayuda").val();
                         var competencia = $("#competencia").val();

@@ -96,6 +96,101 @@
                     echo '{"data": ['.$tabla.']}';
 
 }
+function ver_plantillas_estu2(){
+    include '../config.php';
+    $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
+    from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id and plantilla.id_estado=1
+    ";
+    $query = pg_query($conexion, $sql);
+
+    $tabla = "";
+    $i=1;
+            while($datos=pg_fetch_assoc($query)){
+
+                 $s="select * from preguntas where id_plantilla='".$datos['id']."' ";
+                $q=pg_query($conexion, $s);
+                $r=pg_num_rows($q);
+
+                $n_preguntas = $r;
+                $accion= '<a href=\"ver_estu_examen.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">VER ESTUDIANTES';
+                $tabla.='{ 
+                              "#":"'.$i.'",
+                              "nombre":"'.($datos['nombre']).'",
+                              "descripcion":"'.($datos['descripcion']).'",
+                              "accion":"'.$accion.'"
+                      },';
+                     // $data['data'][] = $tabla;
+                      $i++;
+                }
+                //echo json_encode($data);
+                $tabla= substr($tabla,0, strlen($tabla) -1);
+                echo '{"data": ['.$tabla.']}';
+
+}
+
+function ver_plantillas_estu3(){ // Ver examenes del estudiante realizado
+    include '../config.php';
+    $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
+    from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id and plantilla.id_estado=1
+    ";
+    $query = pg_query($conexion, $sql);
+
+    $tabla = "";
+    $i=1;
+            while($datos=pg_fetch_assoc($query)){
+
+                 $s="select * from preguntas where id_plantilla='".$datos['id']."' ";
+                $q=pg_query($conexion, $s);
+                $r=pg_num_rows($q);
+
+                $n_preguntas = $r;
+                $accion= '<a href=\"ver_estu_examen.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">VER ESTUDIANTES';
+                $tabla.='{ 
+                              "#":"'.$i.'",
+                              "nombre":"'.($datos['nombre']).'",
+                              "descripcion":"'.($datos['descripcion']).'",
+                              "accion":"'.$accion.'"
+                      },';
+                     // $data['data'][] = $tabla;
+                      $i++;
+                }
+                //echo json_encode($data);
+                $tabla= substr($tabla,0, strlen($tabla) -1);
+                echo '{"data": ['.$tabla.']}';
+
+}
+
+function list_estu_examen(){
+    include '../config.php';
+    $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
+    from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id and plantilla.id_estado=1
+    ";
+    $query = pg_query($conexion, $sql);
+
+    $tabla = "";
+    $i=1;
+            while($datos=pg_fetch_assoc($query)){
+
+                 $s="select * from preguntas where id_plantilla='".$datos['id']."' ";
+                $q=pg_query($conexion, $s);
+                $r=pg_num_rows($q);
+
+                $n_preguntas = $r;
+                $accion= '<a href=\"ver_estu_examen.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">VER ESTUDIANTES';
+                $tabla.='{ 
+                              "#":"'.$i.'",
+                              "nombre":"'.($datos['nombre']).'",
+                              "descripcion":"'.($datos['descripcion']).'",
+                              "accion":"'.$accion.'"
+                      },';
+                     // $data['data'][] = $tabla;
+                      $i++;
+                }
+                //echo json_encode($data);
+                $tabla= substr($tabla,0, strlen($tabla) -1);
+                echo '{"data": ['.$tabla.']}';
+
+}
 
     function ver_preguntas($id){
         include '../config.php';
@@ -125,12 +220,12 @@
 
 
                       
-                     $accion= '<a href=\"editar_pregunta.php?modo=1&id='.$datos["id"].'&nombre='.($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar</p></a> | <a href=\"editar_pregunta.php?modo=2&id='.$datos["id"].'&nombre='.($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar</p></a> ';
-                     $accion2= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a> ';
+                     $accion= '<a href=\"editar_pregunta.php?modo=1&id='.$datos["id"].'&nombre='.base64_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar</p></a> | <a href=\"editar_pregunta.php?modo=2&id='.$datos["id"].'&nombre='.base64_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar</p></a> ';
+                     $accion2= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.base64_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a> ';
                         
                      $tabla.='{ 
                                       "#":"'.$i.'",
-                                      "titulo":"'.($datos['titulo']).'",
+                                      "titulo":"'.html_entity_decode($datos['titulo']).'",
                                       "nombre":"'.($datos['nombre']).'",
                                       "tipo":"'.$datos['tipopregunta'].'",
                                       "estado":"'.$datos['estado'].'",

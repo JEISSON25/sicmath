@@ -2,7 +2,11 @@
 include('../config.php');
 //session_destroy();
 //if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
-
+    if(isset($_GET['id_user']))
+    $id_user = $_GET['id_user']
+    else
+    $id_user = $_SESSION['id_user'];
+    $sql = "";
 ?>
 
 <!DOCTYPE html>
@@ -63,29 +67,25 @@ include('../config.php');
                        
                          
                         <center><div> <h3><B>CLAVES DE RESPUESTA</B></h3>
-                        <BR>NIVEL:  SATISFACTORIO </div></center> 
+                        <BR>NIVEL:  <?php echo $nivel ?> </div></center> 
                          <table class='table'>
                              <tr>
                                  <th>N° Pregunta</th>
                                  <th>Pregunta</th>
                                  <th>Clave</th>
                              </tr>
+                             <?php 
+                             $i=1;
+                             while($datos=pg_fetch_assoc($query)){ ?>
                             <tr>
-                                <td>1</td>
-                                <td>Sabiendo que el área del triángulo es 9x2 + 5x +10 y la altura del rectángulo 4x – 2 y su base es 5x + 3.</td>
-                                <td><a href='mis_resultados2.php'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
+                                <td><?php echo $i; ?></td>
+                                <td><?php echo html_entity_decode($datos['pregunta']) ?></td>
+                                <td><a href='mis_resultados2.php?id=<?php echo $datos['id'] ?>'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
                             </tr> 
-                            <tr>
-                                <td>2</td>
-                                 <td>Si se sabe que el valor de x=3 ¿Cuál es el valor numérico del área sombreada azul de la figura si la expresión algebraica del área de esa parte es 11x2 – 3x – 16? La cual su resultado es en m2</td>
-                                <td><a href='mis_resultados2.php'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
-                           </tr> 
-                             <tr>
-                                <td>3</td>
-                                 <td>En el plano cartesiano que se presenta a continuación se construyó una figura. (Pregunta tomada del cuadernillo 2016 del ICFES) ¿Cuál de los triángulos que aparecen en la figura tiene vértices en los puntos (1,1), (4,2) y (3,-2)?
-</td>
-                               <td><a href='mis_resultados2.php'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
-                           </tr> 
+                             <?php 
+                             $i++;
+                            } ?>
+                            
                          </table>
                          
 <br>

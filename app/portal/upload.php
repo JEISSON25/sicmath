@@ -1,19 +1,19 @@
 <?php
 include('../config.php');
-$ftpserver='files.000webhost.com';
-$login ='sicmath';
-$pass = 'cOr$7r(!XWROCtvDNHWE';
+// $ftpserver='files.000webhost.com';
+// $login ='sicmath';
+// $pass = 'cOr$7r(!XWROCtvDNHWE';
 
-$conn_id = ftp_connect($ftpserver);
-ftp_login($conn_id, $login, $pass);
-	// if(ftp_login($conn_id, $login, $pass)){
-	// echo "Conectado";
-	// $con = 1;
-	// }
-	// else{
-	// echo "No conectado";
-	// }
-ftp_pasv($conn_id, true);
+// $conn_id = ftp_connect($ftpserver);
+// ftp_login($conn_id, $login, $pass);
+// 	// if(ftp_login($conn_id, $login, $pass)){
+// 	// echo "Conectado";
+// 	// $con = 1;
+// 	// }
+// 	// else{
+// 	// echo "No conectado";
+// 	// }
+// ftp_pasv($conn_id, true);
 		
 			?>
 	 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
@@ -37,14 +37,14 @@ ftp_pasv($conn_id, true);
 									//$ruta=($_FILES['upl']['name']).$fecha_registro;
 								$ruta = $nombre_codificado.".".$extension;
 								$fichero_subido = $dir_subida . $ruta;
-							   // $ruta_real ='../files/';
-								$ruta_real ='/public_html/files/';
-								            if(@ftp_chdir($conn_id,$ruta_real))
-											{
+							    $ruta_real ='../files/';
+								//$ruta_real ='/public_html/files/';
+								           // if(@ftp_chdir($conn_id,$ruta_real))
+											//{
 												# Subimos el fichero
-												//if (move_uploaded_file($_FILES["upl"]["tmp_name"], $fichero_subido)) {
+												if (move_uploaded_file($_FILES["upl"]["tmp_name"], $fichero_subido)) {
 											
-												if(@ftp_put($conn_id,$ruta,$_FILES["upl"]["tmp_name"],FTP_BINARY)){
+											//	if(@ftp_put($conn_id,$ruta,$_FILES["upl"]["tmp_name"],FTP_BINARY)){
 														echo '{"status":"success"}';
 
 															$qry = "insert into archivos (nombre, ruta, fecha_registro) values('".$nombre_archivo[0]."', '".$ruta."', '".$fecha_registro."')";
@@ -62,8 +62,8 @@ ftp_pasv($conn_id, true);
 														
 													}else
 													echo "No ha sido posible subir el fichero";	
-											}else
-											echo "No existe el directorio especificado";																	
+											/*}else
+											echo "No existe el directorio especificado";*/																	
 							//ftp_close($conn_id);			
 						}else{
 
