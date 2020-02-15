@@ -98,7 +98,7 @@ if(isset($_SESSION['id'])){
                                         <tr>
                                             <th>#</th>
                                             <th>NOMBRE</th>                                             
-                                            <th>ACCION</th>
+                                            <th>RESULTADOS</th>
                                         </tr>
                                     </thead>
                                    <!-- <tbody>
