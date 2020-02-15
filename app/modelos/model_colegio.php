@@ -142,7 +142,7 @@ include('comuni.php');
        
     }
 
-    function editar_nivel($nivel, $max, $min){ // Crear grado
+    function editar_nivel($nivel, $max, $min, $id){ // Crear grado
         @include '../config.php';
        // $consul_colegio = consul_colegio($colegio);
 
@@ -233,7 +233,7 @@ include('comuni.php');
                while($datos=pg_fetch_assoc($query)){
 
                    $resp = "";
-                $accion= '<a href=\"editar_colegio.php?tipo=nivel&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Nivel</p></a>';
+                $accion= '<a href=\"editar_nivel.php?modo=1&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar Nivel</p></a> | <a href=\"editar_nivel.php?modo=2&id='.$datos["id"].'&nombre='.($datos['descripcion']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar Nivel</p></a>';
                     $tabla.='{ 
                                  "#":"'.$i.'",      
                                  "nivel":"'.$datos['descripcion'].'",

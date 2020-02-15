@@ -172,6 +172,16 @@ include('model_colegio.php'); // Modelo de institución
 
                 $crear = create_nivel($_POST['nivel'], $_POST['min'], $_POST['max']);
                 echo $crear;
+            }       
+            if(isset($_POST['editar_nivel'])){ // Crear nivel
+
+                $crear = editar_nivel($_POST['nivel'], $_POST['min'], $_POST['max'], $_POST['id']);
+                echo $crear;
+            }       
+            if(isset($_POST['eliminar_nivel'])){ // Crear nivel
+
+                $crear = eliminar_nivel($_POST['id']);
+                echo $crear;
             }            
 
         }
