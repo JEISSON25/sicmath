@@ -83,7 +83,8 @@ if(isset($_SESSION['id'])){
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>ESTUDIANTE</th>                                             
+                                            <th>ESTUDIANTE</th> 
+                                            <th>NIVEL</th>                                                 
                                             <th>ACCION</th>
                                         </tr>
                                     </thead>

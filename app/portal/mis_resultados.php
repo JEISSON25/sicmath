@@ -3,7 +3,7 @@ include('../config.php');
 //session_destroy();
 //if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
     if(isset($_GET['id_user']))
-    $id_user = $_GET['id_user']
+    $id_user = $_GET['id_user'];
     else
     $id_user = $_SESSION['id_user'];
     $sql = "";

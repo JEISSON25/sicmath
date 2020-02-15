@@ -66,7 +66,7 @@ if(isset($_SESSION['id'])){
                 <div class="col-12">
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">SELECCIONE EXAMEN A VISUALIZAR</h3>
+                        <h3 class="card-title">INFORME DE RESULTADOS</h3>
                     </div>
                     <!-- /.card-header -->
                     
