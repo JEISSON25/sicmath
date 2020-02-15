@@ -194,7 +194,7 @@ function list_estu_examen(){
 
     function ver_preguntas($id){
         include '../config.php';
-             $sql="select preguntas.id, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
+            $sql="select preguntas.id, preguntas.id_tipopregunta, preguntas.titulo_plano as titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
             and preguntas.id_plantilla='".$id."' ";
@@ -218,14 +218,12 @@ function list_estu_examen(){
                                 $resp = $d2['nombre'];
                             }
 
-
-                      
                      $accion= '<a href=\"editar_pregunta.php?modo=1&id='.$datos["id"].'&nombre='.base64_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Editar</p></a> | <a href=\"editar_pregunta.php?modo=2&id='.$datos["id"].'&nombre='.base64_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Eliminar</p></a> ';
                      $accion2= '<a href=\"crear_opciones.php?id='.$datos["id"].'&nombre='.base64_encode($datos['titulo']).'\" tittle=\"Revisar\"><p class=\"icon-note lg\">Crear opciones</p></a> ';
                         
                      $tabla.='{ 
                                       "#":"'.$i.'",
-                                      "titulo":"'.html_entity_decode($datos['titulo']).'",
+                                      "titulo":"'.htmlspecialchars_decode($datos['titulo']).'",
                                       "nombre":"'.($datos['nombre']).'",
                                       "tipo":"'.$datos['tipopregunta'].'",
                                       "estado":"'.$datos['estado'].'",
@@ -397,7 +395,7 @@ function list_estu_examen(){
                 }
 
     }
-     function crear_pregunta($id, $tipo, $estado, $titulo, $nombre, $ayuda, $competencia, $componente){
+     function crear_pregunta($id, $tipo, $estado, $titulo, $nombre, $ayuda, $competencia, $componente, $plainText){
           @include '../config.php';
          $validar_pregunt = consul_pregunta($id, $tipo, $titulo);
             if($validar_pregunt==1){
@@ -410,8 +408,8 @@ function list_estu_examen(){
 
                 //echo "id_archivo". $id_archivo;
 
-               $in = "insert into preguntas (id_plantilla, id_tipopregunta, id_estado, titulo, nombre, ayuda, competencia, componente, id_archivo)
-                values('".$id."', '".$tipo."', '".$estado."', '".$titulo."',  '".$nombre."', '".$ayuda."', '".$competencia."', '".$componente."', '".$id_archivo."') ";
+               $in = "insert into preguntas (id_plantilla, id_tipopregunta, id_estado, titulo, nombre, ayuda, competencia, componente, id_archivo, titulo_plano)
+                values('".$id."', '".$tipo."', '".$estado."', '".$titulo."',  '".$nombre."', '".$ayuda."', '".$competencia."', '".$componente."', '".$id_archivo."', '".$plainText."') ";
                  $qin = pg_query($conexion, $in);
 
                  if(isset($_SESSION['id_archivo'])){

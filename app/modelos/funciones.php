@@ -94,7 +94,7 @@ include('model_colegio.php'); // Modelo de institución
             }           
             if(isset($_POST['crear_pregunta'])){
                 $crear = crear_pregunta($_POST['id_plantilla'], $_POST['tipo'], $_POST['estado'], $_POST['titulo'],
-                 $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente']);
+                 $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente'], $_POST['plainText']);
                  echo $crear;
             }
             if(isset($_POST['editar_pregunta'])){

@@ -330,7 +330,7 @@ $(document).ready(function () {
                 $("#guardar").click(function(){
 
                         var nombre = $("#nombre").val();
-                        alert($("#nombre").html());
+                        //alert($("#nombre").html());
                         
                         var descripcion = $("#descripcion").val();
                         var tipo = $("#tipo").val();
