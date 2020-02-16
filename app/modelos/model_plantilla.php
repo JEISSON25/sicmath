@@ -223,7 +223,7 @@ function list_estu_examen(){
                         
                      $tabla.='{ 
                                       "#":"'.$i.'",
-                                      "titulo":"'.htmlspecialchars_decode($datos['titulo']).'",
+                                      "titulo":"'.rtrim($datos['titulo']).'",
                                       "nombre":"'.($datos['nombre']).'",
                                       "tipo":"'.$datos['tipopregunta'].'",
                                       "estado":"'.$datos['estado'].'",
