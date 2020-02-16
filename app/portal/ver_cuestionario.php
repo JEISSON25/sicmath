@@ -6,16 +6,16 @@ if($_GET['id']){
             $s = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_plantilla='".$_GET['id']."'  ";
+            and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."'  ";
             $q =pg_query($conexion, $s);
             $r =pg_num_rows($q);
             $sal=0;
                    
 
-    if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.
+    // if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.
 
-     //  $_SESSION['n_pregunta']+=1;
-    }
+    //  //  $_SESSION['n_pregunta']+=1;
+    // }
 ?>
 
         <!DOCTYPE html>
@@ -89,15 +89,14 @@ if($_GET['id']){
                         <div class="col-sm-12">
                              <form name="form1" method="post" action="">
                              <h4><b>PREGUNTA N° <?php echo $i;  ?></b></h4>
-                                <div><?php echo $datos['titulo'] ?>
-                                </div>
+                                <div><?php echo $datos['titulo'] ?></div>                                
                                 <?php if($datos['id_archivo']){
-                                        $s ="select ruta from archivos where id='".$datos['id_archivo']."' ";
-                                        $q =pg_query($conexion, $s);
-                                        $r = pg_num_rows($q);
-                                        $d = pg_fetch_assoc($q);
+                                        $s1 ="select ruta from archivos where id='".$datos['id_archivo']."' ";
+                                        $q1 =pg_query($conexion, $s1);
+                                        $r1 = pg_num_rows($q1);
+                                        $d1 = pg_fetch_assoc($q1);
                                     ?>
-                                    <p aling='center'><img src='<?php echo $serv_arch ?>/files/<?php echo $d['ruta'] ?>' width="150" height="150" /></p>
+                                    <p aling='center'><img src='<?php echo $serv_arch ?>/files/<?php echo $d1['ruta'] ?>' width="350" height="350" /></p>
                                 <?php } ?>
                                 <br>
                                 <br>  
@@ -117,7 +116,7 @@ if($_GET['id']){
                             <input name="intereses" type="radio" value="rbiinternet" checked="checked" />D. II y III solamente. -->
                      
 
-                <input type="submit" name='guardar' id='guardar' class="btn btn-success" value="Guardar y continuar" />
+                <!-- <input type="submit" name='guardar' id='guardar' class="btn btn-success" value="Guardar y continuar" /> -->
                                     </form>
                 </div>
                 </div>         
