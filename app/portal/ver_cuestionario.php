@@ -96,7 +96,7 @@ if($_GET['id']){
                                         $r1 = pg_num_rows($q1);
                                         $d1 = pg_fetch_assoc($q1);
                                     ?>
-                                    <p aling='center'><img src='<?php echo $serv_arch ?>/files/<?php echo $d1['ruta'] ?>' width="350" height="150" /></p>
+                                    <p aling='center'><img src='<?php echo $serv_arch ?>/files/<?php echo $d1['ruta'] ?>' /></p>
                                 <?php } ?>
                                 <br>
                                 <br>  
