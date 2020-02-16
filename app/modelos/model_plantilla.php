@@ -385,7 +385,7 @@ function list_estu_examen(){
 
     function consul_pregunta ($id, $tipo, $titulo){
         @include '../config.php';
-        $sql = "select * from preguntas where titulo='".$titulo."' and id_tipopregunta='".$tipo."' and id_plantilla='".$id."' ";
+        $sql = "select * from preguntas where titulo_plano='".$titulo."' and id_tipopregunta='".$tipo."' and id_plantilla='".$id."' ";
         $query=pg_query($conexion, $sql);
         $rows=pg_num_rows($query);
                 if($rows)
@@ -397,7 +397,7 @@ function list_estu_examen(){
     }
      function crear_pregunta($id, $tipo, $estado, $titulo, $nombre, $ayuda, $competencia, $componente, $plainText){
           @include '../config.php';
-         $validar_pregunt = consul_pregunta($id, $tipo, $titulo);
+         $validar_pregunt = consul_pregunta($id, $tipo, $plainText);
             if($validar_pregunt==1){
                 if(isset($_SESSION['id_archivo'])){
                   //  echo "Entró aquí";
