@@ -244,7 +244,7 @@ function list_estu_examen(){
 
     function ver_opciones($id){
         include '../config.php';
-             $sql="select opciones.id, plantilla.nombre as plantilla, opciones.nombre, opciones.valor, preguntas.titulo as pregunta
+             $sql="select opciones.id, plantilla.nombre as plantilla, opciones.nombre_plano as nombre, opciones.valor, preguntas.titulo as pregunta
              from opciones, preguntas, plantilla
              where opciones.id_pregunta=preguntas.id and preguntas.id_plantilla=plantilla.id
              and opciones.id_pregunta = '".$id."'
@@ -504,7 +504,7 @@ function list_estu_examen(){
     }
     function validar_opcion ($id, $nombre){
          @include '../config.php';
-         $sql ="select * from opciones where id_pregunta='".$id."' and nombre='".$nombre."' ";
+         $sql ="select * from opciones where id_pregunta='".$id."' and nombre_plano='".$nombre."' ";
          $query=pg_query($conexion, $sql);
           $rows=pg_num_rows($query);
                 if($rows)
@@ -513,9 +513,9 @@ function list_estu_examen(){
                 return "1"; 
 
     }
-    function crear_opcion ($id, $nombre, $valor, $resp_correcta){
+    function crear_opcion ($id, $nombre, $valor, $resp_correcta, $plainText){
         @include '../config.php';
-        $validar = validar_opcion($id, $nombre);
+        $validar = validar_opcion($id, $plainText);
             if($validar==1){  
 
                 if($valor=='')
@@ -523,8 +523,8 @@ function list_estu_examen(){
 
                // echo  "valor de : ".$resp_correcta;
 
-                $in = "insert into opciones (id_pregunta, nombre, valor, fecha_registro) 
-                values('".$id."', '".$nombre."', '".$valor."', '".$fecha_registro."') ";
+                $in = "insert into opciones (id_pregunta, nombre, valor, fecha_registro, nombre_plano) 
+                values('".$id."', '".$nombre."', '".$valor."', '".$fecha_registro."', '".$plainText."') ";
                 $qin= pg_query($conexion, $in);
 
                         if($qin){

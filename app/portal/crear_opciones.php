@@ -34,7 +34,7 @@ if(isset($_SESSION['id'])){
 
   <!-- DataTables -->
   <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-
+  <?php include('script_editor.php') ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -198,9 +198,7 @@ if(isset($_SESSION['id'])){
                                
                                 <div class="form-group" id='text_opcion'>
                                    <label for="nombre">(*) NOMBRE LA OPCIÓN</label>
-                                    <div class="form-line">
-                                        <input type="text" id="nombre" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA OPCIÓN">
-                                    </div>
+                                   <div id='nombre' width='150' height='150'><p>INTRODUZCA NOMBRE DE LA OPCIÓN</p></div>
                                 </div>
 
                                
@@ -399,7 +397,14 @@ if(isset($_SESSION['id'])){
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
-
+<script>
+    (function () {
+      new FroalaEditor("#nombre", {
+        pastePlain: false,
+        'KEY': 'MY_KEY_IS AQUÍ',
+      })      
+    })()
+  </script>
 <script>
     $(document).ready(function () {
 
@@ -496,14 +501,26 @@ if(isset($_SESSION['id'])){
 
                   $("#guardar").click(function(){
 
-                        var nombre = $("#nombre").val();                     
+
+                    var nombre2 = new FroalaEditor('div#nombre', {}, function () {
+                        console.log(nombre2.html.get())
+                       
+                    });                       
+                        var nombre = (nombre2.html.get());  
+                       // alert(nombre); 
+                       // var plainText;
+                    var plainText = nombre.replace(/<style([\s\S]*?)<\/style>/gi, ' ')
+                    .replace(/<script([\s\S]*?)<\/script>/gi, ' ')
+                    .replace(/(<(?:.|\n)*?>)/gm, ' ')
+                    .replace(/\s+/gm, ' ');
+                     // plainText= Base64.encode(plainText);              
                         var valor = $("#valor").val();                      
                         var id_pregunta= id;
                         var user = 2;
                         var resp_correcta = $("#resp_correcta").val();
                         var tipo = $("#tipo").val();
 
-                        var datos ='g_plantilla='+1+'&crear_opcion='+1+'&nombre='+nombre+'&id_pregunta='+id_pregunta+'&valor='+valor+'&resp_correcta='+resp_correcta;
+                        var datos ='g_plantilla='+1+'&crear_opcion='+1+'&nombre='+nombre+'&id_pregunta='+id_pregunta+'&valor='+valor+'&resp_correcta='+resp_correcta+'&plainText='+plainText;
 
                             if(tipo !=""){
                                   if(tipo == 1 && nombre==""){

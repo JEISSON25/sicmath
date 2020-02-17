@@ -110,7 +110,7 @@ include('model_colegio.php'); // Modelo de institución
             }
             if(isset($_POST['crear_opcion'])){
              //  ($id, $nombre, $valor)
-                $crear = crear_opcion ($_POST['id_pregunta'], $_POST['nombre'], $_POST['valor'], $_POST['resp_correcta']);
+                $crear = crear_opcion ($_POST['id_pregunta'], $_POST['nombre'], $_POST['valor'], $_POST['resp_correcta'], $_POST['plainText']);
                 echo $crear;
 
             }
