@@ -178,7 +178,7 @@ if(isset($_SESSION['id'])){
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-         
+        <?php include('resource/button.php'); ?>
           <!-- ./col -->
           <div class="col-lg-12 col-12">
             <!-- small box -->

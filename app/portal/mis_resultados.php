@@ -53,6 +53,7 @@ include('../config.php');
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+        <?php include('resource/button.php'); ?>
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header">

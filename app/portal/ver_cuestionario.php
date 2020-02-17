@@ -62,10 +62,11 @@ if($_GET['id']){
             <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                <?php include('resource/button.php'); ?>
                 <div class="col-12">
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">PRUEBAS DE <?php echo $_GET['nombre'] ?></h3>
+                        <h3 class="card-title"><?php echo $_GET['nombre'] ?></h3>
                     </div>
                     <!-- /.card-header -->
                     <?php  
