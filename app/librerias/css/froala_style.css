@@ -351,3 +351,5 @@ span.fr-img-caption.fr-view {
       float: right;
       margin: 5px 0 5px 5px;
       max-width: calc(100% - 5px); }
+      
+.fr-box.fr-basic.fr-top div:not([class^="fr-"]) {display:none;}
