@@ -20,7 +20,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
             $s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_plantilla='".$_GET['id']."' ";
+            and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."' ";
             /*$s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
@@ -35,7 +35,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                         if($_SESSION['n_pregunta']<=$r){
                             if($j == isset($_SESSION['n_pregunta'])){
                               // echo "entrando aquí";
-                                $s2 = "select * from preguntas where id='".$dg['id']."' ";
+                                echo $s2 = "select * from preguntas where id='".$dg['id']."' ";
                                 $q2 =pg_query($conexion, $s2);
                                 $r2 =pg_num_rows($q2);
                                 $_SESSION['id_pregunta'] = $dg['id'];
@@ -57,20 +57,31 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
 
     if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.
 
-       $_SESSION['n_pregunta']+=1;
-       // Actualizamos 
-       // Verificamos que ya tenga la pregunta
-        $sql = "select id from resultados where id_user='".$_SESSION['id']."' and id_pregunta='".$_SESSION['id_pregunta']."' ";
-        $query_sql = pg_query($conexion, $sql);
-        $rows = pg_num_rows($query_sql);
-            if(!$rows){
-                $up = "insert into resultados (id_pregunta, id_opcion, id_user, fecha_registro)
-                values ('".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
-            }else{
-                $datotg = pg_fetch_assoc($query_sql);
-                $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."' where id ='".$datotg['id']."' ";
-            }
-        $q = pg_query($conexion, $up);
+      
+
+       if(isset($_POST['id_respuesta'])){
+
+        echo "Valor de la pregunta: ".$_SESSION['n_pregunta']+=1;
+        // Actualizamos 
+        // Verificamos que ya tenga la pregunta
+            $sql = "select id from resultados where id_user='".$_SESSION['id']."' and id_pregunta='".$_SESSION['id_pregunta']."' ";
+            $query_sql = pg_query($conexion, $sql);
+            $rows = pg_num_rows($query_sql);
+                if(!$rows){
+                    $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
+                    values ('".$_GET['id']."', '".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
+                }else{
+                    $datotg = pg_fetch_assoc($query_sql);
+                    $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."' where id ='".$datotg['id']."' ";
+                }
+            $q = pg_query($conexion, $up);
+       }else{
+           ?>
+           <script>
+               alert("Por favor, debe contestar la pregunta");
+           </script>
+           <?php
+       }
     }
 ?>
 
