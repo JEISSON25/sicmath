@@ -385,7 +385,7 @@ function list_estu_examen(){
 
     function consul_pregunta ($id, $tipo, $titulo){
         @include '../config.php';
-        $sql = "select * from preguntas where titulo_plano='".$titulo."' and id_tipopregunta='".$tipo."' and id_plantilla='".$id."' ";
+        $sql = "select * from preguntas where titulo_plano='".($titulo)."' and id_tipopregunta='".$tipo."' and id_plantilla='".$id."' ";
         $query=pg_query($conexion, $sql);
         $rows=pg_num_rows($query);
                 if($rows)
@@ -409,7 +409,7 @@ function list_estu_examen(){
                 //echo "id_archivo". $id_archivo;
 
                $in = "insert into preguntas (id_plantilla, id_tipopregunta, id_estado, titulo, nombre, ayuda, competencia, componente, id_archivo, titulo_plano)
-                values('".$id."', '".$tipo."', '".$estado."', '".$titulo."',  '".$nombre."', '".$ayuda."', '".$competencia."', '".$componente."', '".$id_archivo."', '".$plainText."') ";
+                values('".$id."', '".$tipo."', '".$estado."', '".($titulo)."',  '".$nombre."', '".$ayuda."', '".$competencia."', '".$componente."', '".$id_archivo."', '".($plainText)."') ";
                  $qin = pg_query($conexion, $in);
 
                  if(isset($_SESSION['id_archivo'])){

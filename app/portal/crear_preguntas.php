@@ -28,27 +28,17 @@ if(isset($_SESSION['id'])){
   <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    <!-- DataTables -->
    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-   <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
    <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-
-<script src="editor.js"></script>
-		<script>
-			$(document).ready(function() {
-				$("#titulo").Editor();
-			});
-		</script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link href="editor.css" type="text/css" rel="stylesheet"/>
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>        
+<?php include('script_editor.php') ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -77,8 +67,9 @@ if(isset($_SESSION['id'])){
               </div>
               <div class="card-body">
                                
-             <form>                               
-                                <label for="email_address">(*) TIPO DE PREGUNTA</label>
+             <form>                   
+             
+                             <label for="email_address">(*) TIPO DE PREGUNTA</label>
                                 <div class="form-group">
                                 
                                     <select class='form-control' id='tipo'>
@@ -199,22 +190,7 @@ if(isset($_SESSION['id'])){
               <!-- /.card-body -->
             </div>
           </div>
-          <!-- ./col -->
-          <!--<div class="col-lg-3 col-6">-->
-            <!-- small box -->
-          <!--  <div class="small-box bg-danger">-->
-          <!--    <div class="inner">-->
-          <!--      <h3>65</h3>-->
-
-          <!--      <p>Unique Visitors</p>-->
-          <!--    </div>-->
-          <!--    <div class="icon">-->
-          <!--      <i class="ion ion-pie-graph"></i>-->
-          <!--    </div>-->
-          <!--    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>-->
-          <!--  </div>-->
-          <!--</div>-->
-          <!-- ./col -->
+        
         </div>
         <!-- /.row -->
         <!-- Main row -->
@@ -260,10 +236,11 @@ if(isset($_SESSION['id'])){
 <!-- daterangepicker -->
 <script src="../plugins/moment/moment.min.js"></script>
 <script src="../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
 <!-- Summernote -->
 <script src="../plugins/summernote/summernote-bs4.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 
@@ -279,7 +256,13 @@ if(isset($_SESSION['id'])){
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
-
+<script>
+    (function () {
+      new FroalaEditor("#titulo", {
+        pastePlain: false
+      })
+    })()
+  </script>
 <script>
     $(document).ready(function () {
 
@@ -352,30 +335,34 @@ if(isset($_SESSION['id'])){
 
 
         });
-        // // Header
-        // $("#header_app").load('../template/header.html');
-        // // Menú
-        // $("#menu_app").load('../template/menu.html');
-
-
-       $('#titulo').summernote();
                  $("#nombre_plan").html($.get("nombre"));
 
                   $("#guardar").click(function(){
 
+                    var editor = new FroalaEditor('div#titulo', {}, function () {
+                        console.log(editor.html.get())
+                       
+                    });
+                    
+                    //alert(editor.html.get());
+
                         var nombre = $("#nombre").val();                     
                         var tipo = $("#tipo").val();
                         var estado = $("#estado").val();
-                        var titulo =  $('#titulo').summernote('code');
+                        var titulo = (editor.html.get());
                         var id_plantilla = id;
                         var ayuda = $("#ayuda").val();
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
-                        var plainText = $("#titulo").summernote("code").replace(/<\/p>/gi, "\n")
-                .replace(/<br\/?>/gi, "\n")
-                .replace(/<\/?[^>]+(>|$)/g, "");
-                      //  alert(plainText);
+                        //alert(titulo);
+                        var plainText = editor.html.get().replace(/<style([\s\S]*?)<\/style>/gi, ' ')
+                                                    .replace(/<script([\s\S]*?)<\/script>/gi, ' ')
+                                                    .replace(/(<(?:.|\n)*?>)/gm, ' ')
+                                                    .replace(/\s+/gm, ' ');
+                     // plainText= Base64.encode(plainText);
+
+                
 
                         var datos ='g_plantilla='+1+'&crear_pregunta='+1+'&nombre='+nombre+'&tipo='+tipo+'&estado='+estado+'&id_plantilla='+id_plantilla+'&ayuda='+ayuda+'&titulo='+titulo
                         +'&competencia='+competencia+'&componente='+componente+'&plainText='+plainText;
