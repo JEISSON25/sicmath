@@ -403,7 +403,7 @@ iframe.fr-iframe {
   -webkit-background-clip: padding-box;
   background-clip: padding-box; }
   .fr-toolbar .fr-tabs .fr-command.fr-btn:not(:hover):not(:focus).fr-active, .fr-toolbar .fr-tabs .fr-command.fr-btn:not(:hover):not(:focus).fr-active-tab, .fr-popup .fr-tabs .fr-command.fr-btn:not(:hover):not(:focus).fr-active, .fr-popup .fr-tabs .fr-command.fr-btn:not(:hover):not(:focus).fr-active-tab, .fr-modal .fr-tabs .fr-command.fr-btn:not(:hover):not(:focus).fr-active, .fr-modal .fr-tabs .fr-command.fr-btn:not(:hover):not(:focus).fr-active-tab {
-    background: #FFF; }
+    background: #000; }
   .fr-toolbar .fr-tabs .fr-command.fr-btn span, .fr-popup .fr-tabs .fr-command.fr-btn span, .fr-modal .fr-tabs .fr-command.fr-btn span {
     height: 27px; }
   .fr-toolbar .fr-tabs .fr-command.fr-btn img, .fr-toolbar .fr-tabs .fr-command.fr-btn svg, .fr-popup .fr-tabs .fr-command.fr-btn img, .fr-popup .fr-tabs .fr-command.fr-btn svg, .fr-modal .fr-tabs .fr-command.fr-btn img, .fr-modal .fr-tabs .fr-command.fr-btn svg {
