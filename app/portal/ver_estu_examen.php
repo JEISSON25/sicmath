@@ -86,7 +86,7 @@ if(isset($_SESSION['id'])){
                                             <th>#</th>
                                             <th>ESTUDIANTE</th> 
                                             <th>NIVEL</th>                                                 
-                                            <th>ACCION</th>
+                                            <th>ELIMINAR EXAMEN</th>
                                         </tr>
                                     </thead>
                                    <!-- <tbody>
@@ -183,7 +183,8 @@ if(isset($_SESSION['id'])){
                                 "columns": [
 
                                     { "data": "#" },                                    
-                                    { "data": "nombre" },                                   
+                                    { "data": "nombre" },  
+                                    { "data": "nivel" },                                 
                                     { "data": "accion" }
                                 ],
                                 "oLanguage": {
