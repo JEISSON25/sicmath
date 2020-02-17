@@ -1,90 +1,138 @@
 <?php 
 include('../config.php');
 //session_destroy();
-if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
-    
-   
-    /*if(isset($_SESSION['id_plantilla'])){
-
-        if($_SESSION['id_plantilla']!=$_GET['id']){
-
-            $_SESSION['id_pregunta']=1;
-        }
-    }else{
-       
-        $_SESSION['id_plantilla']=$_GET['id'];
-    }*/
+if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){  
+ 
     
         $num_max= 45;
 
-            $s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
-            from estado, preguntas, plantilla, tipopregunta
-            where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."' ";
             /*$s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_plantilla='".$_GET['id']."' ORDER BY RANDOM() LIMIT $num_max ";*/
+            and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."' ";*/
+           
+           // $_SESSION['ids_preguntas']='';
+            $s = "select preguntas.id, preguntas.id_archivo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
+            from estado, preguntas, plantilla, tipopregunta
+            where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
+            and preguntas.id_estado=1 and  preguntas.id_plantilla='".$_GET['id']."' ORDER BY RANDOM() LIMIT $num_max ";
             $q =pg_query($conexion, $s);
             $r =pg_num_rows($q);
+            $ids_preguntas='';
+
+                for($j=1;$j<=$r;$j++){
+                    $dg = pg_fetch_assoc($q);
+                    if($j==1)
+                    $ids_preguntas=$dg['id'];
+                    else
+                    $ids_preguntas.=','.$dg['id'];
+                }          
+               // $_SESSION['n_pregunta_count']=0;
+            if(!$_SESSION['ids_preguntas']){
+                $count_ids = explode(",",$ids_preguntas);                
+                $_SESSION['ids_preguntas'] = $count_ids;  
+                $_SESSION['n_pregunta_count']=0;
+                $_SESSION['n_pregunta']=1;
+            }        
+           // echo "valores de: ".$_SESSION['ids_preguntas'];         
+
+        // if($_SESSION['n_pregunta']==0 or empty($_SESSION['n_pregunta']))
+         
+
+        // echo "couint: ".$cuantos_count = count($_SESSION['ids_preguntas']);
 
             $sal=0;
-                    for($j=1;$j<=$r;$j++){
-                        $dg = pg_fetch_assoc($q);
+
+           
+                    /*for($g=0;$g<count($_SESSION['ids_preguntas']);$g++){
+                        //$dg = pg_fetch_assoc($q);
+                       // echo "valor: <br>".$_SESSION['ids_preguntas'][$g];
+                       echo "valor de pregunt ".$_SESSION['n_pregunta_count'];
+                      $cuantos_count = count($_SESSION['ids_preguntas']);
                         //echo "valor de r: ".$r;
-                        if($_SESSION['n_pregunta']<=$r){
-                            if($j == isset($_SESSION['n_pregunta'])){
-                              // echo "entrando aquí";
-                                echo $s2 = "select * from preguntas where id='".$dg['id']."' ";
+                        if($_SESSION['n_pregunta_count']<=$cuantos_count){
+                            if($g == $_SESSION['n_pregunta_count']){
+                               echo "entrando aquí";
+                               $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$g]."' ";
                                 $q2 =pg_query($conexion, $s2);
                                 $r2 =pg_num_rows($q2);
-                                $_SESSION['id_pregunta'] = $dg['id'];
+                                $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$g];
                                 break;
-                            }else if($j==1 && empty($_SESSION['n_pregunta'])){
-                                //echo "entro acá";
-                                $s2 = "select * from preguntas where id='".$dg['id']."' ";
+                            }else if($g>=1 && $_SESSION['n_pregunta_count']>=1){
+                                echo "entro acá";
+                                echo $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$g]."' ";
                                 $q2 =pg_query($conexion, $s2);
                                 $r2 =pg_num_rows($q2);
-                                $_SESSION['n_pregunta']=2;
-                                $_SESSION['id_pregunta'] = $dg['id'];
+                               // $_SESSION['n_pregunta']=2;
+                                $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$g];
                                  break;
                             }   
                         }else {
                             $sal=1;
                              break;
                         }
+                    }*/
+                   //echo "valor: ".$_SESSION['n_pregunta_count']=='';
+
+                   if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.    
+
+                    if(isset($_POST['id_respuesta'])){
+             
+                     $sql = "select id from resultados where id_user='".$_SESSION['id']."' and id_pregunta='".$_SESSION['id_pregunta']."' ";
+                     $query_sql = pg_query($conexion, $sql);
+                     $rows = pg_num_rows($query_sql);
+             
+                         if(!$rows){
+                             $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
+                             values ('".$_GET['id']."', '".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
+                         }else{
+                             $datotg = pg_fetch_assoc($query_sql);
+                             $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."', fecha_registro='".$fecha_registro."' where id ='".$datotg['id']."' ";
+                         }
+                        $q = pg_query($conexion, $up);
+                         if($q){
+                             $_SESSION['n_pregunta']+=1;
+                           echo "valor cambiado:".$_SESSION['n_pregunta_count']=$_SESSION['n_pregunta_count']+1; // count preguntas
+                          // $_POST['id_respuesta']='';
+                           /*echo "selector: ".$s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']]."' ";
+                           $q2 =pg_query($conexion, $s2);
+                           $r2 =pg_num_rows($q2);
+                           $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']];*/
+                         }
+                    }else{
+                        ?>
+                        <script>
+                            alert("Por favor, debe contestar la pregunta");
+                        </script>
+                        <?php
+                    }
+                 }
+                 else{
+                     if($_SESSION['n_pregunta_count']==''){
+                          $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][0]."' ";
+                         $q2 =pg_query($conexion, $s2);
+                         $r2 =pg_num_rows($q2);
+                         $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']];
+                     }
+                 }
+                    if(empty($_SESSION['n_pregunta_count']) || $_SESSION['n_pregunta_count']==0){
+                         $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][0]."' ";
+                        $q2 =pg_query($conexion, $s2);
+                        $r2 =pg_num_rows($q2);
+                        $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']];
+                    }else{
+                       // echo "aqui: ".$_SESSION['n_pregunta_count'];
+    $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']]."' ";
+     $q2 =pg_query($conexion, $s2);
+    $r2 =pg_num_rows($q2);
+                        if($r2)
+                         $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']];
+                         else
+                         $sal=1;
                     }
 
-    if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.
-
-      
-
-       if(isset($_POST['id_respuesta'])){
-
-        echo "Valor de la pregunta: ".$_SESSION['n_pregunta']+=1;
-        // Actualizamos 
-        // Verificamos que ya tenga la pregunta
-            $sql = "select id from resultados where id_user='".$_SESSION['id']."' and id_pregunta='".$_SESSION['id_pregunta']."' ";
-            $query_sql = pg_query($conexion, $sql);
-            $rows = pg_num_rows($query_sql);
-                if(!$rows){
-                    $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
-                    values ('".$_GET['id']."', '".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
-                }else{
-                    $datotg = pg_fetch_assoc($query_sql);
-                    $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."' where id ='".$datotg['id']."' ";
-                }
-            $q = pg_query($conexion, $up);
-       }else{
-           ?>
-           <script>
-               alert("Por favor, debe contestar la pregunta");
-           </script>
-           <?php
-       }
-    }
+   
 ?>
-
         <!DOCTYPE html>
         <html>
         <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -114,25 +162,15 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         </head>
-        <body class="hold-transition sidebar-mini layout-fixed">
-   
-
-        <!-- Navbar -->       
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
+        <body class="hold-transition sidebar-mini layout-fixed">   
         <?php include ('header.php') ?>
-
-        <!-- Content Wrapper. Contains page content -->
-       
-                <!-- Main content -->
             <section class="content">
             <div class="container-fluid">
                 <div class="row">
                 <div class="col-12">
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">PRUEBAS DE <?php echo $_GET['nombre'] ?></h3>
+                    <h3 class="card-title"><?php echo $_GET['nombre'] ?></h3>
                     </div>
                     <!-- /.card-header -->
                     <?php  
@@ -155,8 +193,11 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                         <div class="row">
                         <div class="col-sm-12">
                              <form name="form1" method="post" action="">
-                             <h4><b>PREGUNTA N° <?php echo $_SESSION['n_pregunta']-1;  ?></b></h4>
+                             <h4><b>PREGUNTA N° <?php
+                              echo $_SESSION['n_pregunta_count']+1; ?></b></h4>
                                 <div><?php echo $datos['nombre'] ?>
+                                </div>
+                                <div><?php echo $datos['titulo'] ?>
                                 </div>
                                 <?php if($datos['id_archivo']){
                                         $s ="select ruta from archivos where id='".$datos['id_archivo']."' ";
@@ -171,7 +212,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                                                     
                                     <?php if($rowsd){ 
                                             while($df = pg_fetch_assoc($queryd)){?>
-                                  <input name="id_respuesta" id="id_respuesta" type="radio" value="<?= $df['id'] ?>" /><?php echo $df['nombre'] ?>                         
+                            <input name="id_respuesta" id="id_respuesta" type="radio" value="<?= $df['id'] ?>" /><?php echo $df['nombre'] ?>                         
                             <br />
                                     <?php   } 
                                 
@@ -194,6 +235,13 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                     $i++;
             }   
         }else{
+            $_SESSION['ids_preguntas']='';
+            $_SESSION['n_pregunta']=0;
+            $_SESSION['n_pregunta_count']=0;
+
+            unset($_SESSION['ids_preguntas']);
+            unset($_SESSION['n_pregunta']);
+            unset($_SESSION['n_pregunta_count']);
             echo "<br><br><p><center><b>EXAMEN HA SIDO FINALIZADO CON ÉXITO</b></center></p><br><br>";
         } 
             
