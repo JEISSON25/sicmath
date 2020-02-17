@@ -103,9 +103,9 @@ if(isset($_SESSION['id'])){
                                 </div>
                                 <label for="email_address">(*) PROCEDIMIENTO LÓGICO</label>
                                 <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" id="ayuda" class="form-control" placeholder="PROCEDIMIENTO LÓGICO">
-                                    </div>
+                                <div id='ayuda' width='150' height='150'><p>PROCEDIMIENTO LÓGICO</p></div>
+                         
+                        
                                 </div>
                                 
                                   <label for="email_address">ARCHIVO (<b>Opcional</b>)</label>
@@ -259,7 +259,12 @@ if(isset($_SESSION['id'])){
 <script>
     (function () {
       new FroalaEditor("#titulo", {
-        pastePlain: false
+        pastePlain: false,
+        'KEY': 'MY_KEY_IS AQUÍ',
+      })
+      new FroalaEditor("#ayuda", {
+        pastePlain: false,
+        'KEY': 'MY_KEY_IS AQUÍ',
       })
     })()
   </script>
@@ -343,6 +348,10 @@ if(isset($_SESSION['id'])){
                         console.log(editor.html.get())
                        
                     });
+                    var ayuda = new FroalaEditor('div#ayuda', {}, function () {
+                        console.log(ayuda.html.get())
+                       
+                    });
                     
                     //alert(editor.html.get());
 
@@ -351,7 +360,7 @@ if(isset($_SESSION['id'])){
                         var estado = $("#estado").val();
                         var titulo = (editor.html.get());
                         var id_plantilla = id;
-                        var ayuda = $("#ayuda").val();
+                        var ayuda = (ayuda.html.get());
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
