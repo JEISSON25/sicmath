@@ -516,6 +516,7 @@ function list_estu_examen(){
     function crear_opcion ($id, $nombre, $valor, $resp_correcta, $plainText){
         @include '../config.php';
         $validar = validar_opcion($id, $plainText);
+        $validar=1;
             if($validar==1){  
 
                 if($valor=='')
