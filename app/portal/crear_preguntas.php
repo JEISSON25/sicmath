@@ -28,8 +28,7 @@ if(isset($_SESSION['id'])){
   <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
+ 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    <!-- DataTables -->
@@ -82,13 +81,13 @@ if(isset($_SESSION['id'])){
                                 </div>
                                 <label for="email_address">(*) NOMBRE DE LA PREGUNTA</label>                              
                                 	<div id='titulo' width='150' height='150'><p>INTRODUZCA NOMBRE DE LA PREGUNTA</p></div>
-                                <label for="email_address">DESCRIPCION DETALLADA DE LA PREGUNTA (OPCIONAL)</label>
+                                <!-- <label for="email_address">DESCRIPCION DETALLADA DE LA PREGUNTA (OPCIONAL)</label>
                                 <div class="form-group">
                                     <div class="form-line">
                                       <textarea id="nombre" class="form-control" placeholder="INTRODUZCA UNA DESCRIPCION DETALLADA DE LA PREGUNTA "></textarea>
                                         
                                     </div>
-                                </div>
+                                </div> -->
                                 <label for="email_address">(*) COMPETENCIA</label>
                                 <div class="form-group">
                                     <div class="form-line">
@@ -108,12 +107,12 @@ if(isset($_SESSION['id'])){
                         
                                 </div>
                                 
-                                  <label for="email_address">ARCHIVO (<b>Opcional</b>)</label>
+                                  <!-- <label for="email_address">ARCHIVO (<b>Opcional</b>)</label>
                                 <div class="form-group">
                                     <div class="form-line">
                                      <iframe src='subir.php'></iframe>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <label for="email_address">(*) ESTADO</label>
                                 <div class="form-group">
@@ -237,8 +236,7 @@ if(isset($_SESSION['id'])){
 <script src="../plugins/moment/moment.min.js"></script>
 <script src="../plugins/daterangepicker/daterangepicker.js"></script>
 
-<!-- Summernote -->
-<script src="../plugins/summernote/summernote-bs4.min.js"></script>
+
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- overlayScrollbars -->
@@ -256,7 +254,7 @@ if(isset($_SESSION['id'])){
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
-<script>
+<!-- <script>
     (function () {
       new FroalaEditor("#titulo", {
         pastePlain: false,
@@ -267,7 +265,7 @@ if(isset($_SESSION['id'])){
         'KEY': 'MY_KEY_IS AQUÍ',
       })
     })()
-  </script>
+  </script> -->
 <script>
     $(document).ready(function () {
 
@@ -342,30 +340,83 @@ if(isset($_SESSION['id'])){
         });
                  $("#nombre_plan").html($.get("nombre"));
 
-                  $("#guardar").click(function(){
+                 $('#titulo').summernote({
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for(let i=0; i < files.length; i++) {
+                                $.upload(files[i]);
+                            }
+                        }
+                    },
+                    height: 500,
+                });
 
-                    var editor = new FroalaEditor('div#titulo', {}, function () {
-                        console.log(editor.html.get())
-                       
+                $.upload = function (file) {
+                    let out = new FormData();
+                    out.append('file', file, file.name);
+
+                    $.ajax({
+                        method: 'POST',
+                        url: 'upload.php',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: out,
+                        success: function (img) {
+                            $('#titulo').summernote('insertImage', img);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus + " " + errorThrown);
+                        }
                     });
-                    var ayuda = new FroalaEditor('div#ayuda', {}, function () {
-                        console.log(ayuda.html.get())
-                       
+                };
+
+                $('#ayuda').summernote({
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for(let i=0; i < files.length; i++) {
+                                $.upload1(files[i]);
+                            }
+                        }
+                    },
+                    height: 500,
+                });
+
+                $.upload1 = function (file) {
+                    let out = new FormData();
+                    out.append('file', file, file.name);
+
+                    $.ajax({
+                        method: 'POST',
+                        url: 'upload.php',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: out,
+                        success: function (img) {
+                            $('#ayuda').summernote('insertImage', img);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus + " " + errorThrown);
+                        }
                     });
+                };
+
+                $("#guardar").click(function(){
                     
                     //alert(editor.html.get());
 
-                        var nombre = $("#nombre").val();                     
+                        // var nombre = $("#nombre").val();                     
                         var tipo = $("#tipo").val();
                         var estado = $("#estado").val();
-                        var titulo = (editor.html.get());
+                        var titulo = $('#titulo').summernote("code");
                         var id_plantilla = id;
-                        var ayuda = (ayuda.html.get());
+                        var ayuda = $("#ayuda").summernote("code");
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
-                        //alert(titulo);
-                        var plainText = editor.html.get().replace(/<style([\s\S]*?)<\/style>/gi, ' ')
+                        alert(titulo);
+                        var plainText = titulo.replace(/<style([\s\S]*?)<\/style>/gi, ' ')
                                                     .replace(/<script([\s\S]*?)<\/script>/gi, ' ')
                                                     .replace(/(<(?:.|\n)*?>)/gm, ' ')
                                                     .replace(/\s+/gm, ' ');
@@ -373,7 +424,7 @@ if(isset($_SESSION['id'])){
 
                 
 
-                        var datos ='g_plantilla='+1+'&crear_pregunta='+1+'&nombre='+nombre+'&tipo='+tipo+'&estado='+estado+'&id_plantilla='+id_plantilla+'&ayuda='+ayuda+'&titulo='+titulo
+                        var datos ='g_plantilla='+1+'&crear_pregunta='+1+'&tipo='+tipo+'&estado='+estado+'&id_plantilla='+id_plantilla+'&ayuda='+ayuda+'&titulo='+titulo
                         +'&competencia='+competencia+'&componente='+componente+'&plainText='+plainText;
 
                             if(titulo!=""  && tipo!="" && estado!=""){

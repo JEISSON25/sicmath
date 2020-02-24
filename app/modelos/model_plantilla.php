@@ -395,7 +395,7 @@ function list_estu_examen(){
                 }
 
     }
-     function crear_pregunta($id, $tipo, $estado, $titulo, $nombre, $ayuda, $competencia, $componente, $plainText){
+     function crear_pregunta($id, $tipo, $estado, $titulo, $nombre = '', $ayuda, $competencia, $componente, $plainText){
           @include '../config.php';
          $validar_pregunt = consul_pregunta($id, $tipo, $plainText);
             if($validar_pregunt==1){

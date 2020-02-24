@@ -88,7 +88,7 @@ if($_GET['id']){
                     <div class="card-body">
                         <div class="row">
                         <div class="col-sm-12">
-                             <form name="form1" method="post" action="">
+                             <form name="form1" method="post" action="" class='form'>
                              <h4><b>PREGUNTA N° <?php echo $i;  ?></b></h4>
                                 <div><?php echo $datos['titulo'] ?></div>                                
                                 <?php if($datos['id_archivo']){
@@ -105,7 +105,7 @@ if($_GET['id']){
                                     <?php if($rowsd){ 
                                             while($df = pg_fetch_assoc($queryd)){?>
                                   <input name="intereses" type="radio" value="<?= $df['id'] ?>" /><?php echo $df['nombre'] ?>                         
-                            <br />
+                            
                                     <?php   } 
                                 
                                         } ?> 

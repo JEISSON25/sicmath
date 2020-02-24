@@ -44,6 +44,11 @@
   <script type="text/javascript" src="../librerias/js/plugins/save.min.js"></script>
   <script type="text/javascript" src="../librerias/js/plugins/fullscreen.min.js"></script>
 
+  <script src="https://cdn.tiny.cloud/1/04y83kdqct0olqbwvv1w5380ovlja5nfi52o3l6lfam53myc/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- summernote -->
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
+ <!-- Summernote -->
+<script src="../plugins/summernote/summernote-bs4.min.js"></script>
   <script>
 
 var Base64 = (function() {
@@ -217,3 +222,39 @@ var Base64 = (function() {
     };
 }());
 </script>
+<!-- 
+<script>
+tinymce.init({
+  selector: '#titulo',
+  plugins: 'image code',
+  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+  height: 500,
+  plugins: [
+    "advlist autolink lists link image charmap print preview anchor",
+    "searchreplace visualblocks code fullscreen",
+    "insertdatetime media table paste imagetools wordcount"
+  ],
+  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+  content_css: [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tiny.cloud/css/codepen.min.css'
+  ]
+});
+
+tinymce.init({
+  selector: '#ayuda',
+  plugins: 'image code',
+  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+  height: 500,
+  plugins: [
+    "advlist autolink lists link image charmap print preview anchor",
+    "searchreplace visualblocks code fullscreen",
+    "insertdatetime media table paste imagetools wordcount"
+  ],
+  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+  content_css: [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tiny.cloud/css/codepen.min.css'
+  ]
+});
+</script> -->

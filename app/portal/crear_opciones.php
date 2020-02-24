@@ -181,20 +181,7 @@ if(isset($_SESSION['id'])){
               </div>
               <div class="card-body">
                                
-                     <form>     
-                                
-                                <div class="form-group">
-                                <label for="tipo">(*) TIPO DE OPCIÓN</label>
-                                    <select class='form-control' id='tipo'>
-                                        <option value="" >SELECCIONE</option>
-                                        <!--<option value="1" >ABIERTA</option>-->
-                                        <option value="1" >TEXTO</option>
-                                        <option value="2" >IMAGEN</option>
-                                        <!--<option value="4" >ARCHIVO</option>-->
-                                    </select>
-                                
-                                </div>
-                              
+                     <form>                                   
                                
                                 <div class="form-group" id='text_opcion'>
                                    <label for="nombre">(*) NOMBRE LA OPCIÓN</label>
@@ -202,12 +189,12 @@ if(isset($_SESSION['id'])){
                                 </div>
 
                                
-                                <div class="form-group" id='arch_opcion'>
+                                <!-- <div class="form-group" id='arch_opcion'>
                                 <label for="archivo">ARCHIVO (<b>Opcional</b>)</label>
                                     <div class="form-line">
                                      <input type="file" id="archivo" class="form-control">
                                     </div>
-                                </div>
+                                </div> -->
                                
                                 <div class="form-group">
                                 <label for="valor">VALOR (<b>Opcional</b>)</label>
@@ -397,14 +384,14 @@ if(isset($_SESSION['id'])){
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
-<script>
+<!-- <script>
     (function () {
       new FroalaEditor("#nombre", {
         pastePlain: false,
         'KEY': 'MY_KEY_IS AQUÍ',
       })      
     })()
-  </script>
+  </script> -->
 <script>
     $(document).ready(function () {
 
@@ -478,35 +465,66 @@ if(isset($_SESSION['id'])){
         // // Menú
         // $("#menu_app").load('../template/menu.html');
 
-        $("#text_opcion").hide();
-        $("#arch_opcion").hide();
+        // $("#text_opcion").hide();
+        // $("#arch_opcion").hide();
 
 
-            $("#tipo").change(function(){
-                var tipo = $("#tipo").val();
-                  if(tipo==1){
-                    $("#text_opcion").show();
-                    $("#arch_opcion").hide();
-                  }else if(tipo==2){
-                    $("#text_opcion").hide();
-                    $("#arch_opcion").show();
-                  }else{
-                    $("#text_opcion").hide();
-                     $("#arch_opcion").hide();
-                  } 
-            });
+        //     $("#tipo").change(function(){
+        //         var tipo = $("#tipo").val();
+        //           if(tipo==1){
+        //             $("#text_opcion").show();
+        //             $("#arch_opcion").hide();
+        //           }else if(tipo==2){
+        //             $("#text_opcion").hide();
+        //             $("#arch_opcion").show();
+        //           }else{
+        //             $("#text_opcion").hide();
+        //              $("#arch_opcion").hide();
+        //           } 
+        //     });
 
 
                  $("#nombre_plan").html($.get("nombre"));
 
+                 $('#nombre').summernote({
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for(let i=0; i < files.length; i++) {
+                                $.upload(files[i]);
+                            }
+                        }
+                    },
+                    height: 500,
+                });
+
+                $.upload = function (file) {
+                    let out = new FormData();
+                    out.append('file', file, file.name);
+
+                    $.ajax({
+                        method: 'POST',
+                        url: 'upload.php',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: out,
+                        success: function (img) {
+                            $('#nombre').summernote('insertImage', img);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus + " " + errorThrown);
+                        }
+                    });
+                };
+
                   $("#guardar").click(function(){
 
 
-                    var nombre2 = new FroalaEditor('div#nombre', {}, function () {
-                        console.log(nombre2.html.get())
+                    // var nombre2 = new FroalaEditor('div#nombre', {}, function () {
+                    //     console.log(nombre2.html.get())
                        
-                    });                       
-                        var nombre = (nombre2.html.get());  
+                    // });                       
+                    var nombre = $("#nombre").summernote("code");
                        // alert(nombre); 
                        // var plainText;
                     var plainText = nombre.replace(/<style([\s\S]*?)<\/style>/gi, ' ')
@@ -518,12 +536,12 @@ if(isset($_SESSION['id'])){
                         var id_pregunta= id;
                         var user = 2;
                         var resp_correcta = $("#resp_correcta").val();
-                        var tipo = $("#tipo").val();
+                        //var tipo = $("#tipo").val();
 
                         var datos ='g_plantilla='+1+'&crear_opcion='+1+'&nombre='+nombre+'&id_pregunta='+id_pregunta+'&valor='+valor+'&resp_correcta='+resp_correcta+'&plainText='+plainText;
 
-                            if(tipo !=""){
-                                  if(tipo == 1 && nombre==""){
+                           
+                                  if(nombre==""){
                                        alert("Ingrese los campos con asterísco(*)");
                                        return false;
                                   }
@@ -596,11 +614,7 @@ if(isset($_SESSION['id'])){
                                                 //swal("Ops", "Ocurrio un problema aquí, comunícate con el administrador", "warning");
                                             }
                                             
-                                    });
-
-                            }else{
-                               alert("Seleccione tipo de opción");
-                            }
+                                    });                            
                 });
     });
 
