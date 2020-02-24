@@ -415,7 +415,7 @@ if(isset($_SESSION['id'])){
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
-                        alert(titulo);
+                       // alert(titulo);
                         var plainText = titulo.replace(/<style([\s\S]*?)<\/style>/gi, ' ')
                                                     .replace(/<script([\s\S]*?)<\/script>/gi, ' ')
                                                     .replace(/(<(?:.|\n)*?>)/gm, ' ')
