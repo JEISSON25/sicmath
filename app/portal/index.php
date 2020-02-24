@@ -185,7 +185,7 @@ if(isset($_SESSION['id'])){
 
                 <div class="col-lg-4 col-8">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-danger">
                     <div class="inner">
                         
 
@@ -200,7 +200,7 @@ if(isset($_SESSION['id'])){
                 <!-- ./col -->
                 <div class="col-lg-4 col-8">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-dark">
                     <div class="inner">
                         
 
@@ -230,7 +230,7 @@ if(isset($_SESSION['id'])){
 
                 <div class="col-lg-4 col-8">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-secondary">
                     <div class="inner">
                         
 
