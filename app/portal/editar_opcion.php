@@ -336,24 +336,6 @@ if(isset($_SESSION['id'])){
         // // Menú
         // $("#menu_app").load('../template/menu.html');
 
-        $("#text_opcion").hide();
-        $("#arch_opcion").hide();
-
-
-            $("#tipo").change(function(){
-                var tipo = $("#tipo").val();
-                  if(tipo==1){
-                    $("#text_opcion").show();
-                    $("#arch_opcion").hide();
-                  }else if(tipo==2){
-                    $("#text_opcion").hide();
-                    $("#arch_opcion").show();
-                  }else{
-                    $("#text_opcion").hide();
-                     $("#arch_opcion").hide();
-                  } 
-            });
-
 
             $('#nombre').summernote({
                     callbacks: {
