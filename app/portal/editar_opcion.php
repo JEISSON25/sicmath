@@ -187,27 +187,27 @@ if(isset($_SESSION['id'])){
                                
                      <form>     
                                 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                 <label for="tipo">(*) TIPO DE OPCIÓN</label>
                                     <select class='form-control' id='tipo'>
                                         <option value="" >SELECCIONE</option>                                       
                     <option value="1" <?php if($datos['id_tipo']==1){ ?>selected<?php } ?>>TEXTO</option>
                     <option value="2" <?php if($datos['id_tipo']==2){ ?>selected<?php } ?>>IMAGEN</option>                                       
                                     </select>                                
-                                </div>
+                                </div> -->
                                 <div class="form-group" id='text_opcion'>
                                    <label for="nombre">(*) NOMBRE LA OPCIÓN</label>
                                     <div class="form-line">
-                                        <input type="text" id="nombre" value="<?php echo $datos['nombre'] ?>" class="form-control" placeholder="INTRODUZCA NOMBRE DE LA OPCIÓN">
+                                       <textarea id="nombre" class="form-control"><?php echo $datos['nombre'] ?></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group" id='arch_opcion'>
+                                <!-- <div class="form-group" id='arch_opcion'>
                                 <label for="archivo">ARCHIVO (<b>Opcional</b>)</label>
                                     <div class="form-line">
                                      <input type="file" id="archivo" class="form-control">
                                     </div>
-                                </div>
+                                </div> -->
                                
                                 <div class="form-group">
                                 <label for="valor">VALOR (<b>Opcional</b>)</label>
@@ -355,11 +355,43 @@ if(isset($_SESSION['id'])){
             });
 
 
+            $('#nombre').summernote({
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for(let i=0; i < files.length; i++) {
+                                $.upload(files[i]);
+                            }
+                        }
+                    },
+                    height: 500,
+                });
+
+                $.upload = function (file) {
+                    let out = new FormData();
+                    out.append('file', file, file.name);
+
+                    $.ajax({
+                        method: 'POST',
+                        url: 'upload.php',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: out,
+                        success: function (img) {
+                            $('#nombre').summernote('insertImage', img);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus + " " + errorThrown);
+                        }
+                    });
+                };
+
+
                  $("#nombre_plan").html($.get("nombre"));
 
                   $("#guardar").click(function(){
 
-                        var nombre = $("#nombre").val();                     
+                        var nombre = $("#nombre").summernote("code");                 
                         var valor = $("#valor").val();                      
                         var id_pregunta= id;
                         var user = 2;

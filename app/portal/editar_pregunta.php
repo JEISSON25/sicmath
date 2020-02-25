@@ -68,31 +68,21 @@ if(isset($_SESSION['id'])){
               <div class="card-body">
                                
              <form>                               
-                                <!-- <label for="email_address">(*) TIPO DE PREGUNTA</label>
-                                <div class="form-group">
-                                
-                                    <select class='form-control' id='tipo'>
-                                        <option value="" >SELECCIONE</option>
-                                       
-                                        <option value="3" >OPCIONES</option>
-                                       
-                                    </select>
-                                
-                                </div> -->
+                  
                                 <label for="email_address">(*) NOMBRE DE LA PREGUNTA</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <textarea id="titulo" class="form-control"  placeholder="INTRODUZCA NOMBRE DE LA PREGUNTA "><?php echo $datos['titulo'] ?></textarea>
+                                        <textarea id="titulo" class="form-control"><?php echo $datos['titulo'] ?></textarea>
                                     </div>
                                 </div>
             
-                                <label for="email_address">DESCRIPCION DETALLADA DE LA PREGUNTA (OPCIONAL)</label>
+                                <!-- <label for="email_address">DESCRIPCION DETALLADA DE LA PREGUNTA (OPCIONAL)</label>
                                 <div class="form-group">
                                     <div class="form-line">
                                       <textarea id="nombre" class="form-control"  placeholder="INTRODUZCA UNA DESCRIPCION DETALLADA DE LA PREGUNTA "><?php echo $datos['nombre'] ?></textarea>
                                         
                                     </div>
-                                </div>
+                                </div> -->
                                 <label for="email_address">(*) COMPETENCIA</label>
                                 <div class="form-group">
                                     <div class="form-line">
@@ -108,7 +98,7 @@ if(isset($_SESSION['id'])){
                                 <label for="email_address">(*) PROCEDIMIENTO LÓGICO</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="ayuda" value="<?php echo $datos['ayuda'] ?>" class="form-control" placeholder="PROCEDIMIENTO LÓGICO">
+                                    <textarea id="ayuda" class="form-control"><?php echo $datos['ayuda'] ?></textarea>
                                     </div>
                                 </div>
                                 
@@ -231,16 +221,79 @@ if(isset($_SESSION['id'])){
 </html>
 
 <script>
-    $(document).ready(function () {                
-           
+    $(document).ready(function () {               
+      
+       
+      $('#titulo').summernote({
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for(let i=0; i < files.length; i++) {
+                                $.upload(files[i]);
+                            }
+                        }
+                    },
+                    height: 500,
+                });
+
+                $.upload = function (file) {
+                    let out = new FormData();
+                    out.append('file', file, file.name);
+
+                    $.ajax({
+                        method: 'POST',
+                        url: 'upload.php',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: out,
+                        success: function (img) {
+                            $('#titulo').summernote('insertImage', img);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus + " " + errorThrown);
+                        }
+                    });
+                };
+
+                $('#ayuda').summernote({
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for(let i=0; i < files.length; i++) {
+                                $.upload1(files[i]);
+                            }
+                        }
+                    },
+                    height: 500,
+                });
+
+                $.upload1 = function (file) {
+                    let out = new FormData();
+                    out.append('file', file, file.name);
+
+                    $.ajax({
+                        method: 'POST',
+                        url: 'upload.php',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: out,
+                        success: function (img) {
+                            $('#ayuda').summernote('insertImage', img);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus + " " + errorThrown);
+                        }
+                    });
+                };
+
 
                   $("#guardar").click(function(){
 
                         var nombre = $("#nombre").val();  
                         var estado = $("#estado").val();
-                        var titulo =  $("#titulo").val();
+                        var titulo = $('#titulo').summernote("code");
                         var id_pregunta = "<?php echo $_GET['id'] ?>";
-                        var ayuda = $("#ayuda").val();
+                        var ayuda = $("#ayuda").summernote("code");
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
