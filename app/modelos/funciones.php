@@ -65,6 +65,9 @@ include('model_colegio.php'); // Modelo de institución
          if(isset($_GET['listar_examen2'])){ // Ver plantillas estudiante.
             ver_plantillas_estu2();
          }
+         if(isset($_GET['listar_examen1'])){ // Ver plantillas estudiante. (resultados)
+            ver_plantillas_estu4();
+         }
          if(isset($_GET['listar_preguntas'])){ // Ver plantillas
                 ver_preguntas($_GET['id']);
          }

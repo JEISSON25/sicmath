@@ -1,15 +1,23 @@
 <?php 
 include('../config.php');
 //session_destroy();
-//if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
-    if(isset($_GET['id_user']))
-    $id_user = $_GET['id_user'];
-    else
-    $id_user = $_SESSION['id_user'];
-    $sql = "";
+if(isset($_SESSION['id']) && $_SESSION['tipouser']==2){  
+
+            $s = "select * from plantilla";
+            $q =pg_query($conexion, $s);
+            $r =pg_num_rows($q);
+                if($r){
+                    
+                    $sal = 0;
+                }
+                else
+                echo $sal = 1;
+    
+                $_SESSION['id_plantilla']="";
+                $_SESSION['n_pregunta']=0;
 ?>
 
-<!DOCTYPE html>
+        <!DOCTYPE html>
         <html>
         <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         
@@ -35,6 +43,8 @@ include('../config.php');
         <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
         <!-- summernote -->
         <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
+          <!-- DataTables -->
+        <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">   
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         </head>
@@ -47,147 +57,191 @@ include('../config.php');
         <!-- Main Sidebar Container -->
         <?php include ('header.php') ?>
 
-    <!-- Sidebar -->
-    
-     <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-        <?php include('resource/button.php'); ?>
-          <div class="col-12">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">PRUEBAS DE MATEMÁTICAS</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
+        <!-- Content Wrapper. Contains page content -->
+       
+                <!-- Main content -->
+            <section class="content">
+            <div class="container-fluid">
                 <div class="row">
-                  <div class="col-sm-12">
-                    <div class="">
-                      <div class="">
-                       
-                         
-                        <center><div> <h3><B>CLAVES DE RESPUESTA</B></h3>
-                        <BR>NIVEL:  <?php echo $nivel ?> </div></center> 
-                         <table class='table'>
-                             <tr>
-                                 <th>N° Pregunta</th>
-                                 <th>Pregunta</th>
-                                 <th>Clave</th>
-                             </tr>
-                             <?php 
-                             $i=1;
-                             while($datos=pg_fetch_assoc($query)){ ?>
-                            <tr>
-                                <td><?php echo $i; ?></td>
-                                <td><?php echo html_entity_decode($datos['pregunta']) ?></td>
-                                <td><a href='mis_resultados2.php?id=<?php echo $datos['id'] ?>'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
-                            </tr> 
-                             <?php 
-                             $i++;
-                            } ?>
-                            
-                         </table>
-                         
-<br>
-<br>
-
-<!-- Button trigger modal -->
-<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">-->
-<!--  Launch demo modal-->
-<!--</button>-->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">SICMATH</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       Bienvenidos a SICMATH ( simulacro ICFES matemáticas) A continuación encontrará  45 preguntas  de selección múltiple con única respuesta.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-      
-      </div>
-    </div>
-  </div>
-</div>
-                      </div>
-                     <br />
-                      <small></small>
+                <?php include('resource/button.php'); ?>
+                <div class="col-12">
+                    <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">SELECCIONE EXAMEN A REALIZAR</h3>
                     </div>
-                  </div>
-                  
+                    <!-- /.card-header -->
+                    
+                    <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                              
+                            </h2>
+                            <!-- <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                        aria-haspopup="true" aria-expanded="false">
+                                     
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul> -->
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table id='table_id' class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NOMBRE</th>                                             
+                                            <th>ACCION</th>
+                                        </tr>
+                                    </thead>
+                                   <!-- <tbody>
+                                       <td>1</td>
+                                        <td>CUESTIONARIO</td>
+                                         <td>MATEMATICAS</td>
+                                          <td>PRUEBAS ICFES</td>
+                                           <td>ACTIVO</td>
+                                            <td>200</td>
+                                          <td><a href='crear_preguntas.html'>CREAR PREGUNTAS</a></td> 
+                                   </tbody> -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            
                 </div>
-              </div>
-              <!-- /.card-body -->
+                </div>
+                </div>         
+            <!-- /.content -->
+        </div>           <!-- Modal -->
+               
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2019 <a href="">SICMATH</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 
             </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
         </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="">SICMATH</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 
-    </div>
-  </footer>
+        <!-- ./wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+        <!-- jQuery -->
+        <script src="../plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+        $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="../plugins/chart.js/Chart.min.js"></script>
+        <!-- Sparkline -->
+        <script src="../plugins/sparklines/sparkline.js"></script>
+        <!-- JQVMap -->
+        <script src="../plugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="../plugins/jquery-knob/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="../plugins/moment/moment.min.js"></script>
+        <script src="../plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="../plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        
+        <!-- DataTables -->
+        <script src="../plugins/datatables/jquery.dataTables.js"></script>
+        <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-  
-</body>
-</html>
+        <!-- AdminLTE App -->
+        <script src="../dist/js/adminlte.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="../dist/js/pages/dashboard.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../dist/js/demo.js"></script>
+        </body>
+        </html>
+
+        <script>
+            $(document).ready(function(){
+
+                $('#exampleModalCenter').modal('show')
+
+                       $('#table_id').DataTable({           
+                                responsive: true,
+                                stateSave: true,
+                                "ajax": {
+                                    "url": "../../app/modelos/funciones.php?listar_examen1=1",
+                                    "type": "POST"                
+                                },
+                                "columns": [
+
+                                    { "data": "#" },                                    
+                                    { "data": "nombre" },                                   
+                                    { "data": "accion" }
+                                ],
+                                "oLanguage": {
+                                    "sProcessing": "Procesando...",
+                                    "sLengthMenu": 'Mostrar <select>' +
+                                        '<option value="10">10</option>' +
+                                        '<option value="20">20</option>' +
+                                        '<option value="30">30</option>' +
+                                        '<option value="40">40</option>' +
+                                        '<option value="50">50</option>' +
+                                        '<option value="-1">Todo</option>' +
+                                        '</select> registros',
+                                    "sZeroRecords": "No se encontraron resultados",
+                                    "sEmptyTable": "Ning�n dato disponible en esta tabla",
+                                    "sInfo": "Mostrando del (_START_ al _END_) de un total de _TOTAL_ registros",
+                                    "sInfoEmpty": "Mostrando del 0 al 0 de un total de 0 registros",
+                                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                    "sInfoPostFix": "",
+                                    "sSearch": "Filtrar:",
+                                    "sUrl": "",
+                                    "sInfoThousands": ",",
+                                    "sLoadingRecords": "Por favor espere - cargando...",
+                                    "oPaginate": {
+                                        "sFirst": "Primero",
+                                        "sLast": "�ltimo",
+                                        "sNext": "Siguiente",
+                                        "sPrevious": "Anterior"
+                                    },
+                                    "oAria": {
+                                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                    }
+                                },
+
+                        });
+                
+            })
+        </script>
+<?php
+}else{
+//echo "entró aqui";
+?>
+  <script>
+   parent.location="../../app";
+  </script> 
+<?php
+}
+?>

@@ -1,15 +1,17 @@
 <?php 
 include('../config.php');
+//session_destroy();
+//if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){ 
+    if(isset($_GET['id_user']))
+    $id_user = $_GET['id_user'];
+    else
+    $id_user = $_SESSION['id'];
 
-
-    $sql = "select * from preguntas where id='".$_GET['id']."'  ";
+    $sql = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
+    from estado, preguntas, plantilla, tipopregunta
+    where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
+    and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."'  ";
     $query =pg_query($conexion, $sql);
-    $datos4=pg_fetch_assoc($query);
-
-
-    $sql = "select  from resp_pregunta where id='".$_GET['id']."'  ";
-    $query =pg_query($conexion, $sql);
-    $datos4=pg_fetch_assoc($query);
 
     // Obtener el nivel
 
@@ -25,7 +27,6 @@ include('../config.php');
       }else
        $nivel="SIN CALIFICAR";
 ?>
-
 <!DOCTYPE html>
         <html>
         <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,38 +85,36 @@ include('../config.php');
                       <div class="">
                        
                          
-                      <center><div> <h3><B>CLAVES DE RESPUESTA</B></h3>
-                       
-                       </center> </div>
-                       <div align='justify'>
-                          PREGUNTA N° <?php echo $_GET['n'] ?>: <?php echo $datos4['titulo']  ?>
-                 
-                       </div>
-                    <table class='table'>
-                    
-                         <tr>
-                            <th>COMPETENCIA</th>
-                             <td><?php echo $datos4['competencia'] ?></td>
-                        </tr>
-                         <tr>
-                           <th>COMPONENTE</th>
-                             <td><?php echo $datos4['componente'] ?></td>
-                        </tr>
-                         <tr>
-                           <th>RESPUESTA SELECCIONADA</th>
-                             <td>A</td>
-                        </tr>
-                          <tr>
-                            <th>RESPUESTA CORRECTA</th>
-                             <td><?php ?></td>
-                        </tr>
-                        <tr>
-                            <th>PROCEDIMIENTO LÓGICO</th>
-                             <td><?php echo $datos4['ayuda'] ?></td>
-                        </tr>
-                     
-                      
-                    </table>
+                        <center><div> <h3><B>CLAVES DE RESPUESTA</B></h3>
+                        <BR>NIVEL:  <?php echo $nivel ?> </div></center> 
+                         <table class='table'>
+                             <tr>
+                                 <th>N° Pregunta</th>
+                                 <th>Pregunta</th>
+                                 <th>Clave</th>
+                             </tr>
+                             <?php 
+                             $i=1;
+                             while($datos=pg_fetch_assoc($query)){
+                               
+                                  // // Recuperamos las opciones de la pregunta
+                                  // $sql2 = "select opciones.id, plantilla.nombre as plantilla, opciones.nombre, opciones.valor, preguntas.nombre as pregunta
+                                  // from opciones, preguntas, plantilla
+                                  // where opciones.id_pregunta=preguntas.id and preguntas.id_plantilla=plantilla.id
+                                  // and opciones.id_pregunta = '".$datos['id']."' ";
+                                  // $queryd2 = pg_query($conexion, $sql2);
+                                  // $rowsd2 = pg_num_rows($queryd2);
+                               ?>
+                            <tr>
+                                <td><?php echo $i; ?></td>
+                                <td><?php echo html_entity_decode($datos['titulo']) ?></td>
+                                <td><a href='mis_resultados2.php?examen=<?php echo $_GET['nombre'] ?>&id=<?php echo $datos['id'] ?>&pregunta=<?php echo base64_encode($datos['titulo']) ?>&n=<?php echo $i ?>'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
+                            </tr> 
+                             <?php 
+                             $i++;
+                            } ?>
+                            
+                         </table>
                          
 <br>
 <br>
@@ -126,6 +125,25 @@ include('../config.php');
 <!--</button>-->
 
 <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">SICMATH</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Bienvenidos a SICMATH ( simulacro ICFES matemáticas) A continuación encontrará  45 preguntas  de selección múltiple con única respuesta.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
                       </div>
                      <br />
                       <small></small>

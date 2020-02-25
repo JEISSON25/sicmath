@@ -96,6 +96,38 @@
                     echo '{"data": ['.$tabla.']}';
 
 }
+
+function ver_plantillas_estu4(){
+    include '../config.php';
+    $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
+    from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id and plantilla.id_estado=1
+    ";
+    $query = pg_query($conexion, $sql);
+
+    $tabla = "";
+    $i=1;
+            while($datos=pg_fetch_assoc($query)){
+
+                 $s="select * from preguntas where id_plantilla='".$datos['id']."' ";
+                $q=pg_query($conexion, $s);
+                $r=pg_num_rows($q);
+
+                $n_preguntas = $r;
+             $accion= '<a href=\"mis_resultados1.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">VER RESULTADOS';
+                 $tabla.='{ 
+                              "#":"'.$i.'",
+                              "nombre":"'.($datos['nombre']).'",
+                              "descripcion":"'.($datos['descripcion']).'",
+                              "accion":"'.$accion.'"
+                      },';
+                     // $data['data'][] = $tabla;
+                      $i++;
+                }
+                //echo json_encode($data);
+                $tabla= substr($tabla,0, strlen($tabla) -1);
+                echo '{"data": ['.$tabla.']}';
+
+}
 function ver_plantillas_estu2(){
     include '../config.php';
     $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
@@ -128,10 +160,7 @@ function ver_plantillas_estu2(){
 
 }
 
-// function calcular_nivel($id_pregunta, $id_opcion){
-//     include '../config.php';
-    
-// }
+
 
 function ver_plantillas_estu3($id){ // Ver examenes del estudiante realizado
     include '../config.php';
