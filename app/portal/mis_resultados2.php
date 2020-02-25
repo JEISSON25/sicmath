@@ -7,9 +7,18 @@ include('../config.php');
     $datos4=pg_fetch_assoc($query);
 
 
-    $sql = "select  from resp_pregunta where id='".$_GET['id']."'  ";
-    $query =pg_query($conexion, $sql);
-    $datos4=pg_fetch_assoc($query);
+    $sql2 = "select opciones.nombre_plano from opciones, resp_pregunta
+    where opciones.id=resp_pregunta.id_opcion and resp_pregunta.id_pregunta='".$_GET['id']."'  ";
+    $query2 =pg_query($conexion, $sql2);
+    $datos5=pg_fetch_assoc($query2);
+
+    $sql3 = "select opciones.nombre_plano from opciones, resultados
+    where opciones.id=resultados.id_opcion and resultados.id_pregunta='".$_GET['id']."' 
+    and resultados.id_user='".$_SESSION['id']."'
+    ";
+    $query3 =pg_query($conexion, $sql3);
+    $datos6=pg_fetch_assoc($query3);
+
 
     // Obtener el nivel
 
@@ -103,11 +112,11 @@ include('../config.php');
                         </tr>
                          <tr>
                            <th>RESPUESTA SELECCIONADA</th>
-                             <td>A</td>
+                             <td><?php echo $datos6['nombre_plano'] ?></td>
                         </tr>
                           <tr>
                             <th>RESPUESTA CORRECTA</th>
-                             <td><?php ?></td>
+                             <td><?php echo $datos5['nombre_plano'] ?></td>
                         </tr>
                         <tr>
                             <th>PROCEDIMIENTO LÓGICO</th>
