@@ -33,6 +33,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                 $_SESSION['ids_preguntas'] = $count_ids;  
                 $_SESSION['n_pregunta_count']=0;
                 $_SESSION['n_pregunta']=1;
+                $_SESSION['acertadas']=0;
             }        
            // echo "valores de: ".$_SESSION['ids_preguntas'];         
 
@@ -74,6 +75,60 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                     }*/
                    //echo "valor: ".$_SESSION['n_pregunta_count']=='';
 
+                   function obtener_desepm_nivel($acertadas){
+                    @include('../config.php');
+                    $sql = "select * from niveles";
+                    $query = pg_query($conexion, $sql);
+                    $rows = pg_num_rows($query);
+                        if($rows){
+                              while($datosr=pg_fetch_assoc($query)){
+                                                   
+                                                if($acertadas>=$datosr['min'] && $acertadas<=$datosr['max']){
+                                                $concepto=$datosr['id'];
+                                                return $concepto;
+                                                break;
+                                                }
+                            }
+                        }
+                    }
+
+                    function validate_nivel_user($id_user, $id_plantilla){
+                        @include('../config.php');
+                        $sql = "select id from nivel_users where id_user='".$id_user."' and id_plantilla='".$id_plantilla."' ";
+                        $query =pg_query($conexion, $sql);
+                        $rows = pg_num_rows($query);
+                            if($rows){
+                                $d = pg_fetch_assoc($query);
+                                return $d['id'];
+                            }else
+                            return "0";
+                    }
+                   function obtener_nivel($id_pregunta, $id_respuesta, $id_user, $id_plantilla){
+
+                    @include('../config.php');
+                    $sql = "select id_opcion from resp_pregunta where id_pregunta='".$id_pregunta."' and id_opcion='".$id_respuesta."' ";
+                    $query = pg_query($conexion, $sql);
+                    $rows = pg_num_rows($query);
+                        if($rows){
+                            $_SESSION['acertadas']=$_SESSION['acertadas']+1;
+                        }
+                    
+                        
+                            // Obtemos real nivel
+                            $nivel = obtener_desepm_nivel($_SESSION['acertadas']);
+                            $consulta_insert=validate_nivel_user($id_user, $id_plantilla);
+                                if($consulta_insert>0){
+                            $update ="update nivel_users set id_nivel='".$nivel."', acertada='".$_SESSION['acertadas']."', fecha_update='".$fecha_registro."' where id='". $consulta_insert."' ";
+                                }else{
+                            $update ="insert into nivel_users (id_user, id_nivel, id_plantilla, acertadas, fecha_update) 
+                            values('".$id_user."', '".$nivel."', '".$id_plantilla."', '".$_SESSION['acertadas']."', '".$fecha_registro."') "; 
+                                }
+                                $query2 = pg_query($conexion, $update);
+                                    if($query2){
+
+                                    }
+                   }
+
                    if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.    
 
                     if(isset($_POST['id_respuesta'])){
@@ -92,8 +147,11 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                         $q = pg_query($conexion, $up);
                          if($q){
                              $_SESSION['n_pregunta']+=1;
-                           echo "valor cambiado:".$_SESSION['n_pregunta_count']=$_SESSION['n_pregunta_count']+1; // count preguntas
-                          // $_POST['id_respuesta']='';
+                             $_SESSION['n_pregunta_count']=$_SESSION['n_pregunta_count']+1; // count preguntas
+                            
+                             $calcular_nivel =obtener_nivel($_SESSION['id_pregunta'], $_POST['id_respuesta'], $_SESSION['id'], $_GET['id'] );
+                          
+                             // $_POST['id_respuesta']='';
                            /*echo "selector: ".$s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']]."' ";
                            $q2 =pg_query($conexion, $s2);
                            $r2 =pg_num_rows($q2);
@@ -238,10 +296,12 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
             $_SESSION['ids_preguntas']='';
             $_SESSION['n_pregunta']=0;
             $_SESSION['n_pregunta_count']=0;
+            $_SESSION['acertadas']=0;
 
             unset($_SESSION['ids_preguntas']);
             unset($_SESSION['n_pregunta']);
             unset($_SESSION['n_pregunta_count']);
+            unset($_SESSION['acertadas']);
             echo "<br><br><p><center><b>EXAMEN HA SIDO FINALIZADO CON ÉXITO</b></center></p><br><br>";
         } 
             

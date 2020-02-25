@@ -84,6 +84,10 @@ include('model_colegio.php'); // Modelo de institución
          if(isset($_GET['listar_nivel'])){ // Listar niveles
                  ver_niveles();
          }
+
+         if(isset($_GET['listar_examen3'])){ // Listar exameness
+            ver_plantillas_estu3($_GET['id']);
+         }
          
         if(isset($_POST['g_plantilla'])){ // Gestor de plantillas
            

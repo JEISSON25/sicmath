@@ -128,29 +128,32 @@ function ver_plantillas_estu2(){
 
 }
 
-function ver_plantillas_estu3(){ // Ver examenes del estudiante realizado
+// function calcular_nivel($id_pregunta, $id_opcion){
+//     include '../config.php';
+    
+// }
+
+function ver_plantillas_estu3($id){ // Ver examenes del estudiante realizado
     include '../config.php';
-    $sql="select plantilla.id, plantilla.nombre, plantilla.descripcion, tipo_plantilla.descripcion as tipoplantilla, estado.descripcion as estado, plantilla.cant_preguntas
-    from plantilla, tipo_plantilla, estado where plantilla.tipo=tipo_plantilla.id and plantilla.id_estado=estado.id and plantilla.id_estado=1
+    $sql="select users.nombre, users.apellidos, users.id, niveles.descripcion as nivel, nivel_users.acertadas
+    from  plantilla, users, nivel_users, niveles
+    where nivel_users.id_user=users.id and nivel_users.id_nivel=niveles.id 
+    and plantilla.id='".$id."'
     ";
     $query = pg_query($conexion, $sql);
 
     $tabla = "";
     $i=1;
             while($datos=pg_fetch_assoc($query)){
-
-                 $s="select * from preguntas where id_plantilla='".$datos['id']."' ";
-                $q=pg_query($conexion, $s);
-                $r=pg_num_rows($q);
-
-                $n_preguntas = $r;
-                $accion= '<a href=\"ver_estu_examen.php?id='.$datos["id"].'&nombre='.($datos['nombre']).'\" tittle=\"Revisar\">VER ESTUDIANTES';
+                $acertadas = $datos['acertadas']."/45";
+                $lupa = '<a href=\"#" title=\"Ver resultado\">Ver resultado</a>';
+                $accion= '<a href=\"eliminar_examen.php?id_plantilla='.$id.'&id_user='.($datos['id']).'\" tittle=\"Revisar\">ELIMINAR';
                 $tabla.='{ 
-                              "#":"'.$i.'",
-                              "nombre":"'.($datos['nombre']).'",
-                              "descripcion":"'.($datos['descripcion']).'",
-                              "accion":"'.$accion.'"
-                      },';
+                            "#":"'.$i.'",
+                            "nombre":"'.($datos['nombre']).'",
+                            "nivel":"'.$datos['nivel'].' ('.$acertadas.')'. '",
+                            "accion":"'.$accion.'"
+                },';
                      // $data['data'][] = $tabla;
                       $i++;
                 }
