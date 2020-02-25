@@ -33,7 +33,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="javascript:;" onclick="goBack()" >Atrás</a></li>
+             <li class="breadcrumb-item"><a href="javascript:;" onclick="goBack()" >Atrás</a></li>
+              <li class="breadcrumb-item"><a href="logout.php" >Salir</a></li>
               <li class="breadcrumb-item"><a href="./">Inicio</a></li>
             
             </ol>
