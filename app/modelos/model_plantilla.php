@@ -240,7 +240,7 @@ function list_estu_examen(){
                         $q=pg_query($conexion, $s);
                         $r=pg_num_rows($q);
 
-                        $s2="select opciones.nombre from opciones, resp_pregunta where resp_pregunta.id_opcion=opciones.id and resp_pregunta.id_pregunta='".$datos['id']."' ";
+                        $s2="select opciones.nombre_plano as nombre from opciones, resp_pregunta where resp_pregunta.id_opcion=opciones.id and resp_pregunta.id_pregunta='".$datos['id']."' ";
                         $q2=pg_query($conexion, $s2);
                         $r2=pg_num_rows($q2);
                             if($r2==0)
