@@ -437,11 +437,7 @@ if(isset($_SESSION['id'])){
                         var id= "<?php echo $id ?>";
                         var datos ='g_plantilla='+1+'&elim_opcion='+1+'&id='+id;
 
-                            if(tipo !=""){
-                                  if(tipo == 1 && nombre==""){
-                                       alert("Ingrese los campos con asterísco(*)");
-                                       return false;
-                                  }
+                            
                                 
                                     $.ajax({
                                             type:"POST",
@@ -457,10 +453,7 @@ if(isset($_SESSION['id'])){
                                                 alert("Ocurrio un problema aquí, comunícate con el administrador");
                                             }                                            
                                     });
-
-                            }else{
-                               alert("Seleccione tipo de opción");
-                            }
+                            
                 });
     });
 
