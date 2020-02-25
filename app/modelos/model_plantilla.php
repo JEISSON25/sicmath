@@ -176,7 +176,7 @@ function ver_plantillas_estu3($id){ // Ver examenes del estudiante realizado
             while($datos=pg_fetch_assoc($query)){
                 $acertadas = $datos['acertadas']."/45";
                 $lupa = '<a href=\"#" title=\"Ver resultado\">Ver resultado</a>';
-                $accion= '<a href=\"eliminar_examen.php?id_plantilla='.$id.'&id_user='.($datos['id']).'\" tittle=\"Revisar\">ELIMINAR';
+                $accion= '<a href=\"eliminar_examen.php?id_plantilla='.$id.'&id_user='.($datos['id']).'\"  target=\"_blank\"  tittle=\"Revisar\">ELIMINAR';
                 $tabla.='{ 
                             "#":"'.$i.'",
                             "nombre":"'.($datos['nombre']).'",
@@ -617,5 +617,14 @@ function list_estu_examen(){
                else {
                   return "2";
                 }
+     }
+
+     function eliminar_examen($id_user, $id_plantilla){
+        @include '../config.php';
+         $delete ="delete resultados where id_user='".$id_user."' and id_plantilla='".$id_plantilla."' ";
+         $query =pg_query($conexion, $delete);
+            if($query){
+                return "1";
+            }
      }
 ?>
