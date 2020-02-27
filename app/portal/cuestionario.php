@@ -142,7 +142,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                              values ('".$_GET['id']."', '".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
                          }else{
                              $datotg = pg_fetch_assoc($query_sql);
-                            echo $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."', fecha_registro='".$fecha_registro."' where id ='".$datotg['id']."' ";
+                             $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."', fecha_registro='".$fecha_registro."' where id ='".$datotg['id']."' ";
                          }
                         $q = pg_query($conexion, $up);
                          if($q){
