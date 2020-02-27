@@ -430,6 +430,7 @@ function list_estu_examen(){
      function crear_pregunta($id, $tipo, $estado, $titulo, $nombre = '', $ayuda, $competencia, $componente, $plainText){
           @include '../config.php';
          $validar_pregunt = consul_pregunta($id, $tipo, $plainText);
+         $validar_pregunt=1; // Quitamos validación
             if($validar_pregunt==1){
                 if(isset($_SESSION['id_archivo'])){
                   //  echo "Entró aquí";
