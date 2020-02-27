@@ -84,7 +84,7 @@ include('comuni.php');
                 
                 // Insertamos usuario
 
-                $insert = "insert into users (id_usuario, nombre, apellidos, email, clave, nom_usuario, id_grado, id_colegio, tipouser, fecha_registro, pregunta, respuesta)
+          $insert = "insert into users (id_usuario, nombre, apellidos, email, clave, nom_usuario, id_grado, id_colegio, tipouser, fecha_registro, pregunta, respuesta)
                 values('".$id_usuario."', '".$nombre."', '".$apellidos."', '".$email."', '".$clave."', '".$nom_usuario."', '".$grado."', '".$colegio."', '".$tipouser."', '".$fecha_registro."', '".$pregunta."', '".$respuesta."') ";
                 $q_insert = pg_query($conexion, $insert);
                     if($q_insert)
