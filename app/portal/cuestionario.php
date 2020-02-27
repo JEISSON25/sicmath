@@ -138,7 +138,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                      $rows = pg_num_rows($query_sql);
              
                          if(!$rows){
-                             echo $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
+                             $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
                              values ('".$_GET['id']."', '".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
                          }else{
                              $datotg = pg_fetch_assoc($query_sql);
