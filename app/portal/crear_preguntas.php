@@ -348,6 +348,14 @@ if(isset($_SESSION['id'])){
                             }
                         }
                     },
+                     toolbar: [
+                      
+          ['style', ['bold', 'italic', 'underline', 'clear', 'subscript', 'superscript']],
+          ['color', ['color']],
+          ['group1', ['table', 'picture', 'codeview']],
+          ['para', ['ul', 'ol', 'paragraph']],
+         
+        ],
                     height: 500,
                 });
 
@@ -379,6 +387,14 @@ if(isset($_SESSION['id'])){
                             }
                         }
                     },
+                    toolbar: [
+                      
+                      ['style', ['bold', 'italic', 'underline', 'clear', 'subscript', 'superscript']],
+                      ['color', ['color']],
+                      ['group1', ['table', 'picture', 'codeview']],
+                      ['para', ['ul', 'ol', 'paragraph']],
+                     
+                    ],
                     height: 500,
                 });
 

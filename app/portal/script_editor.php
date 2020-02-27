@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
  <!-- Summernote -->
 <script src="../plugins/summernote/summernote-bs4.min.js"></script>
+<script src="../plugins/summernote/extens.js"></script>
   <script>
 
 var Base64 = (function() {
