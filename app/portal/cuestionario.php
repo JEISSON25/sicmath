@@ -106,7 +106,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                    function obtener_nivel($id_pregunta, $id_respuesta, $id_user, $id_plantilla){
 
                     @include('../config.php');
-                    $sql = "select id_opcion from resp_pregunta where id_pregunta='".$id_pregunta."' and id_opcion='".$id_respuesta."' ";
+                     $sql = "select id_opcion from resp_pregunta where id_pregunta='".$id_pregunta."' and id_opcion='".$id_respuesta."' ";
                     $query = pg_query($conexion, $sql);
                     $rows = pg_num_rows($query);
                         if($rows){
@@ -118,9 +118,9 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                             $nivel = obtener_desepm_nivel($_SESSION['acertadas']);
                             $consulta_insert=validate_nivel_user($id_user, $id_plantilla);
                                 if($consulta_insert>0){
-                            $update ="update nivel_users set id_nivel='".$nivel."', acertada='".$_SESSION['acertadas']."', fecha_update='".$fecha_registro."' where id='". $consulta_insert."' ";
+                           $update ="update nivel_users set id_nivel='".$nivel."', acertadas='".$_SESSION['acertadas']."', fecha_update='".$fecha_registro."' where id='". $consulta_insert."' ";
                                 }else{
-                            $update ="insert into nivel_users (id_user, id_nivel, id_plantilla, acertadas, fecha_update) 
+                             $update ="insert into nivel_users (id_user, id_nivel, id_plantilla, acertadas, fecha_update) 
                             values('".$id_user."', '".$nivel."', '".$id_plantilla."', '".$_SESSION['acertadas']."', '".$fecha_registro."') "; 
                                 }
                                 $query2 = pg_query($conexion, $update);
@@ -138,11 +138,11 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                      $rows = pg_num_rows($query_sql);
              
                          if(!$rows){
-                             $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
+                             echo $up = "insert into resultados (id_plantilla, id_pregunta, id_opcion, id_user, fecha_registro)
                              values ('".$_GET['id']."', '".$_SESSION['id_pregunta']."', '".$_POST['id_respuesta']."', '".$_SESSION['id']."', '".$fecha_registro."') ";
                          }else{
                              $datotg = pg_fetch_assoc($query_sql);
-                             $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."', fecha_registro='".$fecha_registro."' where id ='".$datotg['id']."' ";
+                            echo $up = "update resultados set id_opcion ='".$_POST['id_respuesta']."', fecha_registro='".$fecha_registro."' where id ='".$datotg['id']."' ";
                          }
                         $q = pg_query($conexion, $up);
                          if($q){
@@ -174,7 +174,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                      }
                  }
                     if(empty($_SESSION['n_pregunta_count']) || $_SESSION['n_pregunta_count']==0){
-                         $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][0]."' ";
+                        $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][0]."' ";
                         $q2 =pg_query($conexion, $s2);
                         $r2 =pg_num_rows($q2);
                         $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$_SESSION['n_pregunta_count']];

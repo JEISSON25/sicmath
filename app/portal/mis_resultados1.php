@@ -89,7 +89,7 @@ include('../config.php');
                         <BR>NIVEL:  <?php echo $nivel ?> </div></center> 
                          <table class='table'>
                              <tr>
-                                 <th>N° Pregunta</th>
+                                 <th>#</th>
                                  <th>Pregunta</th>
                                  <th>Clave</th>
                              </tr>
