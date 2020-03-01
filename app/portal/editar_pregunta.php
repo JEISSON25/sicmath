@@ -67,7 +67,9 @@ if(isset($_SESSION['id'])){
               </div>
               <div class="card-body">
                                
-             <form>                               
+             <form>            
+             <iframe src="https://www.codecogs.com/latex/eqneditor.php?lang=es-es" height="350" width='600'></iframe>
+                               
                   
                                 <label for="email_address">(*) NOMBRE DE LA PREGUNTA</label>
                                 <div class="form-group">
@@ -313,6 +315,8 @@ if(isset($_SESSION['id'])){
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
+                        titulo = btoa(titulo); 
+                        ayuda = btoa(ayuda); 
 
                         var datos ='g_plantilla='+1+'&editar_pregunta='+1+'&nombre='+nombre+'&estado='+estado+'&id_pregunta='+id_pregunta+'&ayuda='+ayuda+'&titulo='+titulo
                         +'&competencia='+competencia+'&componente='+componente;

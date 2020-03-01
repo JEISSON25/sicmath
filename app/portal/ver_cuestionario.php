@@ -88,17 +88,9 @@ if($_GET['id']){
                     <div class="card-body">
                         <div class="row">
                         <div class="col-sm-12">
-                             <form name="form1" method="post" action="" class='form'>
+                            
                              <h4><b>PREGUNTA N° <?php echo $i;  ?></b></h4>
-                                <div><?php echo $datos['titulo'] ?></div>                                
-                                <?php if($datos['id_archivo']){
-                                        $s1 ="select ruta from archivos where id='".$datos['id_archivo']."' ";
-                                        $q1 =pg_query($conexion, $s1);
-                                        $r1 = pg_num_rows($q1);
-                                        $d1 = pg_fetch_assoc($q1);
-                                    ?>
-                                    <p aling='center'><img src='<?php echo $serv_arch ?>/files/<?php echo $d1['ruta'] ?>' /></p>
-                                <?php } ?>
+                                <div><?php echo $datos['titulo'] ?></div>   
                                 <br>
                                 <br>  
                                                     
@@ -109,20 +101,11 @@ if($_GET['id']){
                                     <?php   } 
                                 
                                         } ?> 
-                            <!-- <input name="intereses" type="radio" value="rbilibros" />B. I y II solamente.
-                            
-                            <br />
-                            <input name="intereses" type="radio" value="rbiinternet" checked="checked" />C. II solamente.
-                            <br />
-                            <input name="intereses" type="radio" value="rbiinternet" checked="checked" />D. II y III solamente. -->
-                     
-
-                <!-- <input type="submit" name='guardar' id='guardar' class="btn btn-success" value="Guardar y continuar" /> -->
-                                    </form>
-                </div>
-                </div>         
-            <!-- /.content -->
-        </div>
+                                
+                        </div>
+                        </div>         
+            
+                    </div>
              <?php  
                     $i++;
             }   

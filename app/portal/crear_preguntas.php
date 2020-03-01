@@ -36,9 +36,17 @@ if(isset($_SESSION['id'])){
    <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>        
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>   
+<script src="https://www.wiris.net/demo/editor/editor"></script>    
 <?php include('script_editor.php') ?>
 </head>
+<script>
+         var editor;
+         window.onload = function () {
+           editor = com.wiris.jsEditor.JsEditor.newInstance({'language': 'es'});
+                 editor.insertInto(document.getElementById('editorContainer'));
+         }
+</script>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -66,7 +74,10 @@ if(isset($_SESSION['id'])){
               </div>
               <div class="card-body">
                                
-             <form>                   
+             <form>     
+             <div>
+             <iframe src="https://www.codecogs.com/latex/eqneditor.php?lang=es-es" height="350" width='600'></iframe>
+             </div>              
              
                              <label for="email_address">(*) TIPO DE PREGUNTA</label>
                                 <div class="form-group">
@@ -421,24 +432,31 @@ if(isset($_SESSION['id'])){
                 $("#guardar").click(function(){
                     
                     //alert(editor.html.get());
+                    //alert($("#editorContainer").val());
+                    //alert($("#editorContainer").html());
+                   // console.log($("#editorContainer").html());
 
                         // var nombre = $("#nombre").val();                     
                         var tipo = $("#tipo").val();
                         var estado = $("#estado").val();
                         var titulo = $('#titulo').summernote("code");
-                        var id_plantilla = id;
-                        var ayuda = $("#ayuda").summernote("code");
-                        var competencia = $("#competencia").val();
-                        var componente = $("#componente").val();
-                        var user = 2;
-                       // alert(titulo);
                         var plainText = titulo.replace(/<style([\s\S]*?)<\/style>/gi, ' ')
                                                     .replace(/<script([\s\S]*?)<\/script>/gi, ' ')
                                                     .replace(/(<(?:.|\n)*?>)/gm, ' ')
                                                     .replace(/\s+/gm, ' ');
-                     // plainText= Base64.encode(plainText);
-
-                
+                        //alert(titulo);
+                       // console.log(btoa(titulo));    
+                        titulo = btoa(titulo);   
+                        //plainText= btoa(plainText);       
+                        //alert(titulo);
+                        //alert(Base64.decode(titulo));
+                        var id_plantilla = id;
+                        var ayuda = $("#ayuda").summernote("code");
+                        ayuda= btoa(ayuda);  
+                        var competencia = $("#competencia").val();
+                        var componente = $("#componente").val();
+                        var user = 2;
+                     
 
                         var datos ='g_plantilla='+1+'&crear_pregunta='+1+'&tipo='+tipo+'&estado='+estado+'&id_plantilla='+id_plantilla+'&ayuda='+ayuda+'&titulo='+titulo
                         +'&competencia='+competencia+'&componente='+componente+'&plainText='+plainText;

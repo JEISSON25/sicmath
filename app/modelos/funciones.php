@@ -4,6 +4,20 @@ include('model_user.php'); // Modelos de usuario
 include('model_colegio.php'); // Modelo de institución
     // Genramos la interfaz inical de la APP
 
+function concatentar($dato){
+    $dato = explode(' ', $dato);
+    $concat = '';
+        for ($i=0;$i<count($dato);$i++){
+           if($i==0)
+           $concat=$dato[$i];
+           elseif($i>=1)
+           $concat.= "+".$dato[$i];    
+        }
+    return $concat;
+}
+function tilde_encode($dato){
+    return utf8_encode($dato);
+}
 
         if (isset($_POST['login'])){
 
@@ -104,14 +118,13 @@ include('model_colegio.php'); // Modelo de institución
             }           
             if(isset($_POST['crear_pregunta'])){
 
-                //echo base64_decode($_POST['plainText']);
-                $crear = crear_pregunta($_POST['id_plantilla'], $_POST['tipo'], $_POST['estado'], ($_POST['titulo']),
-                 $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente'], ($_POST['plainText']));
-                 echo $crear;
+               $crear = crear_pregunta($_POST['id_plantilla'], $_POST['tipo'], $_POST['estado'], tilde_encode(base64_decode(concatentar($_POST['titulo']))),
+               $_POST['nombre'], tilde_encode(base64_decode(concatentar($_POST['ayuda']))), $_POST['competencia'], $_POST['componente'], $_POST['plainText']);
+               echo $crear;
             }
             if(isset($_POST['editar_pregunta'])){
-                $crear = editar_pregunta($_POST['id_pregunta'], $_POST['estado'], $_POST['titulo'],
-                 $_POST['nombre'], $_POST['ayuda'], $_POST['competencia'], $_POST['componente']);
+                $crear = editar_pregunta($_POST['id_pregunta'], $_POST['estado'], tilde_encode(base64_decode(concatentar($_POST['titulo']))),
+                 $_POST['nombre'], tilde_encode(base64_decode(concatentar($_POST['ayuda']))), $_POST['competencia'], $_POST['componente']);
                  echo $crear;
             }
             if(isset($_POST['eliminar_pregunta'])){

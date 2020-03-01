@@ -442,8 +442,8 @@ function list_estu_examen(){
                 //echo "id_archivo". $id_archivo;
 
                $in = "insert into preguntas (id_plantilla, id_tipopregunta, id_estado, titulo, nombre, ayuda, competencia, componente, id_archivo, titulo_plano)
-                values('".$id."', '".$tipo."', '".$estado."', '".($titulo)."',  '".$nombre."', '".$ayuda."', '".$competencia."', '".$componente."', '".$id_archivo."', '".($plainText)."') ";
-                 $qin = pg_query($conexion, $in);
+                values('".$id."', '".$tipo."', '".$estado."', '".$titulo."',  '".$nombre."', '".$ayuda."', '".$competencia."', '".$componente."', '".$id_archivo."', '".$plainText."') ";
+                $qin = pg_query($conexion, $in);
 
                  if(isset($_SESSION['id_archivo'])){
                     @session_unset($_SESSION['id_archivo']); // Borramos de id para archivos.
