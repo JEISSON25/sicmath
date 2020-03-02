@@ -381,7 +381,8 @@ if(isset($_SESSION['id'])){
 
                   $("#guardar").click(function(){
 
-                        var nombre = $("#nombre").summernote("code");                 
+                        var nombre = $("#nombre").summernote("code");   
+                        nombre = Base64.encode(nombre);              
                         var valor = $("#valor").val();                      
                         var id_pregunta= id;
                         var user = 2;
