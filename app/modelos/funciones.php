@@ -16,7 +16,7 @@ function concatentar($dato){
     return $concat;
 }
 function tilde_encode($dato){
-    return utf8_encode($dato);
+    return ($dato);
 }
 
         if (isset($_POST['login'])){
@@ -133,7 +133,7 @@ function tilde_encode($dato){
             }
             if(isset($_POST['crear_opcion'])){
              //  ($id, $nombre, $valor)
-                $crear = crear_opcion ($_POST['id_pregunta'], tilde_encode(base64_decode(concatentar($_POST['nombre']))), $_POST['valor'], $_POST['resp_correcta'], $_POST['plainText']);
+                $crear = crear_opcion ($_POST['id_pregunta'], tilde_encode(base64_decode(concatentar($_POST['nombre']))), $_POST['valor'], $_POST['resp_correcta'], tilde_encode(base64_decode(concatentar($_POST['plainText']))));
                 echo $crear;
 
             }
