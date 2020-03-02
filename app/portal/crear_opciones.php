@@ -181,7 +181,10 @@ if(isset($_SESSION['id'])){
               </div>
               <div class="card-body">
                                
-                     <form>                                   
+                     <form>    
+                     <div>
+             <iframe src="https://www.codecogs.com/latex/eqneditor.php?lang=es-es" height="350" width='600'></iframe>
+             </div>                                
                                
                                 <div class="form-group" id='text_opcion'>
                                    <label for="nombre">(*) NOMBRE LA OPCIÓN</label>
