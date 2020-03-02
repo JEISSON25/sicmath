@@ -6,7 +6,7 @@ if($_GET['id']){
             $s = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
             from estado, preguntas, plantilla, tipopregunta
             where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-            and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."'  ";
+            and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."' order by preguntas.id_pregunta   ";
             $q =pg_query($conexion, $s);
             $r =pg_num_rows($q);
             $sal=0;
