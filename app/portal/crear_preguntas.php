@@ -446,13 +446,13 @@ if(isset($_SESSION['id'])){
                                                     .replace(/\s+/gm, ' ');
                         //alert(titulo);
                        // console.log(btoa(titulo));    
-                        titulo = btoa(titulo);   
+                        titulo = Base.encode(titulo);   
                         //plainText= btoa(plainText);       
                         //alert(titulo);
                         //alert(Base64.decode(titulo));
                         var id_plantilla = id;
                         var ayuda = $("#ayuda").summernote("code");
-                        ayuda= btoa(ayuda);  
+                        ayuda= Base.encode(ayuda);  
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
