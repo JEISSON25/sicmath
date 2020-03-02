@@ -139,7 +139,7 @@ function tilde_encode($dato){
             }
             if(isset($_POST['editar_opcion'])){
                 //  ($id, $nombre, $valor)
-                   $crear = edit_opcion($_POST['id'], $_POST['nombre'], $_POST['resp_correcta']);
+                   $crear = edit_opcion($_POST['id'], tilde_encode(base64_decode(concatentar($_POST['nombre']))), $_POST['resp_correcta']);
                    echo $crear;   
             }
             if(isset($_POST['elim_opcion'])){
