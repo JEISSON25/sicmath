@@ -38,7 +38,7 @@ if(isset($_SESSION['id'])){
 
   <!-- DataTables -->
   <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-
+  <?php include('script_editor.php') ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
