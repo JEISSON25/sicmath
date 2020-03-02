@@ -536,6 +536,7 @@ if(isset($_SESSION['id'])){
                        
                     // });                       
                     var nombre = $("#nombre").summernote("code");
+                    nombre = Base64.encode(nombre);
                        // alert(nombre); 
                        // var plainText;
                     var plainText = nombre.replace(/<style([\s\S]*?)<\/style>/gi, ' ')
