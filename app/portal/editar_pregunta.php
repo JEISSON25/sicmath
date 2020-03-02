@@ -138,22 +138,7 @@ if(isset($_SESSION['id'])){
               <!-- /.card-body -->
             </div>
           </div>
-          <!-- ./col -->
-          <!--<div class="col-lg-3 col-6">-->
-            <!-- small box -->
-          <!--  <div class="small-box bg-danger">-->
-          <!--    <div class="inner">-->
-          <!--      <h3>65</h3>-->
-
-          <!--      <p>Unique Visitors</p>-->
-          <!--    </div>-->
-          <!--    <div class="icon">-->
-          <!--      <i class="ion ion-pie-graph"></i>-->
-          <!--    </div>-->
-          <!--    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>-->
-          <!--  </div>-->
-          <!--</div>-->
-          <!-- ./col -->
+         
         </div>
         <!-- /.row -->
         <!-- Main row -->
@@ -315,8 +300,8 @@ if(isset($_SESSION['id'])){
                         var competencia = $("#competencia").val();
                         var componente = $("#componente").val();
                         var user = 2;
-                        titulo = btoa(titulo); 
-                        ayuda = btoa(ayuda); 
+                        titulo = Base64.encode(titulo); 
+                        ayuda = Base64.encode(ayuda); 
 
                         var datos ='g_plantilla='+1+'&editar_pregunta='+1+'&nombre='+nombre+'&estado='+estado+'&id_pregunta='+id_pregunta+'&ayuda='+ayuda+'&titulo='+titulo
                         +'&competencia='+competencia+'&componente='+componente;
