@@ -186,7 +186,8 @@ if(isset($_SESSION['id'])){
               <div class="card-body">
                                
                      <form>     
-                                
+                     <iframe src="https://www.codecogs.com/latex/eqneditor.php?lang=es-es" height="350" width='600'></iframe>
+               
                                 <!-- <div class="form-group">
                                 <label for="tipo">(*) TIPO DE OPCIÓN</label>
                                     <select class='form-control' id='tipo'>
