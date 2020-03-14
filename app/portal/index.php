@@ -168,21 +168,36 @@ if(isset($_SESSION['id'])){
                     <a href="g_usuarios.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- ./col -->
+
                 <div class="col-lg-4 col-8">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-secondary">
                     <div class="inner">
-                        <p>GESTIÓN DE PLANTILLAS</p>
+                        
+
+                        <p>GESTIÓN DE COLEGIOS</p>
                     </div>
                     <div class="icon">
-                            <i class="ion ion-bag"></i>
-                    
+                    <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="g_plantillas.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="g_colegios.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
+                <div class="col-lg-4 col-8">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                    <div class="inner">
+                        
+
+                        <p>GESTIÓN DE GRADOS</p>
+                    </div>
+                    <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="g_grados.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>   
                 <div class="col-lg-4 col-8">
                     <!-- small box -->
                     <div class="small-box bg-danger">
@@ -200,6 +215,22 @@ if(isset($_SESSION['id'])){
                 <!-- ./col -->
                 <div class="col-lg-4 col-8">
                     <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner">
+                        <p>GESTIÓN DE PLANTILLAS</p>
+                    </div>
+                    <div class="icon">
+                            <i class="ion ion-bag"></i>
+                    
+                    </div>
+                    <a href="g_plantillas.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+               
+                <!-- ./col -->
+                <div class="col-lg-4 col-8">
+                    <!-- small box -->
                     <div class="small-box bg-dark">
                     <div class="inner">
                         
@@ -213,35 +244,7 @@ if(isset($_SESSION['id'])){
                     </div>
                 </div>
                 
-                <div class="col-lg-4 col-8">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                    <div class="inner">
-                        
-
-                        <p>GESTIÓN DE GRADOS</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="g_grados.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-8">
-                    <!-- small box -->
-                    <div class="small-box bg-secondary">
-                    <div class="inner">
-                        
-
-                        <p>GESTIÓN DE COLEGIOS</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="g_colegios.php" class="small-box-footer">Hazme clic <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                          
                 <!-- ./col -->
                 <!--<div class="col-lg-3 col-6">-->
                     <!-- small box -->

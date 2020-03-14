@@ -35,6 +35,24 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="g_colegios.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de colegios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="g_grados.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de grados</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="g_niveles.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de niveles</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="g_plantillas.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de plantillas</p>
@@ -44,27 +62,6 @@
                 <a href="g_resultados.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de resultados</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="g_niveles.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Configuración de niveles</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="g_colegios.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Colegios</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="g_grados.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Grados</p>
                 </a>
               </li>
 
