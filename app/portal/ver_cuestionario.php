@@ -92,7 +92,6 @@ if($_GET['id']){
                              <h4><b>PREGUNTA N° <?php echo $i;  ?></b></h4>
                                 <div><?php echo $datos['titulo'] ?></div>   
                                 <br>
-                                <br>  
                                                     
                                     <?php if($rowsd){ 
                                             while($df = pg_fetch_assoc($queryd)){?>
