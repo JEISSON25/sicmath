@@ -279,7 +279,7 @@ function list_estu_examen(){
              $sql="select opciones.id, plantilla.nombre as plantilla, opciones.nombre_plano as nombre, opciones.valor, preguntas.titulo_plano as pregunta
              from opciones, preguntas, plantilla
              where opciones.id_pregunta=preguntas.id and preguntas.id_plantilla=plantilla.id
-             and opciones.id_pregunta = '".$id."'
+             and opciones.id_pregunta = '".$id."' order by opciones.id
              ";
             $query = pg_query($conexion, $sql);
 
