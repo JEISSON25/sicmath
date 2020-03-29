@@ -7,12 +7,12 @@ include('../config.php');
     $datos4=pg_fetch_assoc($query);
 
 
-    $sql2 = "select opciones.nombre_plano from opciones, resp_pregunta
+    $sql2 = "select opciones.nombre from opciones, resp_pregunta
     where opciones.id=resp_pregunta.id_opcion and resp_pregunta.id_pregunta='".$_GET['id']."'  ";
     $query2 =pg_query($conexion, $sql2);
     $datos5=pg_fetch_assoc($query2);
 
-    $sql3 = "select opciones.nombre_plano from opciones, resultados
+    $sql3 = "select opciones.nombre from opciones, resultados
     where opciones.id=resultados.id_opcion and resultados.id_pregunta='".$_GET['id']."' 
     and resultados.id_user='".$_SESSION['id']."'
     ";
@@ -112,11 +112,11 @@ include('../config.php');
                         </tr>
                          <tr>
                            <th>RESPUESTA SELECCIONADA</th>
-                             <td><?php echo $datos6['nombre_plano'] ?></td>
+                             <td><?php echo $datos6['nombre'] ?></td>
                         </tr>
                           <tr>
                             <th>RESPUESTA CORRECTA</th>
-                             <td><?php echo $datos5['nombre_plano'] ?></td>
+                             <td><?php echo $datos5['nombre'] ?></td>
                         </tr>
                         <tr>
                             <th>PROCEDIMIENTO LÓGICO</th>

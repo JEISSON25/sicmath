@@ -7,10 +7,10 @@ include('../config.php');
     else
     $id_user = $_SESSION['id'];
 
-    echo $sql = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
-    from estado, preguntas, plantilla, tipopregunta, resultados
-    where resultados.id_plantilla=plantilla.id and tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-    and preguntas.id_estado=1 and resultados.id_plantilla='".$_GET['id']."' and resultados.id_user='".$id_user."'  ";
+    $sql = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.nombre
+    from preguntas, resultados
+    where preguntas.id_plantilla=resultados.id_plantilla and preguntas.id=resultados.id_pregunta
+	and preguntas.id_estado=1 and resultados.id_plantilla='".$_GET['id']."' and resultados.id_user='".$id_user."'  ";
     $query =pg_query($conexion, $sql);
 
     // Obtener el nivel
@@ -97,7 +97,7 @@ include('../config.php');
                                ?>
                             <tr>
                                 <td><?php echo $i; ?></td>
-                                <td><?php echo html_entity_decode($datos['titulo']) ?></td>
+                                <td width="60%"><?php echo html_entity_decode($datos['titulo']) ?></td>
                                 <td><a href='mis_resultados2.php?examen=<?php echo $_GET['nombre'] ?>&id=<?php echo $datos['id'] ?>&pregunta=<?php echo base64_encode($datos['titulo']) ?>&n=<?php echo $i ?>'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
                             </tr> 
                              <?php 
