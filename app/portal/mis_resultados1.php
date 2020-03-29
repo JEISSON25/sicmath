@@ -56,6 +56,14 @@ include('../config.php');
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         </head>
+
+        <style>
+          .container2 {
+            hyphens: auto;
+            word-wrap: break-word;
+            word-break: break-word;
+          }
+        </style>
         <body class="hold-transition sidebar-mini layout-fixed">
    
 
@@ -97,7 +105,7 @@ include('../config.php');
                                ?>
                             <tr>
                                 <td><?php echo $i; ?></td>
-                                <td width="20%"><?php echo html_entity_decode($datos['titulo']) ?></td>
+                                <td class='container2'><?php echo html_entity_decode($datos['titulo']) ?></td>
                                 <td><a href='mis_resultados2.php?examen=<?php echo $_GET['nombre'] ?>&id=<?php echo $datos['id'] ?>&pregunta=<?php echo base64_encode($datos['titulo']) ?>&n=<?php echo $i ?>'><img src='https://previews.123rf.com/images/ylivdesign/ylivdesign1707/ylivdesign170732590/83066837-icono-de-lupa-ilustraci%C3%B3n-de-dibujos-animados-de-icono-de-vector-de-lupa-para-dise%C3%B1o-web.jpg' width='32' height='32' /></a></td>
                             </tr> 
                              <?php 
