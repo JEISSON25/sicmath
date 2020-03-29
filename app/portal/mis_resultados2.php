@@ -102,9 +102,9 @@ include('../config.php');
                        </div>
                     <table class='table'>
                     
-                         <tr>
+                         <tr width="60%">
                             <th>COMPETENCIA</th>
-                             <td><?php echo $datos4['competencia'] ?></td>
+                             <td width="30%"><?php echo $datos4['competencia'] ?></td>
                         </tr>
                          <tr>
                            <th>COMPONENTE</th>
@@ -112,15 +112,15 @@ include('../config.php');
                         </tr>
                          <tr>
                            <th>RESPUESTA SELECCIONADA</th>
-                             <td><?php echo $datos6['nombre'] ?></td>
+                           <td width="30%"><?php echo $datos6['nombre'] ?></td>
                         </tr>
                           <tr>
                             <th>RESPUESTA CORRECTA</th>
-                             <td><?php echo $datos5['nombre'] ?></td>
+                            <td width="30%"><?php echo $datos5['nombre'] ?></td>
                         </tr>
                         <tr>
                             <th>PROCEDIMIENTO LÓGICO</th>
-                             <td><?php echo $datos4['ayuda'] ?></td>
+                            <td width="30%"><?php echo $datos4['ayuda'] ?></td>
                         </tr>
                      
                       
