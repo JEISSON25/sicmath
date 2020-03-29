@@ -7,10 +7,10 @@ include('../config.php');
     else
     $id_user = $_SESSION['id'];
 
-    $sql = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
-    from estado, preguntas, plantilla, tipopregunta
-    where tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
-    and preguntas.id_estado=1 and preguntas.id_plantilla='".$_GET['id']."'  ";
+    echo $sql = "select preguntas.id, preguntas.id_archivo, preguntas.titulo, preguntas.id_tipopregunta, preguntas.titulo, preguntas.nombre, plantilla.nombre as plantilla, estado.descripcion as estado, tipopregunta.nombre as tipopregunta
+    from estado, preguntas, plantilla, tipopregunta, resultados
+    where resultados.id_plantilla=plantilla.id and tipopregunta.id=preguntas.id_tipopregunta and estado.id=preguntas.id_estado and preguntas.id_plantilla=plantilla.id and preguntas.id_tipopregunta=tipopregunta.id
+    and preguntas.id_estado=1 and resultados.id_plantilla='".$_GET['id']."' and resultados.id_user='".$id_user."'  ";
     $query =pg_query($conexion, $sql);
 
     // Obtener el nivel
@@ -83,8 +83,6 @@ include('../config.php');
                   <div class="col-sm-12">
                     <div class="">
                       <div class="">
-                       
-                         
                         <center><div> <h3><B>CLAVES DE RESPUESTA</B></h3>
                         <BR>NIVEL:  <?php echo $nivel ?> </div></center> 
                          <table class='table'>
@@ -95,15 +93,7 @@ include('../config.php');
                              </tr>
                              <?php 
                              $i=1;
-                             while($datos=pg_fetch_assoc($query)){
-                               
-                                  // // Recuperamos las opciones de la pregunta
-                                  // $sql2 = "select opciones.id, plantilla.nombre as plantilla, opciones.nombre, opciones.valor, preguntas.nombre as pregunta
-                                  // from opciones, preguntas, plantilla
-                                  // where opciones.id_pregunta=preguntas.id and preguntas.id_plantilla=plantilla.id
-                                  // and opciones.id_pregunta = '".$datos['id']."' ";
-                                  // $queryd2 = pg_query($conexion, $sql2);
-                                  // $rowsd2 = pg_num_rows($queryd2);
+                             while($datos=pg_fetch_assoc($query)){    
                                ?>
                             <tr>
                                 <td><?php echo $i; ?></td>

@@ -33,8 +33,11 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                 $_SESSION['ids_preguntas'] = $count_ids;  
                 $_SESSION['n_pregunta_count']=0;
                 $_SESSION['n_pregunta']=1;
-                $_SESSION['acertadas']=0;
+                $_SESSION['acertadas']=0;               
+                /*$sql = "delete from resultados where id_user='".$_SESSION['id']."' and id_plantilla='".$_GET['id']."' ";
+                $query = pg_query($conexion, $sql);  */
             }        
+          
            // echo "valores de: ".$_SESSION['ids_preguntas'];         
 
         // if($_SESSION['n_pregunta']==0 or empty($_SESSION['n_pregunta']))
@@ -43,37 +46,6 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
         // echo "couint: ".$cuantos_count = count($_SESSION['ids_preguntas']);
 
             $sal=0;
-
-           
-                    /*for($g=0;$g<count($_SESSION['ids_preguntas']);$g++){
-                        //$dg = pg_fetch_assoc($q);
-                       // echo "valor: <br>".$_SESSION['ids_preguntas'][$g];
-                       echo "valor de pregunt ".$_SESSION['n_pregunta_count'];
-                      $cuantos_count = count($_SESSION['ids_preguntas']);
-                        //echo "valor de r: ".$r;
-                        if($_SESSION['n_pregunta_count']<=$cuantos_count){
-                            if($g == $_SESSION['n_pregunta_count']){
-                               echo "entrando aquí";
-                               $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$g]."' ";
-                                $q2 =pg_query($conexion, $s2);
-                                $r2 =pg_num_rows($q2);
-                                $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$g];
-                                break;
-                            }else if($g>=1 && $_SESSION['n_pregunta_count']>=1){
-                                echo "entro acá";
-                                echo $s2 = "select * from preguntas where id='".$_SESSION['ids_preguntas'][$g]."' ";
-                                $q2 =pg_query($conexion, $s2);
-                                $r2 =pg_num_rows($q2);
-                               // $_SESSION['n_pregunta']=2;
-                                $_SESSION['id_pregunta'] = $_SESSION['ids_preguntas'][$g];
-                                 break;
-                            }   
-                        }else {
-                            $sal=1;
-                             break;
-                        }
-                    }*/
-                   //echo "valor: ".$_SESSION['n_pregunta_count']=='';
 
                    function obtener_desepm_nivel($acertadas){
                     @include('../config.php');
@@ -132,6 +104,11 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                    if(isset($_POST['guardar'])){ // Enviamos la otra pregunta aleatoria.    
 
                     if(isset($_POST['id_respuesta'])){
+                      //  echo "Valor de n_pregunta:". $_SESSION['n_pregunta_count'];
+                        if($_SESSION['n_pregunta_count']==0){
+                           $sql = "delete from resultados where id_user='".$_SESSION['id']."' and id_plantilla='".$_GET['id']."' ";
+                           $query = pg_query($conexion, $sql);  
+                         }
              
                      $sql = "select id from resultados where id_user='".$_SESSION['id']."' and id_pregunta='".$_SESSION['id_pregunta']."' ";
                      $query_sql = pg_query($conexion, $sql);
@@ -146,6 +123,7 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                          }
                         $q = pg_query($conexion, $up);
                          if($q){
+                             
                              $_SESSION['n_pregunta']+=1;
                              $_SESSION['n_pregunta_count']=$_SESSION['n_pregunta_count']+1; // count preguntas
                             
@@ -253,8 +231,8 @@ if(isset($_SESSION['id']) && $_SESSION['tipouser']==2 && $_GET['id']){
                              <form name="form1" method="post" action="">
                              <h4><b>PREGUNTA N° <?php
                               echo $_SESSION['n_pregunta_count']+1; ?></b></h4>
-                                <div><?php echo $datos['nombre'] ?>
-                                </div>
+                                <!-- <div><?php echo $datos['nombre'] ?>
+                                </div> -->
                                 <div><?php echo $datos['titulo'] ?>
                                 </div>
                                 <?php if($datos['id_archivo']){
